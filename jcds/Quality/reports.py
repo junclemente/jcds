@@ -1,3 +1,6 @@
+import pandas as pd
+import numpy as np
+
 def dqr_cont(dataframe):
     """
     Generates a data quality report for continuous features in a given DataFrame.
