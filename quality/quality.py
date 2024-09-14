@@ -1,4 +1,4 @@
-def data_quality_report_cont(dataframe):
+def dqr_cont(dataframe):
     """
     Generates a data quality report for continuous features in a given DataFrame.
 
@@ -81,7 +81,7 @@ def data_quality_report_cont(dataframe):
 
     return
 
-def data_quality_report_cat(dataframe):
+def dqr_cat(dataframe):
     """
     Generates a data quality report for categorical features in a given DataFrame.
 
