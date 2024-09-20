@@ -1,2 +1,1 @@
-from .reports import dqr_cat
-from .reports import dqr_cont
+from .reports import dqr_cat, dqr_cont, quick_report

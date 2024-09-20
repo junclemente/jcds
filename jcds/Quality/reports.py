@@ -76,11 +76,11 @@ def dqr_cont(dataframe):
     # Print results
     print("Data Quality for Continous Features")
     print(f'Total Features: {len(list_of_features)}')
-    print(df)
+    display(df)
 
     print("\n")
     print("Descriptive Stats")
-    print(transposed_stats)
+    display(transposed_stats)
 
     return
 
@@ -203,22 +203,41 @@ def dqr_cat(dataframe):
     print('============================================')
     print('Stats')
     print('-----')
-    print(df)
+    display(df)
 
     print('\n')
     print('Mode 1')
     print('------')
-    print(df1)
+    display(df1)
 
     print('\n')
     print('Mode 2')
     print('------')
-    print(df2)
+    display(df2)
 
     print('\n')
     print('Descriptive Stats')
     print('-----------------')
-    print(transposed_stats)
+    display(transposed_stats)
 
     return 
 
+def quick_report(dataframe):
+    cat_features = dataframe.select_dtypes(
+        include=['category', 'object']).columns.tolist()
+    cont_features = dataframe.select_dtypes(
+        exclude=['category', 'object']).columns.tolist()
+    rows_with_na = dataframe.isna().any(axis=1).sum()
+    total_na = dataframe.isna().any().sum()
+    
+    print("============================================")
+    print("Quick Report - info(memory_usage='deep')")
+    print(f"Categorical features: {len(cat_features)}")
+    print(f"Continuous features: {len(cont_features)}")
+    print(f"Rows with missing values: {rows_with_na}")
+    print(f"Total missing values: {total_na}")
+    print("============================================")
+    
+    info = dataframe.info(memory_usage='deep')
+    display(info)
+    return 
