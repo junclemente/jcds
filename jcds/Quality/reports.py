@@ -223,21 +223,42 @@ def dqr_cat(dataframe):
     return 
 
 def quick_report(dataframe):
+    # Get features not labeled as categorical
     cat_features = dataframe.select_dtypes(
         include=['category', 'object']).columns.tolist()
+    # Get features labeled as categorical
     cont_features = dataframe.select_dtypes(
         exclude=['category', 'object']).columns.tolist()
+    # Get shape, total rows and cols
+    total_rows = dataframe.shape[0]
+    total_cols = dataframe.shape[1]
+    # Count/% rows that are missing values
     rows_with_na = dataframe.isna().any(axis=1).sum()
+    percent_na_rows = rows_with_na/total_rows
+    # Count/% cols that are missing values
+    cols_with_na = dataframe.isna().any(axis=0).sum()
+    percent_na_cols = cols_with_na/total_cols
     total_na = dataframe.isna().any().sum()
     
     print("============================================")
     print("Quick Report - info(memory_usage='deep')")
-    print(f"Categorical features: {len(cat_features)}")
-    print(f"Continuous features: {len(cont_features)}")
-    print(f"Rows with missing values: {rows_with_na}")
-    print(f"Total missing values: {total_na}")
+    print(f"Total cols: {total_cols}")
+    print(f"Rows with missing values: {rows_with_na} ({percent_na_rows}%)")
+    print(f"Total Rows: {total_rows}")
+    print(f"Cols with missing values: {cols_with_na} ({percent_na_cols}%)")
+    print(f"Total missing values in dataset: {total_na}")
     print("============================================")
+    print(f"Categorical features: {len(cat_features)}")
+    for cat in cat_features:
+        num_unique = dataframe[cat].unique()
+        print(f"- {cat}: {len(num_unique)} values")
+    print("============================================")
+    print(f"Continuous features: {len(cont_features)}")
+    for cont in cont_features:
+        num_unique = dataframe[cont].unique()
+        print(f"- {cont}: {len(num_unique)} values")
+
     
-    info = dataframe.info(memory_usage='deep')
-    display(info)
+    # info = dataframe.info(memory_usage='deep')
+    # display(info)
     return 
