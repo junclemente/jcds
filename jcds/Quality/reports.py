@@ -233,8 +233,8 @@ def quick_report(dataframe):
     total_rows = dataframe.shape[0]
     total_cols = dataframe.shape[1]
     # Count/% rows that are missing values
-    rows_with_na = dataframe.isna().any(axis=1).sum()
-    percent_na_rows = rows_with_na/total_rows
+    rows_with_all_na = dataframe.isna().all(axis=1).sum()
+    percent_na_rows = rows_with_all_na/total_rows
     # Count/% cols that are missing values
     cols_with_na = dataframe.isna().any(axis=0).sum()
     percent_na_cols = cols_with_na/total_cols
@@ -243,7 +243,7 @@ def quick_report(dataframe):
     print("============================================")
     print("Quick Report - info(memory_usage='deep')")
     print(f"Total cols: {total_cols}")
-    print(f"Rows with missing values: {rows_with_na} ({percent_na_rows}%)")
+    print(f"Rows missing all values: {rows_with_all_na} ({percent_na_rows}%)")
     print(f"Total Rows: {total_rows}")
     print(f"Cols with missing values: {cols_with_na} ({percent_na_cols}%)")
     print(f"Total missing values in dataset: {total_na}")
