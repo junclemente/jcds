@@ -37,6 +37,9 @@ def dqr_cont(dataframe):
     # Create list of non-categorical values
     list_of_features = dataframe.select_dtypes(
         exclude=['category', 'object']).columns.tolist()
+    
+    # Total rows
+    total_rows = dataframe.shape[0]
 
     if len(list_of_features ) == 0:
         print("This dataset does not have any non-categorical features.")
@@ -49,7 +52,7 @@ def dqr_cont(dataframe):
         # Get stats for each feature
         total_count = dataframe[feature].count()
         total_missing = dataframe[feature].isnull().sum()
-        percent_missing = total_missing/total_count * 100
+        percent_missing = total_missing/total_rows * 100
         cardinality = len(dataframe[feature].unique())
 
         # Append result to variables
@@ -75,7 +78,7 @@ def dqr_cont(dataframe):
 
     # Print results
     print("Data Quality for Continous Features")
-    print(f'Total Features: {len(list_of_features)}')
+    print(f'Total Features: {len(list_of_features)} / {total_rows} rows')
     display(df)
 
     print("\n")
