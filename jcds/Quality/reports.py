@@ -230,6 +230,7 @@ def dqr_cat(dataframe):
     return 
 
 def quick_report(dataframe):
+    ROUND = 2
     # Get features not labeled as categorical
     cat_features = dataframe.select_dtypes(
         include=['category', 'object']).columns.tolist()
@@ -241,10 +242,10 @@ def quick_report(dataframe):
     total_cols = dataframe.shape[1]
     # Count/% rows that are missing values
     rows_with_all_na = dataframe.isna().all(axis=1).sum()
-    percent_na_rows = rows_with_all_na/total_rows
+    percent_na_rows = np.round(rows_with_all_na/total_rows * 100, ROUND)
     # Count/% cols that are missing values
     cols_with_na = dataframe.isna().any(axis=0).sum()
-    percent_na_cols = cols_with_na/total_cols
+    percent_na_cols = np.round(cols_with_na/total_cols * 100, ROUND)
     total_na = dataframe.isna().any().sum()
     
     print("============================================")
