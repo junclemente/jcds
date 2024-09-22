@@ -251,12 +251,12 @@ def quick_report(dataframe):
     print(f"Categorical features: {len(cat_features)}")
     for cat in cat_features:
         num_unique = dataframe[cat].unique()
-        print(f"- {cat}: {len(num_unique)} values")
+        print(f"- {cat}: {len(num_unique)} unique values")
     print("============================================")
     print(f"Continuous features: {len(cont_features)}")
     for cont in cont_features:
         num_unique = dataframe[cont].unique()
-        print(f"- {cont}: {len(num_unique)} values")
+        print(f"- {cont}: {len(num_unique)} unique values")
 
     
     # info = dataframe.info(memory_usage='deep')
