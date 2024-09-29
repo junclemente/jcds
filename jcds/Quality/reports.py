@@ -37,6 +37,9 @@ def dqr_cont(dataframe):
     # Create list of non-categorical values
     list_of_features = dataframe.select_dtypes(
         exclude=['category', 'object']).columns.tolist()
+    
+    # Total rows
+    total_rows = dataframe.shape[0]
 
     if len(list_of_features ) == 0:
         print("This dataset does not have any non-categorical features.")
@@ -49,7 +52,7 @@ def dqr_cont(dataframe):
         # Get stats for each feature
         total_count = dataframe[feature].count()
         total_missing = dataframe[feature].isnull().sum()
-        percent_missing = total_missing/total_count * 100
+        percent_missing = total_missing/total_rows * 100
         cardinality = len(dataframe[feature].unique())
 
         # Append result to variables
@@ -75,7 +78,7 @@ def dqr_cont(dataframe):
 
     # Print results
     print("Data Quality for Continous Features")
-    print(f'Total Features: {len(list_of_features)}')
+    print(f'Total Features: {len(list_of_features)} / {total_rows} rows')
     display(df)
 
     print("\n")
@@ -128,6 +131,9 @@ def dqr_cat(dataframe):
     # Create list of non-categorical values
     list_of_features = dataframe.select_dtypes(
         include=['category', 'object']).columns.tolist()
+    
+    # Total rows
+    total_rows = dataframe.shape[0]
 
     if len(list_of_features) == 0:
         print("This dataset does not have any categorical columns.")
@@ -140,7 +146,7 @@ def dqr_cat(dataframe):
         
         total_count = dataframe[feature].count()
         total_missing = dataframe[feature].isnull().sum()
-        percent_missing = np.round(total_missing / total_count * 100, round_to)
+        percent_missing = np.round(total_missing / total_rows * 100, round_to)
         cardinality = len(dataframe[feature].unique())
 
         # Use value counts to get modes
@@ -200,6 +206,7 @@ def dqr_cat(dataframe):
 
     # Print results
     print('Data Quality Report for Categorical Features')
+    print(f'Total features: {len(list_of_features)} / {total_rows} rows')
     print('============================================')
     print('Stats')
     print('-----')
@@ -223,6 +230,7 @@ def dqr_cat(dataframe):
     return 
 
 def quick_report(dataframe):
+    ROUND = 2
     # Get features not labeled as categorical
     cat_features = dataframe.select_dtypes(
         include=['category', 'object']).columns.tolist()
@@ -234,10 +242,10 @@ def quick_report(dataframe):
     total_cols = dataframe.shape[1]
     # Count/% rows that are missing values
     rows_with_all_na = dataframe.isna().all(axis=1).sum()
-    percent_na_rows = rows_with_all_na/total_rows
+    percent_na_rows = np.round(rows_with_all_na/total_rows * 100, ROUND)
     # Count/% cols that are missing values
     cols_with_na = dataframe.isna().any(axis=0).sum()
-    percent_na_cols = cols_with_na/total_cols
+    percent_na_cols = np.round(cols_with_na/total_cols * 100, ROUND)
     total_na = dataframe.isna().any().sum()
     
     print("============================================")

@@ -1,3 +1,6 @@
+import pandas as pd
+import numpy as np
+
 def mc_confusion(cm, rnd=5):
     """
     Calculate and return various performance metrics from a confusion matrix.
