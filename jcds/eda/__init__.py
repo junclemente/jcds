@@ -6,6 +6,6 @@ from .reports import (
 )
 
 from .lists import (
-    cat_list,
-    cont_list
+    get_cat_cols,
+    get_cont_cols
 )
