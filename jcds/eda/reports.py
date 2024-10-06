@@ -270,3 +270,10 @@ def quick_report(dataframe):
     # info = dataframe.info(memory_usage='deep')
     # display(info)
     return 
+
+def display_all_col_head(dataframe, head=5):
+
+    with pd.option_context("display.max_columns", None):
+        display(dataframe.head(head))
+    
+    return
