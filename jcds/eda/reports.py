@@ -155,10 +155,17 @@ def dqr_cat(dataframe):
         mode1_name = results.index[0]
         mode1_count = results.iloc[0]
         mode1_percent = np.round((mode1_count / total_count) * 100, round_to)
-        # Calculate 2nd mode
-        mode2_name = results.index[1]
-        mode2_count = results.iloc[1]
-        mode2_percent = np.round((mode2_count / total_count) * 100, round_to)
+        
+        # Initialize mode 2 variables
+        mode2_name = None
+        mode2_count = 0
+        mode2_percent = 0.0
+        
+        # Calculate 2nd mode if it exists
+        if len(results) > 1:
+            mode2_name = results.index[1]
+            mode2_count = results.iloc[1]
+            mode2_percent = np.round((mode2_count / total_count) * 100, round_to)
 
         # Append results to lists
         list_feature_name.append(feature)
