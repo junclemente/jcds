@@ -5,7 +5,17 @@ This project follows [Semantic Versioning](https://semver.org/) and loosely foll
 
 ---
 
-## [0.2.0] -- 2025-03-24
+## [0.2.1] - IN PROGRESS
+
+### Added
+
+- `utils.py`
+- `print_code_line()` in `utils.py`
+- `list_unique_values()` in the `eda` subpackage
+
+---
+
+## [0.2.0] - 2025-03-24
 
 ### Added
 
