@@ -1,40 +1,40 @@
 import pkgutil
 import importlib
 import inspect
+import jcds
 
 
 def help(func_name=None):
     """
     Global help function for the jcds package.
 
-    - Call help() to list all public functions from submodules.
-    - Call help('function_name') to see the docstring for that function.
+    - Call help() to list all public functions from all submodules.
+    - Call help('function_name') to view its documentation.
     """
-    import jcds
-
     functions = {}
 
-    # Iterate over all submodules in the jcds package
-    for _, module_name, ispkg in pkgutil.iter_modules(jcds.__path__):
-        if ispkg:
-            continue  # skip sub-packages, only go one level deep
-
+    # Dynamically import and inspect all top-level jcds submodules
+    for _, mod_name, _ in pkgutil.iter_modules(jcds.__path__):
+        full_name = f"jcds.{mod_name}"
         try:
-            full_module_name = f"jcds.{module_name}"
-            module = importlib.import_module(full_module_name)
+            module = importlib.import_module(full_name)
 
-            # Get public functions (not starting with _)
-            for name, obj in inspect.getmembers(module, inspect.isfunction):
-                if not name.startswith("_"):
-                    functions[name] = obj
+            if hasattr(module, "__all__"):
+                for name in module.__all__:
+                    obj = getattr(module, name, None)
+                    if callable(obj) and name != "help":
+                        functions[name] = obj
         except Exception as e:
-            print(f"Warning: Could not inspect module {module_name}: {e}")
+            print(f"[Warning] Could not load module {full_name}: {e}")
 
     if func_name is None:
-        print("Available functions in jcds:")
-        for name in sorted(functions):
-            print(f"  - {name}")
-        print('\nUse jcds.help("function_name") to see its documentation.')
+        if not functions:
+            print("No functions found in jcds.")
+        else:
+            print("Available functions in jcds:")
+            for name in sorted(functions):
+                print(f"  - {name}")
+            print('\nUse jcds.help("function_name") to see its documentation.')
     else:
         func = functions.get(func_name)
         if func:
