@@ -20,7 +20,7 @@ This project follows [Semantic Versioning](https://semver.org/) and loosely foll
     ```
   - Eliminates redundant `help()` definitions across modules while preserving user-friendly discovery.
 
-### Changed 
+### Changed
 
 - Added `DeprecationWarning` to legacy functions scheduled for removal in `v0.3.0`.
 - Updated `.gitignore` to exclude test datasets and notebooks.
