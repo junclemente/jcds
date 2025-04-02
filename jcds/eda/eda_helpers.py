@@ -44,3 +44,13 @@
 # Crosstabs for categorical comparison
 
 # Visualizations
+
+def show_shape(dataframe):
+    return dataframe.shape
+
+
+def show_dupes(dataframe):
+    dupes = dataframe.duplicated()
+    return dupes.sum()
+
+
