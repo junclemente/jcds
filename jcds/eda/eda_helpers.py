@@ -53,4 +53,26 @@ def show_dupes(dataframe):
     dupes = dataframe.duplicated()
     return dupes.sum()
 
+# def show_dtypes(dataframe):
+#     # Get features not labeled as categorical
+#     cat_features = dataframe.select_dtypes(
+#         include=["category", "object"]
+#     ).columns.tolist()
+#     # Get features labeled as categorical
+#     cont_features = dataframe.select_dtypes(
+#         exclude=["category", "object"]
+#     ).columns.tolist()
+#     return
+
+def show_catvar(dataframe):
+    cat_features = dataframe.select_dtypes(
+        include=["category", "object"]
+    ).columns.tolist()
+    return cat_features 
+
+def show_convar(dataframe):
+    cont_features = dataframe.select_dtypes(
+        exclude=["category", "object"]
+    ).columns.tolist() 
+    return cont_features 
 
