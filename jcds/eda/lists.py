@@ -42,7 +42,7 @@ def list_unique_values(dataframe, column):
 
     if isinstance(column, list):
         for col in column:
-            print(f"Unique values in '{column}':")
+            print(f"Unique values in '{col}':")
             display(dataframe[col].unique())
             print()
     else:
