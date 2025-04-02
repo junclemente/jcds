@@ -3,7 +3,7 @@ import inspect
 # Import your functions from internal files
 from .reports import dqr_cat, dqr_cont, quick_report, long_report, display_all_col_head
 
-from .lists import get_cat_list, get_cont_list
+from .lists import get_cat_list, get_cont_list, list_unique_values
 
 # Declare what this module exports
 __all__ = [
@@ -14,6 +14,7 @@ __all__ = [
     "display_all_col_head",
     "get_cat_list",
     "get_cont_list",
+    "list_unique_values",
     "help",
 ]
 

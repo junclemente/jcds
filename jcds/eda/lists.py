@@ -1,5 +1,5 @@
 import pandas as pd
-import numpy as np
+from jcds.utils import print_code_line
 
 
 def get_cat_list(dataframe):
@@ -34,3 +34,9 @@ def get_cont_list(dataframe):
     """
     cont_list = dataframe.select_dtypes(exclude=["category", "object"]).columns.tolist()
     return cont_list
+
+
+def list_unique_values(dataframe, column):
+    display_code = f'DataFrame["{column}"].unique()'
+    print_code_line(display_code)
+    display(dataframe[column].unique())
