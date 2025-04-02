@@ -12,27 +12,27 @@ It’s designed to make your workflow faster and more consistent when working wi
 
 ### Install with `pip`
 
-This library can be installed with `pip` which will also install the required dependencies.  
-To install the latest version, use the following command:
+#### Quick Install
 
+This installs the latest version of the library and all core dependencies. 
 ```bash
-pip install git+https://github.com/junclemente/jcds.git
+pip install git+https://github.com/junclemente/jcds.git 
 ```
 
+#### Specific Version
 To install a specific version (e.g., `v0.2.1`), add the version tag at the end:
-
 ```bash
 pip install git+https://github.com/junclemente/jcds.git@v0.2.1
 ```
 
+#### Develop Branch
 Or install from the `develop` branch (not recommended):
-
 
 ```bash
 pip install git+https://github.com/junclemente/jcds.git@develop
 ```
 
-### Optional: AWS Support
+#### Optional: AWS Support
 
 If you plan to use the `aws` module (for working with AWS S3, etc.), you'll need to install with the optional `aws` dependencies:
 
