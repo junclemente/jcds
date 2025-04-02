@@ -50,14 +50,14 @@ from jcds.utils import print_code_line
 
 
 def show_shape(dataframe):
-    display_code = f"DataFrame.shape"
-    print_code_line(display_code)
+    # display_code = f"DataFrame.shape"
+    # print_code_line(display_code)
     return dataframe.shape
 
 
 def show_dupes(dataframe):
-    display_code = f"DataFrame.duplicated().sum()"
-    print_code_line(display_code)
+    # display_code = f"DataFrame.duplicated().sum()"
+    # print_code_line(display_code)
     dupes = dataframe.duplicated()
     return dupes.sum()
 
@@ -75,10 +75,10 @@ def show_dupes(dataframe):
 
 
 def show_catvar(dataframe):
-    display_code = (
-        f'DataFrame.select_dtypes(include=["category", "object"]).columns.tolist()'
-    )
-    print_code_line(display_code)
+    # display_code = (
+    #     f'DataFrame.select_dtypes(include=["category", "object"]).columns.tolist()'
+    # )
+    # print_code_line(display_code)
     cat_features = dataframe.select_dtypes(
         include=["category", "object"]
     ).columns.tolist()
@@ -86,10 +86,10 @@ def show_catvar(dataframe):
 
 
 def show_convar(dataframe):
-    display_code = (
+    # display_code = (
         f'DataFrame.select_dtypes(exclude=["category", "object"]).columns.tolist()'
-    )
-    print_code_line(display_code)
+    # )
+    # print_code_line(display_code)
     cont_features = dataframe.select_dtypes(
         exclude=["category", "object"]
     ).columns.tolist()
