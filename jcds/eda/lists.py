@@ -37,14 +37,14 @@ def get_cont_list(dataframe):
 
 
 def list_unique_values(dataframe, column):
-    display_code = f'DataFrame["{column}"].unique()'
+    display_code = f'DataFrame["{column}"].unique().tolist()'
     print_code_line(display_code)
 
     if isinstance(column, list):
         for col in column:
             print(f"Unique values in '{col}':")
-            display(dataframe[col].unique())
-            print()
+            print(dataframe[col].unique().tolist())
+            print("---")
     else:
         print(f"Unique values in '{column}':")
-        display(dataframe[column].unique())
+        print(dataframe[column].unique().tolist())
