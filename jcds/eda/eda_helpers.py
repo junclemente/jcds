@@ -87,7 +87,7 @@ def show_catvar(dataframe):
 
 def show_convar(dataframe):
     # display_code = (
-        f'DataFrame.select_dtypes(exclude=["category", "object"]).columns.tolist()'
+    #     f'DataFrame.select_dtypes(exclude=["category", "object"]).columns.tolist()'
     # )
     # print_code_line(display_code)
     cont_features = dataframe.select_dtypes(
@@ -103,5 +103,16 @@ def show_lowcardvars(dataframe, max_unique=10):
     for col in cols:
         count = dataframe[col].nunique()
         if count <= max_unique:
-            col_list.append(col)
+            col_list.append((col, count))
     return col_list
+
+
+# def list_lowcardvars(dataframe, max_unique=10):
+#     print(f"Showing cat var of cardinality <= {max_unique}")
+#     col_list = []
+#     cols = show_catvar(dataframe)
+#     for col in cols:
+#         count = dataframe[col].unique()
+#         if count <= max_unique:
+#             col_list.append(col)
+#     return col_list
