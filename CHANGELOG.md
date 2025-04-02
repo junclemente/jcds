@@ -5,13 +5,20 @@ This project follows [Semantic Versioning](https://semver.org/) and loosely foll
 
 ---
 
-## [0.2.1] - IN PROGRESS
+## [0.2.1] - 2025-04-01
 
 ### Added
 
 - `utils.py`
 - `print_code_line()` in `utils.py`
 - `list_unique_values()` in the `eda` subpackage
+- `setup.py` for pip install support
+- Optional `aws` dependency group (`[aws]`) to support the `aws` module
+
+### Changed
+
+- Defined core library dependencies in `setup.py`
+- Updated `README.md` with pip installation and optional AWS support instructions
 
 ---
 
