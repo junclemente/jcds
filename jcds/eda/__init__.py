@@ -5,7 +5,7 @@ from .reports import dqr_cat, dqr_cont, quick_report, long_report, display_all_c
 
 from .lists import get_cat_list, get_cont_list, list_unique_values
 
-from .eda_helpers import show_shape, show_dupes
+from .eda_helpers import show_shape, show_dupes, show_catvar, show_convar
 
 # Declare what this module exports
 __all__ = [
@@ -19,6 +19,8 @@ __all__ = [
     "list_unique_values",
     "show_shape",
     "show_dupes",
+    "show_catvar",
+    "show_convar",
     "help",
 ]
 
