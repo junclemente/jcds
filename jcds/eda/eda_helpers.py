@@ -105,14 +105,3 @@ def show_lowcardvars(dataframe, max_unique=10):
         if count <= max_unique:
             col_list.append((col, count))
     return col_list
-
-
-# def list_lowcardvars(dataframe, max_unique=10):
-#     print(f"Showing cat var of cardinality <= {max_unique}")
-#     col_list = []
-#     cols = show_catvar(dataframe)
-#     for col in cols:
-#         count = dataframe[col].unique()
-#         if count <= max_unique:
-#             col_list.append(col)
-#     return col_list
