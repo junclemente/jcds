@@ -85,7 +85,7 @@ def show_convar(dataframe):
 
 
 def show_lowcardvars(dataframe, max_unique=10):
-    print(f"Show cardinality of <= {max_unique}")
+    print(f"Showing cat var of cardinality <= {max_unique}")
     col_list = []
     cols = show_catvar(dataframe)
     for col in cols:
