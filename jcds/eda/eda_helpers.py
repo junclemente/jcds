@@ -1,3 +1,6 @@
+import pandas as pd
+from jcds.utils import print_code_line
+
 # from IPython.display import Markdown, display
 
 # def eda_guide_markdown():
@@ -45,6 +48,7 @@
 
 # Visualizations
 
+
 def show_shape(dataframe):
     return dataframe.shape
 
@@ -52,6 +56,7 @@ def show_shape(dataframe):
 def show_dupes(dataframe):
     dupes = dataframe.duplicated()
     return dupes.sum()
+
 
 # def show_dtypes(dataframe):
 #     # Get features not labeled as categorical
@@ -64,15 +69,26 @@ def show_dupes(dataframe):
 #     ).columns.tolist()
 #     return
 
+
 def show_catvar(dataframe):
     cat_features = dataframe.select_dtypes(
         include=["category", "object"]
     ).columns.tolist()
-    return cat_features 
+    return cat_features
+
 
 def show_convar(dataframe):
     cont_features = dataframe.select_dtypes(
         exclude=["category", "object"]
-    ).columns.tolist() 
-    return cont_features 
+    ).columns.tolist()
+    return cont_features
 
+
+def show_lowcardvars(dataframe, max_unique=10):
+    col_list = []
+    cols = show_catvar(dataframe)
+    for col in cols:
+        count = dataframe[col].nunique()
+        if count <= max_unique:
+            col_list.append(col)
+    return col_list
