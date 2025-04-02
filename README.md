@@ -27,6 +27,7 @@ pip install git+https://github.com/junclemente/jcds.git@v0.2.1
 
 Or install from the `develop` branch (not recommended):
 
+
 ```bash
 pip install git+https://github.com/junclemente/jcds.git@develop
 ```
@@ -48,6 +49,7 @@ These dependencies are only required if you need to use the AWS module.
 
 ---
 
+
 ### Import with `httpimport`
 
 You can also import this library directly into your Jupyter notebook using [`httpimport`](https://pypi.org/project/httpimport/):
@@ -64,6 +66,7 @@ You can also import specific submodules as needed:
 ```python
 import jcds.eda as eda
 ```
+
 
 ## Branching Info
 

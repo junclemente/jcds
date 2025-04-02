@@ -7,6 +7,7 @@ This project follows [Semantic Versioning](https://semver.org/) and loosely foll
 
 ## [v0.2.1] - 2025-04-01
 
+
 ### Added
 
 - `utils.py`
