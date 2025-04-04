@@ -12,15 +12,9 @@ def help(func_name=None):
     """
     Help function for this submodule.
 
-    Use this function to explore available public functions within the submodule.
-
-    Notes
-    -----
-    - Call `help()` to list all public functions.
-    - Call `help('function_name')` to view documentation for a specific function.
-
+    - Call help() to list all public functions.
+    - Call help('function_name') to view its documentation.
     """
-
     functions = {
         name: globals()[name]
         for name in __all__
