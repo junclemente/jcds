@@ -16,6 +16,7 @@ from .eda_helpers import (
     count_cols_with_any_na,
     count_cols_with_all_na,
     count_total_na,
+    count_unique_values,
 )
 
 # Declare what this module exports
@@ -38,6 +39,7 @@ __all__ = [
     "count_cols_with_any_na",
     "count_cols_with_all_na",
     "count_total_na",
+    "count_unique_values",
     "help",
 ]
 

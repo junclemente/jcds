@@ -44,3 +44,14 @@ def create_na_test_df():
             "D": [np.nan, np.nan, np.nan, np.nan],
         }
     )
+
+
+def create_unique_test_df():
+    return pd.DataFrame(
+        {
+            "Category": ["A", "B", "A", "C", "B"],
+            "Numeric": [1, 2, 2, 3, 3],
+            "Empty": [None, None, None, None, None],
+            "Mixed": [1, "1", 1.0, "1.0", None],
+        }
+    )
