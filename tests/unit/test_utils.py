@@ -55,3 +55,17 @@ def create_unique_test_df():
             "Mixed": [1, "1", 1.0, "1.0", None],
         }
     )
+
+
+def create_binary_list_df():
+    # Create test DataFrame
+    df = pd.DataFrame(
+        {
+            "bin_clean": ["Yes", "No", "Yes", "No"],
+            "bin_with_nan": ["Yes", "No", None, "Yes"],
+            "not_bin_3vals": ["Yes", "No", "Maybe", "Yes"],
+            "not_bin_unique": [1, 2, 3, 4],
+            "all_nan": [None, None, None, None],
+        }
+    )
+    return df

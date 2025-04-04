@@ -7,6 +7,7 @@ from tests.unit.test_utils import (
     create_sample_dataset,
     create_na_test_df,
     create_unique_test_df,
+    create_binary_list_df,
 )
 
 
@@ -23,6 +24,11 @@ def na_test_df():
 @pytest.fixture
 def unique_test_df():
     return create_unique_test_df()
+
+
+@pytest.fixture
+def binary_list_df():
+    return create_binary_list_df()
 
 
 def test_show_shape_returns_correct_shape(sample_df):
@@ -110,3 +116,26 @@ def test_count_unique_values_with_mixed_types():
     df = pd.DataFrame({"Mixed": [1, "1", 1.0, "1.0", None]})
     result = eda.count_unique_values(df, ["Mixed"])
     assert result["Mixed"] == 4  # 1, "1", 1.0, "1.0", None
+
+
+def test_show_binary_list(binary_list_df):
+    result = eda.show_binary_list(binary_list_df)
+
+    # Structure checks
+    assert isinstance(result, dict)
+    assert "binary_columns" in result
+    assert "binary_with_nan" in result
+
+    # Content checks
+    expected_binary = {"bin_clean"}
+    expected_binary_with_nan = {"bin_with_nan"}
+
+    assert set(result["binary_columns"]) == expected_binary
+    assert set(result["binary_with_nan"]) == expected_binary_with_nan
+
+    # Ensure non-binary cols are not falsely included
+    excluded = {"not_bin_3vals", "not_bin_unique", "all_nan"}
+    combined_results = set(result["binary_columns"]) | set(result["binary_with_nan"])
+    assert excluded.isdisjoint(
+        combined_results
+    ), "Non-binary columns should not appear in the result"
