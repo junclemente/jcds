@@ -7,6 +7,8 @@
 **jcds** is a personal collection of reusable functions for data science and analysis tasks.  
 It’s designed to make your workflow faster and more consistent when working with data in Jupyter notebooks.
 
+> **Compatible with Python 3.7 and above. Developed and tested on Python 3.10.**
+
 --- 
 ## How to Use
 
