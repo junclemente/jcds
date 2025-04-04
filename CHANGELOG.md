@@ -8,16 +8,25 @@ This project follows [Semantic Versioning](https://semver.org/) and loosely foll
 
 ### Added
 
-- `eda_helpers.py`
-    - `show_shapes`
-    - `show_dupes`
-    - `show_convar`
-    - `show_catvar`
-    - `show_lowcardvars`
+- **`eda_helpers.py`** module with the following new functions:
+  - `show_shape` – returns the shape of a DataFrame
+  - `show_dupes` – counts duplicated rows
+  - `show_catvar` – returns list of categorical (object/category) columns
+  - `show_convar` – returns list of continuous (non-categorical) columns
+  - `show_lowcardvars` – identifies categorical columns with low cardinality
+  - `count_rows_with_any_na` – counts rows with at least one missing value
+  - `count_rows_with_all_na` – counts rows where all values are missing
+  - `count_cols_with_any_na` – counts columns with at least one missing value
+  - `count_cols_with_all_na` – counts columns where all values are missing
+  - `count_total_na` – returns the total number of missing values
+  - `count_unique_values` – returns unique value counts per column
+
+- **Unit tests** for all `eda_helpers.py` functions
+- `create_na_test_df()` and `create_unique_test_df()` fixtures in `test_utils.py`
 
 ### Changed
-- `eda/__init__.py` updated to include `eda_helpers.py`
-- `list_unique_values` updated to handle single column names or list of column names
+- `eda/__init__.py` updated to expose all `eda_helpers` functions
+- `list_unique_values()` updated to handle both single column names and lists
 
 --- 
 ## [v0.2.1] - 2025-04-01
