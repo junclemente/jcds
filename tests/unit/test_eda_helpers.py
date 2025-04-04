@@ -3,7 +3,11 @@ import numpy as np
 import pytest
 
 from jcds import eda
-from tests.unit.test_utils import create_sample_dataset, create_na_test_df
+from tests.unit.test_utils import (
+    create_sample_dataset,
+    create_na_test_df,
+    create_unique_test_df,
+)
 
 
 @pytest.fixture
@@ -14,6 +18,11 @@ def sample_df():
 @pytest.fixture
 def na_test_df():
     return create_na_test_df()
+
+
+@pytest.fixture
+def unique_test_df():
+    return create_unique_test_df()
 
 
 def test_show_shape_returns_correct_shape(sample_df):
@@ -79,21 +88,25 @@ def test_count_total_na(na_test_df):
     assert eda.count_total_na(na_test_df) == 8
 
 
-# def test_get_column_types_returns_correct_types(sample_df):
-#     col_types = eda.get_column_types(sample_df)
-#     expected = {
-#         "ID": "int64",
-#         "Age": "float64",
-#         "Gender": "object",
-#         "Income": "float64",
-#         "Subscribed": "int64",
-#     }
-#     assert col_types == expected
+def test_count_unique_values_basic():
+    df = pd.DataFrame(
+        {
+            "Category": ["A", "B", "A", "C", "B"],
+            "Numeric": [1, 2, 2, 3, 3],
+        }
+    )
+    result = eda.count_unique_values(df, ["Category", "Numeric"])
+    assert result["Category"] == 3
+    assert result["Numeric"] == 3
 
 
-# def test_show_missing_counts(sample_df):
-#     missing = eda.show_missing(sample_df)
-#     assert isinstance(missing, pd.DataFrame)
-#     assert missing.loc["Age", "missing_count"] == 1
-#     assert missing.loc["Gender", "missing_count"] == 1
-#     assert missing.loc["Income", "missing_count"] == 1
+def test_count_unique_values_with_empty_column():
+    df = pd.DataFrame({"Empty": [None, None, None, None]})
+    result = eda.count_unique_values(df, ["Empty"])
+    assert result["Empty"] == 1  # NaNs included with dropna=False
+
+
+def test_count_unique_values_with_mixed_types():
+    df = pd.DataFrame({"Mixed": [1, "1", 1.0, "1.0", None]})
+    result = eda.count_unique_values(df, ["Mixed"])
+    assert result["Mixed"] == 4  # 1, "1", 1.0, "1.0", None
