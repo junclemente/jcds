@@ -33,3 +33,14 @@ def create_sample_dataset():
         "Subscribed": [1, 0, 1, 1, 0, 0, 1, 0, 1, 1],
     }
     return pd.DataFrame(data)
+
+
+def create_na_test_df():
+    return pd.DataFrame(
+        {
+            "A": [1, 2, np.nan, 4],
+            "B": [np.nan, np.nan, np.nan, 4],
+            "C": [1, 2, 3, 4],
+            "D": [np.nan, np.nan, np.nan, np.nan],
+        }
+    )

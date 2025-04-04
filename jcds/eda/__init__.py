@@ -11,6 +11,11 @@ from .eda_helpers import (
     show_catvar,
     show_convar,
     show_lowcardvars,
+    count_rows_with_any_na,
+    count_rows_with_all_na,
+    count_cols_with_any_na,
+    count_cols_with_all_na,
+    count_total_na,
 )
 
 # Declare what this module exports
@@ -28,6 +33,11 @@ __all__ = [
     "show_catvar",
     "show_convar",
     "show_lowcardvars",
+    "count_rows_with_any_na",
+    "count_rows_with_all_na",
+    "count_cols_with_any_na",
+    "count_cols_with_all_na",
+    "count_total_na",
     "help",
 ]
 

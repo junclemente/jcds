@@ -3,12 +3,17 @@ import numpy as np
 import pytest
 
 from jcds import eda
-from tests.unit.test_utils import create_sample_dataset
+from tests.unit.test_utils import create_sample_dataset, create_na_test_df
 
 
 @pytest.fixture
 def sample_df():
     return create_sample_dataset()
+
+
+@pytest.fixture
+def na_test_df():
+    return create_na_test_df()
 
 
 def test_show_shape_returns_correct_shape(sample_df):
@@ -52,6 +57,26 @@ def test_show_lowcardvars_filters_by_cardinality():
     assert ("State", 2) in result
     assert ("Zip", 3) in result
     assert not any(col for col in result if col[0] == "ID")  # Not a cat var
+
+
+def test_count_rows_with_any_na(na_test_df):
+    assert eda.count_rows_with_any_na(na_test_df) == 4
+
+
+def test_count_rows_with_all_na(na_test_df):
+    assert eda.count_rows_with_all_na(na_test_df) == 0
+
+
+def test_count_cols_with_any_na(na_test_df):
+    assert eda.count_cols_with_any_na(na_test_df) == 3
+
+
+def test_count_cols_with_all_na(na_test_df):
+    assert eda.count_cols_with_all_na(na_test_df) == 1
+
+
+def test_count_total_na(na_test_df):
+    assert eda.count_total_na(na_test_df) == 8
 
 
 # def test_get_column_types_returns_correct_types(sample_df):

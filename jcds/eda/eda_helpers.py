@@ -105,3 +105,23 @@ def show_lowcardvars(dataframe, max_unique=10):
         if count <= max_unique:
             col_list.append((col, count))
     return col_list
+
+
+def count_rows_with_any_na(dataframe):
+    return dataframe.isna().any(axis=1).sum()
+
+
+def count_rows_with_all_na(dataframe):
+    return dataframe.isna().all(axis=1).sum()
+
+
+def count_cols_with_any_na(dataframe):
+    return dataframe.isna().any(axis=0).sum()
+
+
+def count_cols_with_all_na(dataframe):
+    return dataframe.isna().all(axis=0).sum()
+
+
+def count_total_na(dataframe):
+    return dataframe.isna().sum().sum()
