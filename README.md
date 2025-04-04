@@ -106,6 +106,29 @@ jaws.help() # List all functions in the jcds.aws package
 jcds.eda.help('dqr_cat') # Shows the docstring for the function 'dqr_cat`
 ```
 
+## Testing 
+
+This project uses `pytest` for unit testing. 
+
+To run all tests: 
+
+```bash
+pytest
+```
+
+To run a specific test file: 
+```bash
+pytest tests/unit/test_eda_helpers.py
+```
+Fixtures and sample test datasets are defined in `tests/unit/test_utils.py`. 
+
+Test coverage: 
+```bash
+pytest --cov=jcds --cov-report=term
+``` 
+
+
+
 ## Versions
 
 See [CHANGELOG.md](./CHANGELOG.md) for a list of version history and updates.
