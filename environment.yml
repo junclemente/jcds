@@ -1,8 +1,8 @@
 name: jcds-dev
-channels: 
+channels:
   - conda-forge
   - defaults
-dependencies: 
+dependencies:
   - python=3.10
   - black
   - flake8
@@ -17,8 +17,10 @@ dependencies:
   - pytest-cov
   - seaborn
   - scikit-learn
+  - boto3
+  - openpyxl
   - pip
   - pip:
-    - -e .
-
-  
+      - -e .
+      - moto
+      - requests
