@@ -15,7 +15,8 @@ setup(
         "matplotlib",
         "seaborn",
         "ipython", 
-        "scikit-learn"
+        "scikit-learn",
+        "requests"
     ],
     extras_require={
         'aws': [
