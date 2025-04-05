@@ -63,3 +63,48 @@ def test_s3_file_to_dataframe_invalid_type(mock_get, capsys):
     captured = capsys.readouterr()
     assert df is None
     assert "Unsupported file type" in captured.out or "Error loading file" in captured.out
+
+from unittest.mock import patch, MagicMock
+import builtins
+import pytest
+
+def test_list_s3_contents_missing_boto3(monkeypatch, capsys):
+    original_import = builtins.__import__
+
+    def fake_import(name, *args, **kwargs):
+        if name == "boto3":
+            raise ImportError("No module named 'boto3'")
+        return original_import(name, *args, **kwargs)
+
+    monkeypatch.setattr(builtins, "__import__", fake_import)
+
+    from jcds.aws.s3 import list_s3_contents
+    list_s3_contents("some-bucket")
+
+    captured = capsys.readouterr()
+    assert "Required library is not installed" in captured.out
+
+@patch("boto3.client")
+def test_list_s3_contents_raises_exception(mock_boto_client, capsys):
+    mock_s3 = MagicMock()
+    mock_s3.list_objects_v2.side_effect = Exception("Access denied")
+    mock_boto_client.return_value = mock_s3
+
+    from jcds.aws.s3 import list_s3_contents
+    list_s3_contents("test-bucket")
+
+    captured = capsys.readouterr()
+    assert "Error accessing bucket:" in captured.out
+
+import requests
+from jcds.aws.s3 import s3_file_to_dataframe
+
+@patch("requests.get")
+def test_s3_file_to_dataframe_request_failure(mock_get, capsys):
+    mock_get.side_effect = requests.exceptions.RequestException("Network down")
+
+    df = s3_file_to_dataframe("bucket", "file.csv", file_type="csv")
+
+    captured = capsys.readouterr()
+    assert df is None
+    assert "Error loading file:" in captured.out
