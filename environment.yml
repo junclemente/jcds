@@ -13,7 +13,6 @@ dependencies:
   - numpy
   - pandas
   - pre-commit
-  - pyarrow
   - pytest
   - pytest-cov
   - seaborn
@@ -25,6 +24,3 @@ dependencies:
       - -e .
       - moto
       - requests
-      - mkdocs
-      - mkdocstrings[python]
-      - mkdocs-material
