@@ -1,8 +1,0 @@
-{
-  "python.defaultInterpreterPath": "/home/kajun/miniconda3/envs/jcds-dev/bin/python",
-  "python.formatting.provider": "black",
-  "python.linting.enabled": true,
-  "python.linting.flake8Enabled": true,
-  "python.testing.pytestEnabled": true,
-  "python.testing.unittestEnabled": false
-}
