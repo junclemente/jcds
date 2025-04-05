@@ -162,3 +162,5 @@ cython_debug/
 #.idea/
 
 *Zone.Identifier
+.vscode/settings.json
+.vscode/settings.json

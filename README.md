@@ -7,6 +7,8 @@
 **jcds** is a personal collection of reusable functions for data science and analysis tasks.  
 It’s designed to make your workflow faster and more consistent when working with data in Jupyter notebooks.
 
+> **Compatible with Python 3.7 and above. Developed and tested on Python 3.10.**
+
 --- 
 ## How to Use
 
@@ -103,6 +105,29 @@ jaws.help() # List all functions in the jcds.aws package
 ```python
 jcds.eda.help('dqr_cat') # Shows the docstring for the function 'dqr_cat`
 ```
+
+## Testing 
+
+This project uses `pytest` for unit testing. 
+
+To run all tests: 
+
+```bash
+pytest
+```
+
+To run a specific test file: 
+```bash
+pytest tests/unit/test_eda_helpers.py
+```
+Fixtures and sample test datasets are defined in `tests/unit/test_utils.py`. 
+
+Test coverage: 
+```bash
+pytest --cov=jcds --cov-report=term
+``` 
+
+
 
 ## Versions
 

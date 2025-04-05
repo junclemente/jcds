@@ -1,0 +1,26 @@
+name: jcds-dev
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.10
+  - black
+  - flake8
+  - isort
+  - jupyterlab
+  - mypy
+  - matplotlib
+  - numpy
+  - pandas
+  - pre-commit
+  - pytest
+  - pytest-cov
+  - seaborn
+  - scikit-learn
+  - boto3
+  - openpyxl
+  - pip
+  - pip:
+      - -e .
+      - moto
+      - requests
