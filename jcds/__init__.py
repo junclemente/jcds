@@ -8,9 +8,16 @@ def help(func_name=None):
     """
     Global help function for the jcds package.
 
-    - Call help() to list all public functions from all submodules.
-    - Call help('function_name') to view its documentation.
+    Use this function to explore the functionality provided by the jcds library.
+
+    Notes
+    -----
+    - Call `help()` to list all public functions from all submodules.
+    - Call `help('function_name')` to view documentation for a specific function.
+
+    Docstring generated with assistance from ChatGPT.
     """
+
     functions = {}
 
     # Dynamically import and inspect all top-level jcds submodules
