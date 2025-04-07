@@ -1,10 +1,20 @@
 def print_code_line(code):
     """
-    Prints a formatted code line in bold magenta for better visibility.
+    Print a formatted code line in bold magenta for better visibility.
 
-    Args:
-        code (str): The line of code to print.
+    Parameters
+    ----------
+    code : str
+        The line of code to print.
+
+    Returns
+    -------
+    None
+        This function prints to the console and does not return a value.
+
+    Docstring generated with assistance from ChatGPT.
     """
+
     magenta = "\033[1;35m"
     cyan = "\033[1;36m"
     yellow = "\033[1;33m"

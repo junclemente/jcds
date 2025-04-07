@@ -13,9 +13,16 @@ def help(func_name=None):
     """
     Help function for this submodule.
 
-    - Call help() to list all public functions.
-    - Call help('function_name') to view its documentation.
+    Use this function to explore available public functions within the submodule.
+
+    Notes
+    -----
+    - Call `help()` to list all public functions.
+    - Call `help('function_name')` to view documentation for a specific function.
+
+    Docstring generated with assistance from ChatGPT.
     """
+
     functions = {
         name: globals()[name]
         for name in __all__
