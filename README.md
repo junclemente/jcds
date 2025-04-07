@@ -3,6 +3,7 @@
 [![Latest Release](https://img.shields.io/github/v/release/junclemente/jcds?label=release)](https://github.com/junclemente/jcds/releases)
 ![Python Version](https://img.shields.io/badge/python-3.7%2B-blue)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Docs](https://img.shields.io/badge/docs-online-blue)](https://junclemente.github.io/jcds)
 
 **jcds** is a personal collection of reusable functions for data science and analysis tasks.  
 It’s designed to make your workflow faster and more consistent when working with data in Jupyter notebooks.
@@ -146,6 +147,10 @@ Test coverage:
 ```bash
 pytest --cov=jcds --cov-report=term
 ```
+
+## Documentation
+
+**Documentation:** [https://junclemente.github.io/jcds](https://junclemente.github.io/jcds)
 
 ## Changelog
 
