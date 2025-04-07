@@ -164,3 +164,4 @@ cython_debug/
 *Zone.Identifier
 .vscode/settings.json
 .vscode/settings.json
+__azurite_db_blob*.json
