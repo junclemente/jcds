@@ -1,7 +1,7 @@
 import inspect
 
 # Import your functions from internal files
-from .reports import dqr_cat, dqr_cont, quick_report, long_report, display_all_col_head
+# from .datetime import *
 
 from .lists import get_cat_list, get_cont_list, list_unique_values
 
@@ -19,6 +19,10 @@ from .inspect import (
     count_unique_values,
     show_binary_list,
 )
+
+from .reports import dqr_cat, dqr_cont, quick_report, long_report, display_all_col_head
+
+from .transform import rename_col
 
 # Declare what this module exports
 __all__ = [
@@ -42,6 +46,7 @@ __all__ = [
     "count_total_na",
     "count_unique_values",
     "show_binary_list",
+    "rename_col",
     "help",
 ]
 
