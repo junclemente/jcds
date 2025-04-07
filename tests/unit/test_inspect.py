@@ -3,32 +3,6 @@ import numpy as np
 import pytest
 
 from jcds import eda
-from tests.unit.test_utils import (
-    create_sample_dataset,
-    create_na_test_df,
-    create_unique_test_df,
-    create_binary_list_df,
-)
-
-
-@pytest.fixture
-def sample_df():
-    return create_sample_dataset()
-
-
-@pytest.fixture
-def na_test_df():
-    return create_na_test_df()
-
-
-@pytest.fixture
-def unique_test_df():
-    return create_unique_test_df()
-
-
-@pytest.fixture
-def binary_list_df():
-    return create_binary_list_df()
 
 
 def test_show_shape_returns_correct_shape(sample_df):
