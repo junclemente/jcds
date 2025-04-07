@@ -203,6 +203,19 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="." class="md-nav__link md-nav__link--active">
         
   
@@ -214,6 +227,58 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#quick-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      🚀 Quick Start
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚀 Quick Start">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Installation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#basic-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Example
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -261,6 +326,47 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#quick-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      🚀 Quick Start
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚀 Quick Start">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Installation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#basic-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Example
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -275,14 +381,38 @@
 
 
 
-<h1 id="welcome-to-jcds">Welcome to jcds</h1>
-<p><strong>jcds</strong> is a personal collection of reusable functions for data science and analysis.</p>
-<ul>
-<li>📊 EDA tools</li>
-<li>🧪 Unit-tested utilities</li>
-<li>☁️ AWS integration</li>
-<li>📚 Auto-generated documentation</li>
-</ul>
+<h1 id="welcome-to-jcds">Welcome to jcds 🧪</h1>
+<p><strong>jcds</strong> is a personal collection of reusable Python functions for data science workflows, built to save time and reduce repetition in Jupyter notebooks.</p>
+<p>It provides:
+- 🔎 Quick EDA tools (like <code>quick_report</code> and <code>long_report</code>)
+- 📊 Helpers for working with categorical and continuous variables
+- 🧹 Utilities for inspecting, cleaning, and summarizing data
+- ☁️ Optional AWS integration for working with S3
+- 🧪 Well-tested functions using <code>pytest</code></p>
+<hr />
+<h2 id="quick-start">🚀 Quick Start</h2>
+<h3 id="1-installation">1. Installation</h3>
+<p>Install the latest version directly from GitHub:</p>
+<pre><code class="language-bash">pip install git+https://github.com/junclemente/jcds.git
+</code></pre>
+<p>Or with AWS extras: </p>
+<pre><code class="language-bash">pip install git+https://github.com/junclemente/jcds.git[aws]
+</code></pre>
+<h2 id="basic-example">Basic Example</h2>
+<pre><code class="language-python">import pandas as pd
+import jcds.eda as jeda 
+
+df = pd.read_csv(&quot;your_dataset.csv&quot;)
+duplicates = jeda.show_dupes(df)
+print(duplicates)
+
+unique_values_list = jeda.count_unique_values(df, ['col1', 'col2', 'col3'])
+print(unique_values_list)
+
+unique_values_column = jeda.count_unique_values(df, 'col')
+print(unique_values_column)
+
+</code></pre>
 <p>Check out the <a href="api/">API Reference</a> to explore all available functions.</p>
 
 
