@@ -35,6 +35,11 @@ This project follows [Semantic Versioning](https://semver.org/) and loosely foll
 
 - **Shared test fixtures** in `tests/conftest.py` for mocking CSV/Excel downloads.
 
+- Added automatic documentation via `mkdocs`
+  - Add `docs\` folder
+  - `mkdocs.yml`
+  - `index.md` and `api.md`
+
 ### Changed
 
 - `eda/__init__.py` updated to expose all `eda_helpers` functions.
