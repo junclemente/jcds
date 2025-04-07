@@ -24,3 +24,6 @@ dependencies:
       - -e .
       - moto
       - requests
+      - mkdocs
+      - mkdocstrings[python]
+      - mkdocs-material
