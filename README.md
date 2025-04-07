@@ -9,25 +9,30 @@ It’s designed to make your workflow faster and more consistent when working wi
 
 > **Compatible with Python 3.7 and above. Developed and tested on Python 3.10.**
 
---- 
+---
+
 ## How to Use
 
 ### Install with `pip`
 
 #### Quick Install
 
-This installs the latest version of the library and all core dependencies. 
+This installs the latest version of the library and all core dependencies.
+
 ```bash
-pip install git+https://github.com/junclemente/jcds.git 
+pip install git+https://github.com/junclemente/jcds.git
 ```
 
 #### Specific Version
+
 To install a specific version (e.g., `v0.2.1`), add the version tag at the end:
+
 ```bash
 pip install git+https://github.com/junclemente/jcds.git@v0.2.1
 ```
 
 #### Develop Branch
+
 Or install from the `develop` branch (not recommended):
 
 ```bash
@@ -51,7 +56,6 @@ These dependencies are only required if you need to use the AWS module.
 
 ---
 
-
 ### Import with `httpimport`
 
 You can also import this library directly into your Jupyter notebook using [`httpimport`](https://pypi.org/project/httpimport/):
@@ -69,6 +73,19 @@ You can also import specific submodules as needed:
 import jcds.eda as eda
 ```
 
+### Minimal Usage Example
+
+```python
+import pandas as pd
+import jcds.eda as jeda
+
+df = pd.read_csv('data.csv')
+duplicates = jeda.show_dupes(df)
+print(duplicates)
+
+unique_values = jeda.count_unique_values(df, ['col1', 'col2', 'col3'])
+print(unique_values)
+```
 
 ## Branching Info
 
@@ -79,7 +96,7 @@ When specifying the `ref` in `httpimport.github_repo()`, use one of the followin
 
 **Recommended:** Use a versioned branch to ensure your code doesn't break when updates are pushed to `develop`.
 
-# help()
+## Help System
 
 Each **subpackage** in the `jcds` library includes a `help()` function that lists all **public functions** available within.
 
@@ -106,29 +123,30 @@ jaws.help() # List all functions in the jcds.aws package
 jcds.eda.help('dqr_cat') # Shows the docstring for the function 'dqr_cat`
 ```
 
-## Testing 
+## Testing
 
-This project uses `pytest` for unit testing. 
+This project uses `pytest` for unit testing.
 
-To run all tests: 
+To run all tests:
 
 ```bash
 pytest
 ```
 
-To run a specific test file: 
+To run a specific test file:
+
 ```bash
 pytest tests/unit/test_eda_helpers.py
 ```
-Fixtures and sample test datasets are defined in `tests/unit/test_utils.py`. 
 
-Test coverage: 
+Fixtures and sample test datasets are defined in `tests/unit/test_utils.py`.
+
+Test coverage:
+
 ```bash
 pytest --cov=jcds --cov-report=term
-``` 
+```
 
-
-
-## Versions
+## Changelog
 
 See [CHANGELOG.md](./CHANGELOG.md) for a list of version history and updates.
