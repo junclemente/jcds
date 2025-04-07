@@ -1,12 +1,6 @@
 import pandas as pd
 import pytest
 from jcds.eda.transform import rename_col
-from tests.unit.test_utils import create_sample_dataset
-
-
-@pytest.fixture
-def sample_df():
-    return create_sample_dataset()
 
 
 def test_rename_existing_column(sample_df):
