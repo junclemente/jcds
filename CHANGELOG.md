@@ -7,13 +7,14 @@ This project follows [Semantic Versioning](https://semver.org/) and loosely foll
 
 ## [Unreleased]
 
-### Added 
+### Added
 
 ### Removed
 
 - Deleted obsolete personal test datasets from `tests/datasets/`.
 - Deleted exploratory notebooks from `tests/notebooks/`.
-- Removed unused `tests/integration/` folder. 
+- Removed unused `tests/integration/` folder.
+
 ---
 
 ## [v0.2.2] - 2025-04-8
@@ -89,6 +90,7 @@ This project follows [Semantic Versioning](https://semver.org/) and loosely foll
   - Provides a helpful raw byte preview if all decoding attempts fail
   - Raises informative `ValueError` for failed loads to assist with debugging corrupted or misencoded files
 - Unit tests for both `save_csv()` and `load_csv()` using `sample_df` and `tmp_path`
+
   - Includes fallback test simulating corrupted file behavior
 
 - `read_s3()` to `dataio.s3_io`: loads public S3-hosted CSV or Excel files into a DataFrame with built-in error handling
