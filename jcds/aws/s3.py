@@ -1,18 +1,26 @@
 def list_s3_contents(bucket_name):
     """
-    Lists the contents (object keys) of a public Amazon S3 bucket using anonymous access.
+    List the contents (object keys) of a public Amazon S3 bucket using anonymous access.
 
-    Args:
-        bucket_name (str): The name of the public S3 bucket to list contents from.
+    Parameters
+    ----------
+    bucket_name : str
+        The name of the public S3 bucket to list contents from.
 
-    Returns:
-        None. Prints the keys (filenames) of the objects found in the bucket.
+    Returns
+    -------
+    None
+        Prints the keys (filenames) of the objects found in the bucket.
 
-    Notes:
-        - This function uses anonymous (unsigned) access and works only with public buckets.
-        - Requires the `boto3` and `botocore` libraries.
-        - If the bucket is not public or an error occurs, an error message is printed.
+    Notes
+    -----
+    - This function uses anonymous (unsigned) access and works only with public buckets.
+    - Requires the `boto3` and `botocore` libraries.
+    - If the bucket is not public or an error occurs, an error message is printed.
+
+    Docstring generated with assistance from ChatGPT.
     """
+
     try:
         import boto3
         from botocore import UNSIGNED
@@ -34,23 +42,32 @@ def list_s3_contents(bucket_name):
 
 def s3_file_to_dataframe(bucket_name, file_name, file_type="csv"):
     """
-    Downloads a public file from an S3 bucket and loads it into a pandas DataFrame.
+    Download a public file from an S3 bucket and load it into a pandas DataFrame.
 
-    Args:
-        bucket_name (str): The name of the public S3 bucket.
-        file_name (str): The path to the file within the bucket.
-        file_type (str, optional): The type of file to load. Supported values are
-            'csv' and 'excel'. Defaults to 'csv'.
+    Parameters
+    ----------
+    bucket_name : str
+        The name of the public S3 bucket.
+    file_name : str
+        The path to the file within the bucket.
+    file_type : str, optional
+        The type of file to load. Supported values are 'csv' and 'excel'. Defaults to 'csv'.
 
-    Returns:
-        pd.DataFrame or None: The loaded DataFrame if successful, otherwise None.
+    Returns
+    -------
+    pd.DataFrame or None
+        The loaded DataFrame if successful, otherwise None.
 
-    Notes:
-        - This function assumes the file is publicly accessible via a standard S3 URL.
-        - For Excel files, only `.xlsx` is supported.
-        - Requires the `requests`, `pandas`, and `io` modules.
-        - Prints an error message and returns None if the request fails or the file type is unsupported.
+    Notes
+    -----
+    - This function assumes the file is publicly accessible via a standard S3 URL.
+    - For Excel files, only `.xlsx` is supported.
+    - Requires the `requests`, `pandas`, and `io` modules.
+    - Prints an error message and returns None if the request fails or the file type is unsupported.
+
+    Docstring generated with assistance from ChatGPT.
     """
+
     import requests
     import pandas as pd
     from io import BytesIO

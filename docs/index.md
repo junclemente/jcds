@@ -29,7 +29,7 @@ pip install git+https://github.com/junclemente/jcds.git[aws]
 ## Basic Example
 ```python
 import pandas as pd
-import jcds.eda as eda 
+import jcds.eda as jeda 
 
 df = pd.read_csv("your_dataset.csv")
 duplicates = jeda.show_dupes(df)

@@ -1,8 +1,8 @@
 # API Reference
 
-## EDA Helpers
+## EDA Inspect
 
-::: jcds.eda.eda_helpers
+::: jcds.eda.inspect
 
 ## Column Utilities
 

@@ -152,6 +152,29 @@ pytest --cov=jcds --cov-report=term
 
 **Documentation:** [https://junclemente.github.io/jcds](https://junclemente.github.io/jcds)
 
+
+This project uses [MkDocs](https://www.mkdocs.org/) with the [Material theme](https://squidfunk.github.io/mkdocs-material/) and [mkdocstrings](https://mkdocstrings.github.io/).
+
+### 🔄 Updating the Docs
+
+1. Make sure all public functions and modules have proper docstrings (Google or NumPy style recommended).
+2. If you add or rename modules, update `mkdocs.yml` and corresponding `.md` files in the `docs/` folder.
+3. Preview docs locally:
+
+   ```bash
+   mkdocs serve
+   ```
+    This starts a local dev server at: 
+    ```cpp
+    http://127.0.0.1:8000/
+    ``` 
+    Any changes make to the Markdown files, Python docstrings, or theme settings will auto-reload. 
+4. To deploy to GitHub Pages:
+    ```bash
+    mkdocs gh-deploy
+    ```
+    Make sure `site_url` and `repo_url` are set correctly in the `mkdocs.yml`. 
+
 ## Changelog
 
 See [CHANGELOG.md](./CHANGELOG.md) for a list of version history and updates.

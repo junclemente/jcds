@@ -1,11 +1,11 @@
 import inspect
 
 # Import your functions from internal files
-from .reports import dqr_cat, dqr_cont, quick_report, long_report, display_all_col_head
+# from .datetime import *
 
 from .lists import get_cat_list, get_cont_list, list_unique_values
 
-from .eda_helpers import (
+from .inspect import (
     show_shape,
     show_dupes,
     show_catvar,
@@ -19,6 +19,10 @@ from .eda_helpers import (
     count_unique_values,
     show_binary_list,
 )
+
+from .reports import dqr_cat, dqr_cont, quick_report, long_report, display_all_col_head
+
+from .transform import rename_col
 
 # Declare what this module exports
 __all__ = [
@@ -42,6 +46,7 @@ __all__ = [
     "count_total_na",
     "count_unique_values",
     "show_binary_list",
+    "rename_col",
     "help",
 ]
 
@@ -51,9 +56,16 @@ def help(func_name=None):
     """
     Help function for this submodule.
 
-    - Call help() to list all public functions.
-    - Call help('function_name') to view its documentation.
+    Use this function to explore available public functions within the submodule.
+
+    Notes
+    -----
+    - Call `help()` to list all public functions.
+    - Call `help('function_name')` to view documentation for a specific function.
+
+    Docstring generated with assistance from ChatGPT.
     """
+
     functions = {
         name: globals()[name]
         for name in __all__
