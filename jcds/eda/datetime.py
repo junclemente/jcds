@@ -1,32 +1,54 @@
 import pandas as pd
+from typing import Union, List
 
 
-def create_dt_col(
-    dataframe: pd.DataFrame, datetime_col: str, col_type: str = "month"
-) -> pd.DataFrame:
+def create_dt_col(dataframe, datetime_col, col_type="month"):
     """
-    Add a new column to the DataFrame derived from a datetime column.
+    Wrapper for create_dt_cols that creates a single datetime-derived column.
 
     Parameters
     ----------
-    dataframe : pd.DataFrame
+    dataframe : DataFrame
         The input DataFrame.
     datetime_col : str
         Name of the column containing datetime values.
-    col_type : str, default "month"
-        Type of datetime component to extract. Supported values:
-        "year", "month", "day", "weekday", "weekday_name", "weekofyear", "quarter",
-        "is_weekend", "dayofyear", "is_month_start", "is_month_end".
+    col_type : str
+        A single datetime component to extract.
 
     Returns
     -------
-    pd.DataFrame
-        A copy of the DataFrame with the new derived datetime column added.
+    DataFrame
+        A copy of the DataFrame with one new datetime feature column added.
+
+    Docstring generated with assistance from ChatGPT.
+    """
+    return create_dt_cols(dataframe, datetime_col, [col_type])
+
+
+def create_dt_cols(dataframe, datetime_col, col_types=["month"]):
+    """
+    Add one or more datetime-derived columns to a DataFrame from a single datetime column.
+
+    Parameters
+    ----------
+    dataframe : DataFrame
+        The input DataFrame.
+    datetime_col : str
+        Name of the column containing datetime values.
+    col_types : str or list of str, default ["month"]
+        One or more datetime components to extract. Supported values:
+        "year", "month", "day", "weekday", "weekday_name", "weekofyear",
+        "quarter", "is_weekend", "dayofyear", "is_month_start", "is_month_end".
+
+    Returns
+    -------
+    DataFrame
+        A copy of the DataFrame with the new datetime feature columns added.
 
     Raises
     ------
     ValueError
-        If the column doesn't exist or `col_type` is not supported.
+        If the datetime_col is missing or if any component in col_types is unsupported.
 
     Docstring generated with assistance from ChatGPT.
     """
@@ -47,20 +69,25 @@ def create_dt_col(
     if datetime_col not in dataframe.columns:
         raise ValueError(f"Column '{datetime_col}' not found in DataFrame.")
 
-    if col_type not in supported_types:
+    if isinstance(col_types, str):
+        col_types = [col_types]
+
+    unsupported = [ct for ct in col_types if ct not in supported_types]
+    if unsupported:
         raise ValueError(
-            f"Unsupported col_type '{col_type}'. Must be one of: {list(supported_types.keys())}"
+            f"Unsupported col_type(s): {unsupported}. Must be one of: {list(supported_types)}"
         )
 
-    df = dataframe.copy()
+    dataframe = dataframe.copy()
 
-    if not pd.api.types.is_datetime64_any_dtype(df[datetime_col]):
+    if not pd.api.types.is_datetime64_any_dtype(dataframe[datetime_col]):
         try:
-            df[datetime_col] = pd.to_datetime(df[datetime_col])
+            dataframe[datetime_col] = pd.to_datetime(dataframe[datetime_col])
         except Exception as e:
             raise ValueError(f"Could not convert '{datetime_col}' to datetime: {e}")
 
-    new_col = f"{datetime_col}_{col_type}"
-    df[new_col] = supported_types[col_type](df[datetime_col])
+    for col_type in col_types:
+        new_col = f"{datetime_col}_{col_type}"
+        dataframe[new_col] = supported_types[col_type](dataframe[datetime_col])
 
-    return df
+    return dataframe

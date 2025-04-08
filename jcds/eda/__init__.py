@@ -1,7 +1,7 @@
 import inspect
 
 # Import your functions from internal files
-# from .datetime import *
+from .datetime import create_dt_col, create_dt_cols
 
 from .lists import get_cat_list, get_cont_list, list_unique_values
 
@@ -47,6 +47,8 @@ __all__ = [
     "count_unique_values",
     "show_binary_list",
     "rename_col",
+    "create_dt_col",
+    "create_dt_cols",
     "help",
 ]
 

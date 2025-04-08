@@ -81,11 +81,6 @@ import pandas as pd
 import jcds.eda as jeda
 
 df = pd.read_csv('data.csv')
-duplicates = jeda.show_dupes(df)
-print(duplicates)
-
-unique_values = jeda.count_unique_values(df, ['col1', 'col2', 'col3'])
-print(unique_values)
 ```
 
 ## Branching Info
