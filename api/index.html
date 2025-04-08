@@ -2672,29 +2672,27 @@
 <h4 id="jcds.eda.inspect.count_cols_with_all_na--returns">Returns</h4>
 <p>int
     The number of columns where every row is NaN.</p>
-<p>Docstring generated with assistance from ChatGPT.</p>
 
 
             <details class="quote">
               <summary>Source code in <code>jcds/eda/inspect.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">260</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">251</span>
+<span class="normal">252</span>
+<span class="normal">253</span>
+<span class="normal">254</span>
+<span class="normal">255</span>
+<span class="normal">256</span>
+<span class="normal">257</span>
+<span class="normal">258</span>
+<span class="normal">259</span>
+<span class="normal">260</span>
 <span class="normal">261</span>
 <span class="normal">262</span>
 <span class="normal">263</span>
 <span class="normal">264</span>
 <span class="normal">265</span>
 <span class="normal">266</span>
-<span class="normal">267</span>
-<span class="normal">268</span>
-<span class="normal">269</span>
-<span class="normal">270</span>
-<span class="normal">271</span>
-<span class="normal">272</span>
-<span class="normal">273</span>
-<span class="normal">274</span>
-<span class="normal">275</span>
-<span class="normal">276</span>
-<span class="normal">277</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">count_cols_with_all_na</span><span class="p">(</span><span class="n">dataframe</span><span class="p">):</span>
+<span class="normal">267</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">count_cols_with_all_na</span><span class="p">(</span><span class="n">dataframe</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Count the number of columns in the DataFrame where all values are missing (NaN).</span>
 
@@ -2708,7 +2706,6 @@
 <span class="sd">    int</span>
 <span class="sd">        The number of columns where every row is NaN.</span>
 
-<span class="sd">    Docstring generated with assistance from ChatGPT.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">return</span> <span class="n">dataframe</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
@@ -2736,12 +2733,19 @@
 <h4 id="jcds.eda.inspect.count_cols_with_any_na--returns">Returns</h4>
 <p>int
     The number of columns with at least one NaN value.</p>
-<p>Docstring generated with assistance from ChatGPT.</p>
 
 
             <details class="quote">
               <summary>Source code in <code>jcds/eda/inspect.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">240</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">232</span>
+<span class="normal">233</span>
+<span class="normal">234</span>
+<span class="normal">235</span>
+<span class="normal">236</span>
+<span class="normal">237</span>
+<span class="normal">238</span>
+<span class="normal">239</span>
+<span class="normal">240</span>
 <span class="normal">241</span>
 <span class="normal">242</span>
 <span class="normal">243</span>
@@ -2749,16 +2753,7 @@
 <span class="normal">245</span>
 <span class="normal">246</span>
 <span class="normal">247</span>
-<span class="normal">248</span>
-<span class="normal">249</span>
-<span class="normal">250</span>
-<span class="normal">251</span>
-<span class="normal">252</span>
-<span class="normal">253</span>
-<span class="normal">254</span>
-<span class="normal">255</span>
-<span class="normal">256</span>
-<span class="normal">257</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">count_cols_with_any_na</span><span class="p">(</span><span class="n">dataframe</span><span class="p">):</span>
+<span class="normal">248</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">count_cols_with_any_na</span><span class="p">(</span><span class="n">dataframe</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Count the number of columns in the DataFrame that contain at least one missing (NaN) value.</span>
 
@@ -2772,7 +2767,6 @@
 <span class="sd">    int</span>
 <span class="sd">        The number of columns with at least one NaN value.</span>
 
-<span class="sd">    Docstring generated with assistance from ChatGPT.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">return</span> <span class="n">dataframe</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
@@ -2800,12 +2794,18 @@
 <h4 id="jcds.eda.inspect.count_rows_with_all_na--returns">Returns</h4>
 <p>int
     The number of rows where every column is NaN.</p>
-<p>Docstring generated with assistance from ChatGPT.</p>
 
 
             <details class="quote">
               <summary>Source code in <code>jcds/eda/inspect.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">220</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">213</span>
+<span class="normal">214</span>
+<span class="normal">215</span>
+<span class="normal">216</span>
+<span class="normal">217</span>
+<span class="normal">218</span>
+<span class="normal">219</span>
+<span class="normal">220</span>
 <span class="normal">221</span>
 <span class="normal">222</span>
 <span class="normal">223</span>
@@ -2814,15 +2814,7 @@
 <span class="normal">226</span>
 <span class="normal">227</span>
 <span class="normal">228</span>
-<span class="normal">229</span>
-<span class="normal">230</span>
-<span class="normal">231</span>
-<span class="normal">232</span>
-<span class="normal">233</span>
-<span class="normal">234</span>
-<span class="normal">235</span>
-<span class="normal">236</span>
-<span class="normal">237</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">count_rows_with_all_na</span><span class="p">(</span><span class="n">dataframe</span><span class="p">):</span>
+<span class="normal">229</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">count_rows_with_all_na</span><span class="p">(</span><span class="n">dataframe</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Count the number of rows in the DataFrame where all values are missing (NaN).</span>
 
@@ -2836,7 +2828,6 @@
 <span class="sd">    int</span>
 <span class="sd">        The number of rows where every column is NaN.</span>
 
-<span class="sd">    Docstring generated with assistance from ChatGPT.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">return</span> <span class="n">dataframe</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
@@ -2864,12 +2855,17 @@
 <h4 id="jcds.eda.inspect.count_rows_with_any_na--returns">Returns</h4>
 <p>int
     The number of rows with at least one NaN value.</p>
-<p>Docstring generated with assistance from ChatGPT.</p>
 
 
             <details class="quote">
               <summary>Source code in <code>jcds/eda/inspect.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">200</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">194</span>
+<span class="normal">195</span>
+<span class="normal">196</span>
+<span class="normal">197</span>
+<span class="normal">198</span>
+<span class="normal">199</span>
+<span class="normal">200</span>
 <span class="normal">201</span>
 <span class="normal">202</span>
 <span class="normal">203</span>
@@ -2879,14 +2875,7 @@
 <span class="normal">207</span>
 <span class="normal">208</span>
 <span class="normal">209</span>
-<span class="normal">210</span>
-<span class="normal">211</span>
-<span class="normal">212</span>
-<span class="normal">213</span>
-<span class="normal">214</span>
-<span class="normal">215</span>
-<span class="normal">216</span>
-<span class="normal">217</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">count_rows_with_any_na</span><span class="p">(</span><span class="n">dataframe</span><span class="p">):</span>
+<span class="normal">210</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">count_rows_with_any_na</span><span class="p">(</span><span class="n">dataframe</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Count the number of rows in the DataFrame that contain at least one missing (NaN) value.</span>
 
@@ -2900,7 +2889,6 @@
 <span class="sd">    int</span>
 <span class="sd">        The number of rows with at least one NaN value.</span>
 
-<span class="sd">    Docstring generated with assistance from ChatGPT.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">return</span> <span class="n">dataframe</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
@@ -2928,29 +2916,27 @@
 <h4 id="jcds.eda.inspect.count_total_na--returns">Returns</h4>
 <p>int
     The total count of NaN values in the DataFrame.</p>
-<p>Docstring generated with assistance from ChatGPT.</p>
 
 
             <details class="quote">
               <summary>Source code in <code>jcds/eda/inspect.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">280</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">270</span>
+<span class="normal">271</span>
+<span class="normal">272</span>
+<span class="normal">273</span>
+<span class="normal">274</span>
+<span class="normal">275</span>
+<span class="normal">276</span>
+<span class="normal">277</span>
+<span class="normal">278</span>
+<span class="normal">279</span>
+<span class="normal">280</span>
 <span class="normal">281</span>
 <span class="normal">282</span>
 <span class="normal">283</span>
 <span class="normal">284</span>
 <span class="normal">285</span>
-<span class="normal">286</span>
-<span class="normal">287</span>
-<span class="normal">288</span>
-<span class="normal">289</span>
-<span class="normal">290</span>
-<span class="normal">291</span>
-<span class="normal">292</span>
-<span class="normal">293</span>
-<span class="normal">294</span>
-<span class="normal">295</span>
-<span class="normal">296</span>
-<span class="normal">297</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">count_total_na</span><span class="p">(</span><span class="n">dataframe</span><span class="p">):</span>
+<span class="normal">286</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">count_total_na</span><span class="p">(</span><span class="n">dataframe</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculate the total number of missing (NaN) values in the entire DataFrame.</span>
 
@@ -2964,7 +2950,6 @@
 <span class="sd">    int</span>
 <span class="sd">        The total count of NaN values in the DataFrame.</span>
 
-<span class="sd">    Docstring generated with assistance from ChatGPT.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">return</span> <span class="n">dataframe</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
@@ -2994,12 +2979,22 @@ columns : list of str
 <h4 id="jcds.eda.inspect.count_unique_values--returns">Returns</h4>
 <p>dict
     A dictionary where each key is a column name and the value is the count of unique entries, including NaNs.</p>
-<p>Docstring generated with assistance from ChatGPT.</p>
 
 
             <details class="quote">
               <summary>Source code in <code>jcds/eda/inspect.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">300</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">289</span>
+<span class="normal">290</span>
+<span class="normal">291</span>
+<span class="normal">292</span>
+<span class="normal">293</span>
+<span class="normal">294</span>
+<span class="normal">295</span>
+<span class="normal">296</span>
+<span class="normal">297</span>
+<span class="normal">298</span>
+<span class="normal">299</span>
+<span class="normal">300</span>
 <span class="normal">301</span>
 <span class="normal">302</span>
 <span class="normal">303</span>
@@ -3010,19 +3005,7 @@ columns : list of str
 <span class="normal">308</span>
 <span class="normal">309</span>
 <span class="normal">310</span>
-<span class="normal">311</span>
-<span class="normal">312</span>
-<span class="normal">313</span>
-<span class="normal">314</span>
-<span class="normal">315</span>
-<span class="normal">316</span>
-<span class="normal">317</span>
-<span class="normal">318</span>
-<span class="normal">319</span>
-<span class="normal">320</span>
-<span class="normal">321</span>
-<span class="normal">322</span>
-<span class="normal">323</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">count_unique_values</span><span class="p">(</span><span class="n">dataframe</span><span class="p">,</span> <span class="n">columns</span><span class="p">):</span>
+<span class="normal">311</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">count_unique_values</span><span class="p">(</span><span class="n">dataframe</span><span class="p">,</span> <span class="n">columns</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Count the number of unique values in the specified columns of a DataFrame, including NaNs.</span>
 
@@ -3038,7 +3021,6 @@ columns : list of str
 <span class="sd">    dict</span>
 <span class="sd">        A dictionary where each key is a column name and the value is the count of unique entries, including NaNs.</span>
 
-<span class="sd">    Docstring generated with assistance from ChatGPT.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">unique_counts</span> <span class="o">=</span> <span class="p">{}</span>
@@ -3074,12 +3056,16 @@ dropna : bool, optional
     A dictionary with two keys:
         - "binary_columns": list of column names that contain exactly two unique non-null values.
         - "binary_with_nan": list of column names that have two unique non-null values and also include NaNs.</p>
-<p>Docstring generated with assistance from ChatGPT.</p>
 
 
             <details class="quote">
               <summary>Source code in <code>jcds/eda/inspect.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">164</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">159</span>
+<span class="normal">160</span>
+<span class="normal">161</span>
+<span class="normal">162</span>
+<span class="normal">163</span>
+<span class="normal">164</span>
 <span class="normal">165</span>
 <span class="normal">166</span>
 <span class="normal">167</span>
@@ -3106,13 +3092,7 @@ dropna : bool, optional
 <span class="normal">188</span>
 <span class="normal">189</span>
 <span class="normal">190</span>
-<span class="normal">191</span>
-<span class="normal">192</span>
-<span class="normal">193</span>
-<span class="normal">194</span>
-<span class="normal">195</span>
-<span class="normal">196</span>
-<span class="normal">197</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">show_binary_list</span><span class="p">(</span><span class="n">dataframe</span><span class="p">,</span> <span class="n">dropna</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="normal">191</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">show_binary_list</span><span class="p">(</span><span class="n">dataframe</span><span class="p">,</span> <span class="n">dropna</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Identify binary columns in a DataFrame, optionally considering missing values.</span>
 
@@ -3130,7 +3110,6 @@ dropna : bool, optional
 <span class="sd">            - &quot;binary_columns&quot;: list of column names that contain exactly two unique non-null values.</span>
 <span class="sd">            - &quot;binary_with_nan&quot;: list of column names that have two unique non-null values and also include NaNs.</span>
 
-<span class="sd">    Docstring generated with assistance from ChatGPT.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">binary_cols</span> <span class="o">=</span> <span class="p">[]</span>
@@ -3170,12 +3149,13 @@ dropna : bool, optional
 <h4 id="jcds.eda.inspect.show_catvar--returns">Returns</h4>
 <p>list of str
     A list of column names that have categorical or object data types.</p>
-<p>Docstring generated with assistance from ChatGPT.</p>
 
 
             <details class="quote">
               <summary>Source code in <code>jcds/eda/inspect.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 90</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
 <span class="normal"> 91</span>
 <span class="normal"> 92</span>
 <span class="normal"> 93</span>
@@ -3191,10 +3171,7 @@ dropna : bool, optional
 <span class="normal">103</span>
 <span class="normal">104</span>
 <span class="normal">105</span>
-<span class="normal">106</span>
-<span class="normal">107</span>
-<span class="normal">108</span>
-<span class="normal">109</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">show_catvar</span><span class="p">(</span><span class="n">dataframe</span><span class="p">):</span>
+<span class="normal">106</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">show_catvar</span><span class="p">(</span><span class="n">dataframe</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Identify and return a list of categorical variables in the DataFrame.</span>
 
@@ -3208,7 +3185,6 @@ dropna : bool, optional
 <span class="sd">    list of str</span>
 <span class="sd">        A list of column names that have categorical or object data types.</span>
 
-<span class="sd">    Docstring generated with assistance from ChatGPT.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">cat_features</span> <span class="o">=</span> <span class="n">dataframe</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span>
         <span class="n">include</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;category&quot;</span><span class="p">,</span> <span class="s2">&quot;object&quot;</span><span class="p">]</span>
@@ -3238,12 +3214,14 @@ dropna : bool, optional
 <h4 id="jcds.eda.inspect.show_convar--returns">Returns</h4>
 <p>list of str
     A list of column names that are not of categorical or object data types.</p>
-<p>Docstring generated with assistance from ChatGPT.</p>
 
 
             <details class="quote">
               <summary>Source code in <code>jcds/eda/inspect.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">112</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
 <span class="normal">113</span>
 <span class="normal">114</span>
 <span class="normal">115</span>
@@ -3259,11 +3237,7 @@ dropna : bool, optional
 <span class="normal">125</span>
 <span class="normal">126</span>
 <span class="normal">127</span>
-<span class="normal">128</span>
-<span class="normal">129</span>
-<span class="normal">130</span>
-<span class="normal">131</span>
-<span class="normal">132</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">show_convar</span><span class="p">(</span><span class="n">dataframe</span><span class="p">):</span>
+<span class="normal">128</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">show_convar</span><span class="p">(</span><span class="n">dataframe</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Identify and return a list of continuous (non-categorical) variables in the DataFrame.</span>
 
@@ -3277,7 +3251,6 @@ dropna : bool, optional
 <span class="sd">    list of str</span>
 <span class="sd">        A list of column names that are not of categorical or object data types.</span>
 
-<span class="sd">    Docstring generated with assistance from ChatGPT.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">cont_features</span> <span class="o">=</span> <span class="n">dataframe</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span>
@@ -3308,12 +3281,12 @@ dropna : bool, optional
 <h4 id="jcds.eda.inspect.show_dupes--returns">Returns</h4>
 <p>int
     The count of duplicated rows in the DataFrame.</p>
-<p>Docstring generated with assistance from ChatGPT.</p>
 
 
             <details class="quote">
               <summary>Source code in <code>jcds/eda/inspect.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">70</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">69</span>
+<span class="normal">70</span>
 <span class="normal">71</span>
 <span class="normal">72</span>
 <span class="normal">73</span>
@@ -3328,9 +3301,7 @@ dropna : bool, optional
 <span class="normal">82</span>
 <span class="normal">83</span>
 <span class="normal">84</span>
-<span class="normal">85</span>
-<span class="normal">86</span>
-<span class="normal">87</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">show_dupes</span><span class="p">(</span><span class="n">dataframe</span><span class="p">):</span>
+<span class="normal">85</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">show_dupes</span><span class="p">(</span><span class="n">dataframe</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Return the number of duplicate rows in the given DataFrame.</span>
 
@@ -3344,7 +3315,6 @@ dropna : bool, optional
 <span class="sd">    int</span>
 <span class="sd">        The count of duplicated rows in the DataFrame.</span>
 
-<span class="sd">    Docstring generated with assistance from ChatGPT.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">dupes</span> <span class="o">=</span> <span class="n">dataframe</span><span class="o">.</span><span class="n">duplicated</span><span class="p">()</span>
     <span class="k">return</span> <span class="n">dupes</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
@@ -3374,12 +3344,15 @@ max_unique : int, optional
 <h4 id="jcds.eda.inspect.show_lowcardvars--returns">Returns</h4>
 <p>list of tuple
     A list of tuples where each tuple contains the column name and the number of unique values.</p>
-<p>Docstring generated with assistance from ChatGPT.</p>
 
 
             <details class="quote">
               <summary>Source code in <code>jcds/eda/inspect.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">135</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
 <span class="normal">136</span>
 <span class="normal">137</span>
 <span class="normal">138</span>
@@ -3400,12 +3373,7 @@ max_unique : int, optional
 <span class="normal">153</span>
 <span class="normal">154</span>
 <span class="normal">155</span>
-<span class="normal">156</span>
-<span class="normal">157</span>
-<span class="normal">158</span>
-<span class="normal">159</span>
-<span class="normal">160</span>
-<span class="normal">161</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">show_lowcardvars</span><span class="p">(</span><span class="n">dataframe</span><span class="p">,</span> <span class="n">max_unique</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+<span class="normal">156</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">show_lowcardvars</span><span class="p">(</span><span class="n">dataframe</span><span class="p">,</span> <span class="n">max_unique</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Return a list of categorical variables with unique values less than or equal to the specified threshold.</span>
 
@@ -3421,7 +3389,6 @@ max_unique : int, optional
 <span class="sd">    list of tuple</span>
 <span class="sd">        A list of tuples where each tuple contains the column name and the number of unique values.</span>
 
-<span class="sd">    Docstring generated with assistance from ChatGPT.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Showing cat var of cardinality &lt;= </span><span class="si">{</span><span class="n">max_unique</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -3456,7 +3423,6 @@ max_unique : int, optional
 <h4 id="jcds.eda.inspect.show_shape--returns">Returns</h4>
 <p>tuple of int
     A tuple containing the number of rows and columns in the DataFrame.</p>
-<p>Docstring generated with assistance from ChatGPT.</p>
 
 
             <details class="quote">
@@ -3476,8 +3442,7 @@ max_unique : int, optional
 <span class="normal">63</span>
 <span class="normal">64</span>
 <span class="normal">65</span>
-<span class="normal">66</span>
-<span class="normal">67</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">show_shape</span><span class="p">(</span><span class="n">dataframe</span><span class="p">):</span>
+<span class="normal">66</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">show_shape</span><span class="p">(</span><span class="n">dataframe</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Return the shape (number of rows and columns) of the given DataFrame.</span>
 
@@ -3491,7 +3456,6 @@ max_unique : int, optional
 <span class="sd">    tuple of int</span>
 <span class="sd">        A tuple containing the number of rows and columns in the DataFrame.</span>
 
-<span class="sd">    Docstring generated with assistance from ChatGPT.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">dataframe</span><span class="o">.</span><span class="n">shape</span>
 </code></pre></div></td></tr></table></div>
@@ -3554,7 +3518,6 @@ return_names : bool
 <h4 id="jcds.eda.lists.get_cat_list--returns">Returns</h4>
 <p>list of str or pd.DataFrame
     Categorical column names if <code>return_names</code> is True, or a DataFrame containing only categorical columns if False.</p>
-<p>Docstring generated with assistance from ChatGPT.</p>
 
 
             <details class="quote">
@@ -3578,8 +3541,7 @@ return_names : bool
 <span class="normal">21</span>
 <span class="normal">22</span>
 <span class="normal">23</span>
-<span class="normal">24</span>
-<span class="normal">25</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_cat_list</span><span class="p">(</span><span class="n">dataframe</span><span class="p">):</span>
+<span class="normal">24</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_cat_list</span><span class="p">(</span><span class="n">dataframe</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Return a list of categorical column names or the subset of the DataFrame containing only categorical columns.</span>
 
@@ -3595,7 +3557,6 @@ return_names : bool
 <span class="sd">    list of str or pd.DataFrame</span>
 <span class="sd">        Categorical column names if `return_names` is True, or a DataFrame containing only categorical columns if False.</span>
 
-<span class="sd">    Docstring generated with assistance from ChatGPT.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">cat_list</span> <span class="o">=</span> <span class="n">dataframe</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;category&quot;</span><span class="p">,</span> <span class="s2">&quot;object&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
@@ -3626,12 +3587,12 @@ return_names : bool
 <h4 id="jcds.eda.lists.get_cont_list--returns">Returns</h4>
 <p>list of str or pd.DataFrame
     Continuous column names if <code>return_names</code> is True, or a DataFrame containing only continuous columns if False.</p>
-<p>Docstring generated with assistance from ChatGPT.</p>
 
 
             <details class="quote">
               <summary>Source code in <code>jcds/eda/lists.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">28</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">27</span>
+<span class="normal">28</span>
 <span class="normal">29</span>
 <span class="normal">30</span>
 <span class="normal">31</span>
@@ -3649,9 +3610,7 @@ return_names : bool
 <span class="normal">43</span>
 <span class="normal">44</span>
 <span class="normal">45</span>
-<span class="normal">46</span>
-<span class="normal">47</span>
-<span class="normal">48</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_cont_list</span><span class="p">(</span><span class="n">dataframe</span><span class="p">):</span>
+<span class="normal">46</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_cont_list</span><span class="p">(</span><span class="n">dataframe</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Return a list of continuous (non-categorical) column names or the subset of the DataFrame containing only continuous columns.</span>
 
@@ -3667,7 +3626,6 @@ return_names : bool
 <span class="sd">    list of str or pd.DataFrame</span>
 <span class="sd">        Continuous column names if `return_names` is True, or a DataFrame containing only continuous columns if False.</span>
 
-<span class="sd">    Docstring generated with assistance from ChatGPT.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">cont_list</span> <span class="o">=</span> <span class="n">dataframe</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">exclude</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;category&quot;</span><span class="p">,</span> <span class="s2">&quot;object&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
@@ -3698,12 +3656,13 @@ column : str or list of str
 <h4 id="jcds.eda.lists.list_unique_values--returns">Returns</h4>
 <p>None
     This function prints output to the console and does not return a value.</p>
-<p>Docstring generated with assistance from ChatGPT.</p>
 
 
             <details class="quote">
               <summary>Source code in <code>jcds/eda/lists.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">51</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
 <span class="normal">52</span>
 <span class="normal">53</span>
 <span class="normal">54</span>
@@ -3728,10 +3687,7 @@ column : str or list of str
 <span class="normal">73</span>
 <span class="normal">74</span>
 <span class="normal">75</span>
-<span class="normal">76</span>
-<span class="normal">77</span>
-<span class="normal">78</span>
-<span class="normal">79</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">list_unique_values</span><span class="p">(</span><span class="n">dataframe</span><span class="p">,</span> <span class="n">column</span><span class="p">):</span>
+<span class="normal">76</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">list_unique_values</span><span class="p">(</span><span class="n">dataframe</span><span class="p">,</span> <span class="n">column</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Print the unique values in one or more specified columns of a DataFrame and display the corresponding code snippet.</span>
 
@@ -3747,7 +3703,6 @@ column : str or list of str
 <span class="sd">    None</span>
 <span class="sd">        This function prints output to the console and does not return a value.</span>
 
-<span class="sd">    Docstring generated with assistance from ChatGPT.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">display_code</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;DataFrame[&quot;</span><span class="si">{</span><span class="n">column</span><span class="si">}</span><span class="s1">&quot;].unique().tolist()&#39;</span>
     <span class="n">print_code_line</span><span class="p">(</span><span class="n">display_code</span><span class="p">)</span>
@@ -3822,7 +3777,6 @@ col_type : str
 <h4 id="jcds.eda.datetime.create_dt_col--returns">Returns</h4>
 <p>DataFrame
     A copy of the DataFrame with one new datetime feature column added.</p>
-<p>Docstring generated with assistance from ChatGPT.</p>
 
 
             <details class="quote">
@@ -3846,8 +3800,7 @@ col_type : str
 <span class="normal">21</span>
 <span class="normal">22</span>
 <span class="normal">23</span>
-<span class="normal">24</span>
-<span class="normal">25</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">create_dt_col</span><span class="p">(</span><span class="n">dataframe</span><span class="p">,</span> <span class="n">datetime_col</span><span class="p">,</span> <span class="n">col_type</span><span class="o">=</span><span class="s2">&quot;month&quot;</span><span class="p">):</span>
+<span class="normal">24</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">create_dt_col</span><span class="p">(</span><span class="n">dataframe</span><span class="p">,</span> <span class="n">datetime_col</span><span class="p">,</span> <span class="n">col_type</span><span class="o">=</span><span class="s2">&quot;month&quot;</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Wrapper for create_dt_cols that creates a single datetime-derived column.</span>
 
@@ -3865,7 +3818,6 @@ col_type : str
 <span class="sd">    DataFrame</span>
 <span class="sd">        A copy of the DataFrame with one new datetime feature column added.</span>
 
-<span class="sd">    Docstring generated with assistance from ChatGPT.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">create_dt_cols</span><span class="p">(</span><span class="n">dataframe</span><span class="p">,</span> <span class="n">datetime_col</span><span class="p">,</span> <span class="p">[</span><span class="n">col_type</span><span class="p">])</span>
 </code></pre></div></td></tr></table></div>
@@ -3901,12 +3853,12 @@ col_types : str or list of str, default ["month"]
 <h4 id="jcds.eda.datetime.create_dt_cols--raises">Raises</h4>
 <p>ValueError
     If the datetime_col is missing or if any component in col_types is unsupported.</p>
-<p>Docstring generated with assistance from ChatGPT.</p>
 
 
             <details class="quote">
               <summary>Source code in <code>jcds/eda/datetime.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 28</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 27</span>
+<span class="normal"> 28</span>
 <span class="normal"> 29</span>
 <span class="normal"> 30</span>
 <span class="normal"> 31</span>
@@ -3980,9 +3932,7 @@ col_types : str or list of str, default ["month"]
 <span class="normal"> 99</span>
 <span class="normal">100</span>
 <span class="normal">101</span>
-<span class="normal">102</span>
-<span class="normal">103</span>
-<span class="normal">104</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">create_dt_cols</span><span class="p">(</span><span class="n">dataframe</span><span class="p">,</span> <span class="n">datetime_col</span><span class="p">,</span> <span class="n">col_types</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;month&quot;</span><span class="p">]):</span>
+<span class="normal">102</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">create_dt_cols</span><span class="p">(</span><span class="n">dataframe</span><span class="p">,</span> <span class="n">datetime_col</span><span class="p">,</span> <span class="n">col_types</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;month&quot;</span><span class="p">]):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Add one or more datetime-derived columns to a DataFrame from a single datetime column.</span>
 
@@ -4007,7 +3957,6 @@ col_types : str or list of str, default ["month"]
 <span class="sd">    ValueError</span>
 <span class="sd">        If the datetime_col is missing or if any component in col_types is unsupported.</span>
 
-<span class="sd">    Docstring generated with assistance from ChatGPT.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">supported_types</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s2">&quot;year&quot;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span><span class="p">,</span>
@@ -4126,12 +4075,15 @@ head : int, optional
 <h4 id="jcds.eda.reports.display_all_col_head--returns">Returns</h4>
 <p>None
     This function prints to the notebook interface and does not return a value.</p>
-<p>Docstring generated with assistance from ChatGPT.</p>
 
 
             <details class="quote">
               <summary>Source code in <code>jcds/eda/reports.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">391</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">387</span>
+<span class="normal">388</span>
+<span class="normal">389</span>
+<span class="normal">390</span>
+<span class="normal">391</span>
 <span class="normal">392</span>
 <span class="normal">393</span>
 <span class="normal">394</span>
@@ -4156,12 +4108,7 @@ head : int, optional
 <span class="normal">413</span>
 <span class="normal">414</span>
 <span class="normal">415</span>
-<span class="normal">416</span>
-<span class="normal">417</span>
-<span class="normal">418</span>
-<span class="normal">419</span>
-<span class="normal">420</span>
-<span class="normal">421</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">display_all_col_head</span><span class="p">(</span><span class="n">dataframe</span><span class="p">,</span> <span class="n">head</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+<span class="normal">416</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">display_all_col_head</span><span class="p">(</span><span class="n">dataframe</span><span class="p">,</span> <span class="n">head</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Display the first few rows of a DataFrame with all columns visible.</span>
 
@@ -4185,7 +4132,6 @@ head : int, optional
 <span class="sd">    None</span>
 <span class="sd">        This function prints to the notebook interface and does not return a value.</span>
 
-<span class="sd">    Docstring generated with assistance from ChatGPT.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">with</span> <span class="n">pd</span><span class="o">.</span><span class="n">option_context</span><span class="p">(</span><span class="s2">&quot;display.max_columns&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>
@@ -4226,12 +4172,12 @@ list_of_features : list of str
 <h4 id="jcds.eda.reports.dqr_cat--returns">Returns</h4>
 <p>None
     This function prints the data quality report to the console.</p>
-<p>Docstring generated with assistance from ChatGPT.</p>
 
 
             <details class="quote">
               <summary>Source code in <code>jcds/eda/reports.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 96</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 95</span>
+<span class="normal"> 96</span>
 <span class="normal"> 97</span>
 <span class="normal"> 98</span>
 <span class="normal"> 99</span>
@@ -4378,9 +4324,7 @@ list_of_features : list of str
 <span class="normal">240</span>
 <span class="normal">241</span>
 <span class="normal">242</span>
-<span class="normal">243</span>
-<span class="normal">244</span>
-<span class="normal">245</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">dqr_cat</span><span class="p">(</span><span class="n">dataframe</span><span class="p">):</span>
+<span class="normal">243</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">dqr_cat</span><span class="p">(</span><span class="n">dataframe</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Generate a data quality report for categorical features in a given DataFrame.</span>
 
@@ -4405,7 +4349,6 @@ list_of_features : list of str
 <span class="sd">    None</span>
 <span class="sd">        This function prints the data quality report to the console.</span>
 
-<span class="sd">    Docstring generated with assistance from ChatGPT.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># Initialize variables</span>
@@ -4562,7 +4505,6 @@ list_of_features : list of str
 <h4 id="jcds.eda.reports.dqr_cont--returns">Returns</h4>
 <p>None
     This function prints the data quality report to the console.</p>
-<p>Docstring generated with assistance from ChatGPT.</p>
 
 
             <details class="quote">
@@ -4652,8 +4594,7 @@ list_of_features : list of str
 <span class="normal">89</span>
 <span class="normal">90</span>
 <span class="normal">91</span>
-<span class="normal">92</span>
-<span class="normal">93</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">dqr_cont</span><span class="p">(</span><span class="n">dataframe</span><span class="p">):</span>
+<span class="normal">92</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">dqr_cont</span><span class="p">(</span><span class="n">dataframe</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Generate a data quality report for continuous features in a given DataFrame.</span>
 
@@ -4676,7 +4617,6 @@ list_of_features : list of str
 <span class="sd">    None</span>
 <span class="sd">        This function prints the data quality report to the console.</span>
 
-<span class="sd">    Docstring generated with assistance from ChatGPT.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># Initialize variables</span>
@@ -4779,12 +4719,14 @@ and a breakdown of categorical and continuous features with their unique value c
 <h4 id="jcds.eda.reports.long_report--returns">Returns</h4>
 <p>None
     This function prints the detailed summary report to the console.</p>
-<p>Docstring generated with assistance from ChatGPT.</p>
 
 
             <details class="quote">
               <summary>Source code in <code>jcds/eda/reports.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">311</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">308</span>
+<span class="normal">309</span>
+<span class="normal">310</span>
+<span class="normal">311</span>
 <span class="normal">312</span>
 <span class="normal">313</span>
 <span class="normal">314</span>
@@ -4857,11 +4799,7 @@ and a breakdown of categorical and continuous features with their unique value c
 <span class="normal">381</span>
 <span class="normal">382</span>
 <span class="normal">383</span>
-<span class="normal">384</span>
-<span class="normal">385</span>
-<span class="normal">386</span>
-<span class="normal">387</span>
-<span class="normal">388</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@deprecated</span><span class="p">(</span>
+<span class="normal">384</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@deprecated</span><span class="p">(</span>
     <span class="n">reason</span><span class="o">=</span><span class="s2">&quot;This will be replaced with a new function.&quot;</span><span class="p">,</span>
     <span class="n">version</span><span class="o">=</span><span class="s2">&quot;0.3.0&quot;</span><span class="p">,</span>
 <span class="p">)</span>
@@ -4895,7 +4833,6 @@ and a breakdown of categorical and continuous features with their unique value c
 <span class="sd">    None</span>
 <span class="sd">        This function prints the detailed summary report to the console.</span>
 
-<span class="sd">    Docstring generated with assistance from ChatGPT.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">ROUND</span> <span class="o">=</span> <span class="mi">2</span>
@@ -4974,12 +4911,13 @@ and a breakdown of categorical and continuous features with their unique value c
 <h4 id="jcds.eda.reports.quick_report--returns">Returns</h4>
 <p>None
     This function prints the summary report to the console.</p>
-<p>Docstring generated with assistance from ChatGPT.</p>
 
 
             <details class="quote">
               <summary>Source code in <code>jcds/eda/reports.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">248</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">246</span>
+<span class="normal">247</span>
+<span class="normal">248</span>
 <span class="normal">249</span>
 <span class="normal">250</span>
 <span class="normal">251</span>
@@ -5036,10 +4974,7 @@ and a breakdown of categorical and continuous features with their unique value c
 <span class="normal">302</span>
 <span class="normal">303</span>
 <span class="normal">304</span>
-<span class="normal">305</span>
-<span class="normal">306</span>
-<span class="normal">307</span>
-<span class="normal">308</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@deprecated</span><span class="p">(</span>
+<span class="normal">305</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@deprecated</span><span class="p">(</span>
     <span class="n">reason</span><span class="o">=</span><span class="s2">&quot;This will be replaced with a new function.&quot;</span><span class="p">,</span>
     <span class="n">version</span><span class="o">=</span><span class="s2">&quot;0.3.0&quot;</span><span class="p">,</span>
 <span class="p">)</span>
@@ -5069,7 +5004,6 @@ and a breakdown of categorical and continuous features with their unique value c
 <span class="sd">    None</span>
 <span class="sd">        This function prints the summary report to the console.</span>
 
-<span class="sd">    Docstring generated with assistance from ChatGPT.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">ROUND</span> <span class="o">=</span> <span class="mi">2</span>
@@ -5168,12 +5102,14 @@ preview_bytes : int
 <p>UnicodeDecodeError
     If no encoding successfully loads the file.</p>
 <h4 id="jcds.dataio.load_csv--notes">Notes</h4>
-<p>Docstring generated with assistance from ChatGPT.</p>
 
 
             <details class="quote">
               <summary>Source code in <code>jcds/dataio/io_utils.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 83</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 80</span>
+<span class="normal"> 81</span>
+<span class="normal"> 82</span>
+<span class="normal"> 83</span>
 <span class="normal"> 84</span>
 <span class="normal"> 85</span>
 <span class="normal"> 86</span>
@@ -5230,11 +5166,7 @@ preview_bytes : int
 <span class="normal">137</span>
 <span class="normal">138</span>
 <span class="normal">139</span>
-<span class="normal">140</span>
-<span class="normal">141</span>
-<span class="normal">142</span>
-<span class="normal">143</span>
-<span class="normal">144</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">load_csv</span><span class="p">(</span>
+<span class="normal">140</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">load_csv</span><span class="p">(</span>
     <span class="n">filepath</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">],</span>
     <span class="n">encodings</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">preview_bytes</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">300</span><span class="p">,</span>
@@ -5265,7 +5197,6 @@ preview_bytes : int
 
 <span class="sd">    Notes</span>
 <span class="sd">    -----</span>
-<span class="sd">    Docstring generated with assistance from ChatGPT.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">filepath</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
     <span class="n">encodings</span> <span class="o">=</span> <span class="n">encodings</span> <span class="ow">or</span> <span class="p">[</span><span class="s2">&quot;utf-8&quot;</span><span class="p">,</span> <span class="s2">&quot;utf-8-sig&quot;</span><span class="p">,</span> <span class="s2">&quot;latin1&quot;</span><span class="p">,</span> <span class="s2">&quot;ISO-8859-1&quot;</span><span class="p">,</span> <span class="s2">&quot;cp1252&quot;</span><span class="p">]</span>
@@ -5324,12 +5255,12 @@ preview_bytes : int
     The loaded DataFrame.</p>
 <h4 id="jcds.dataio.load_parquet--notes">Notes</h4>
 <p>Requires either <code>pyarrow</code> or <code>fastparquet</code> to be installed.</p>
-<p>Docstring generated with assistance from ChatGPT.</p>
 
 
             <details class="quote">
               <summary>Source code in <code>jcds/dataio/io_utils.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">29</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">28</span>
+<span class="normal">29</span>
 <span class="normal">30</span>
 <span class="normal">31</span>
 <span class="normal">32</span>
@@ -5349,9 +5280,7 @@ preview_bytes : int
 <span class="normal">46</span>
 <span class="normal">47</span>
 <span class="normal">48</span>
-<span class="normal">49</span>
-<span class="normal">50</span>
-<span class="normal">51</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">load_parquet</span><span class="p">(</span><span class="n">filepath</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="normal">49</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">load_parquet</span><span class="p">(</span><span class="n">filepath</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Load a Parquet file into a pandas DataFrame.</span>
 
 <span class="sd">    Parameters</span>
@@ -5370,7 +5299,6 @@ preview_bytes : int
 <span class="sd">    -----</span>
 <span class="sd">    Requires either `pyarrow` or `fastparquet` to be installed.</span>
 
-<span class="sd">    Docstring generated with assistance from ChatGPT.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">filepath</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
@@ -5409,7 +5337,6 @@ file_type : str, optional
 <li>Requires the <code>requests</code>, <code>pandas</code>, and <code>io</code> modules.</li>
 <li>Prints an error message and returns None if the request fails or the file type is unsupported.</li>
 </ul>
-<p>Docstring generated with assistance from ChatGPT.</p>
 
 
             <details class="quote">
@@ -5458,8 +5385,7 @@ file_type : str, optional
 <span class="normal">47</span>
 <span class="normal">48</span>
 <span class="normal">49</span>
-<span class="normal">50</span>
-<span class="normal">51</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">read_s3</span><span class="p">(</span><span class="n">bucket_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">file_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">file_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;csv&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="normal">50</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">read_s3</span><span class="p">(</span><span class="n">bucket_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">file_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">file_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;csv&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Download a public file from an S3 bucket and load it into a pandas DataFrame.</span>
 
 <span class="sd">    Parameters</span>
@@ -5483,7 +5409,6 @@ file_type : str, optional
 <span class="sd">    - Requires the `requests`, `pandas`, and `io` modules.</span>
 <span class="sd">    - Prints an error message and returns None if the request fails or the file type is unsupported.</span>
 
-<span class="sd">    Docstring generated with assistance from ChatGPT.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;https://</span><span class="si">{</span><span class="n">bucket_name</span><span class="si">}</span><span class="s2">.s3.amazonaws.com/</span><span class="si">{</span><span class="n">file_name</span><span class="si">}</span><span class="s2">&quot;</span>
 
@@ -5533,12 +5458,13 @@ filepath : str or Path
 <h4 id="jcds.dataio.save_csv--notes">Notes</h4>
 <p>Automatically creates the parent directory if it doesn't exist.
 Uses <code>index=False</code> by default unless overridden.</p>
-<p>Docstring generated with assistance from ChatGPT.</p>
 
 
             <details class="quote">
               <summary>Source code in <code>jcds/dataio/io_utils.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">54</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
 <span class="normal">55</span>
 <span class="normal">56</span>
 <span class="normal">57</span>
@@ -5561,10 +5487,7 @@ Uses <code>index=False</code> by default unless overridden.</p>
 <span class="normal">74</span>
 <span class="normal">75</span>
 <span class="normal">76</span>
-<span class="normal">77</span>
-<span class="normal">78</span>
-<span class="normal">79</span>
-<span class="normal">80</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">save_csv</span><span class="p">(</span><span class="n">dataframe</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">filepath</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">77</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">save_csv</span><span class="p">(</span><span class="n">dataframe</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">filepath</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Save a DataFrame to a CSV file.</span>
 
 <span class="sd">    Parameters</span>
@@ -5581,7 +5504,6 @@ Uses <code>index=False</code> by default unless overridden.</p>
 <span class="sd">    Automatically creates the parent directory if it doesn&#39;t exist.</span>
 <span class="sd">    Uses `index=False` by default unless overridden.</span>
 
-<span class="sd">    Docstring generated with assistance from ChatGPT.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">filepath</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
     <span class="n">filepath</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -5618,7 +5540,6 @@ filepath : str or Path
     Additional keyword arguments passed to <code>DataFrame.to_parquet</code>.</p>
 <h4 id="jcds.dataio.save_parquet--notes">Notes</h4>
 <p>Automatically creates the parent directory if it doesn't exist.</p>
-<p>Docstring generated with assistance from ChatGPT.</p>
 
 
             <details class="quote">
@@ -5642,8 +5563,7 @@ filepath : str or Path
 <span class="normal">22</span>
 <span class="normal">23</span>
 <span class="normal">24</span>
-<span class="normal">25</span>
-<span class="normal">26</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">save_parquet</span><span class="p">(</span><span class="n">dataframe</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">filepath</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="normal">25</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">save_parquet</span><span class="p">(</span><span class="n">dataframe</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">filepath</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Save a DataFrame to a Parquet file.</span>
 
 <span class="sd">    Parameters</span>
@@ -5659,7 +5579,6 @@ filepath : str or Path
 <span class="sd">    -----</span>
 <span class="sd">    Automatically creates the parent directory if it doesn&#39;t exist.</span>
 
-<span class="sd">    Docstring generated with assistance from ChatGPT.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">filepath</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
     <span class="n">filepath</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -5728,7 +5647,6 @@ filepath : str or Path
 <li>Requires the <code>boto3</code> and <code>botocore</code> libraries.</li>
 <li>If the bucket is not public or an error occurs, an error message is printed.</li>
 </ul>
-<p>Docstring generated with assistance from ChatGPT.</p>
 
 
             <details class="quote">
@@ -5771,8 +5689,7 @@ filepath : str or Path
 <span class="normal">36</span>
 <span class="normal">37</span>
 <span class="normal">38</span>
-<span class="normal">39</span>
-<span class="normal">40</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">list_s3_bucket</span><span class="p">(</span><span class="n">bucket_name</span><span class="p">):</span>
+<span class="normal">39</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">list_s3_bucket</span><span class="p">(</span><span class="n">bucket_name</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    List the contents (object keys) of a public Amazon S3 bucket using anonymous access.</span>
 
@@ -5792,7 +5709,6 @@ filepath : str or Path
 <span class="sd">    - Requires the `boto3` and `botocore` libraries.</span>
 <span class="sd">    - If the bucket is not public or an error occurs, an error message is printed.</span>
 
-<span class="sd">    Docstring generated with assistance from ChatGPT.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">try</span><span class="p">:</span>
