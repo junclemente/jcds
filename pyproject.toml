@@ -21,6 +21,7 @@ classifiers = [
 
 dependencies = [
   "pandas",
+  "pyarrow", 
   "numpy",
   "matplotlib",
   "seaborn",

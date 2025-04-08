@@ -1,7 +1,10 @@
-from io import *
+import inspect
+
+from .io_utils import load_parquet, save_parquet
+
 
 # Declare what this module exports
-__all__ = []
+__all__ = ["load_parquet", "save_parquet"]
 
 
 # Dynamically generated help function
