@@ -1,10 +1,10 @@
 import inspect
 
-from .io_utils import load_parquet, save_parquet
+from .io_utils import load_parquet, save_parquet, load_csv, save_csv
 
 
 # Declare what this module exports
-__all__ = ["load_parquet", "save_parquet"]
+__all__ = ["load_parquet", "save_parquet", "load_csv", "save_csv"]
 
 
 # Dynamically generated help function
