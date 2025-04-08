@@ -1,6 +1,8 @@
 import pandas as pd
 import numpy as np
 
+from jcds.utils import deprecated
+
 
 def dqr_cont(dataframe):
     """
@@ -243,6 +245,10 @@ def dqr_cat(dataframe):
     return
 
 
+@deprecated(
+    reason="This will be replaced with a new function.",
+    version="0.3.0",
+)
 def quick_report(dataframe):
     """
     Generate a quick summary report of a pandas DataFrame, including shape, missing value statistics, and memory usage.
@@ -302,6 +308,10 @@ def quick_report(dataframe):
     print("============================================")
 
 
+@deprecated(
+    reason="This will be replaced with a new function.",
+    version="0.3.0",
+)
 def long_report(dataframe):
     """
     Generate a detailed summary report of a pandas DataFrame, including shape, missing value statistics,

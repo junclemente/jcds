@@ -9,6 +9,13 @@ This project follows [Semantic Versioning](https://semver.org/) and loosely foll
 
 ### Added
 
+- Example usage notebook: `examples/eda_workflow.ipynb` for demonstrating full EDA flow.
+
+### Changed 
+
+- Added `DeprecationWarning` to legacy functions scheduled for removal in `v0.3.0`.
+- Updated `.gitignore` to exclude test datasets and notebooks.
+
 ### Removed
 
 - Deleted obsolete personal test datasets from `tests/datasets/`.
