@@ -20,6 +20,7 @@ def create_dt_col(dataframe, datetime_col, col_type="month"):
     DataFrame
         A copy of the DataFrame with one new datetime feature column added.
 
+    Docstring generated with assistance from ChatGPT.
     """
     return create_dt_cols(dataframe, datetime_col, [col_type])
 
@@ -49,6 +50,7 @@ def create_dt_cols(dataframe, datetime_col, col_types=["month"]):
     ValueError
         If the datetime_col is missing or if any component in col_types is unsupported.
 
+    Docstring generated with assistance from ChatGPT.
     """
     supported_types = {
         "year": lambda x: x.dt.year,
@@ -79,17 +81,6 @@ def create_dt_cols(dataframe, datetime_col, col_types=["month"]):
     dataframe = dataframe.copy()
 
     if not pd.api.types.is_datetime64_any_dtype(dataframe[datetime_col]):
-        # Check for consistent format
-        sample = dataframe[datetime_col].dropna().astype(str)
-        has_dash = sample.str.contains("-").any()
-        has_slash = sample.str.contains("/").any()
-
-        if has_dash and has_slash:
-            raise ValueError(
-                f"Inconsistent datetime format detected in column '{datetime_col}'. "
-                "Mix of '-' and '/' found. Please standardize format before applying datetime expansion."
-            )
-
         try:
             dataframe[datetime_col] = pd.to_datetime(dataframe[datetime_col])
         except Exception as e:
