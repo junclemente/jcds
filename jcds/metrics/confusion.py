@@ -34,7 +34,6 @@ def mc_confusion(cm, rnd=5):
     ...                [5, 10, 40]])
     >>> cm_performance(cm)
 
-    Docstring generated with assistance from ChatGPT.
     """
 
     # Initialize lists to hold metrics for each class

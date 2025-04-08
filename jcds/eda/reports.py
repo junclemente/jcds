@@ -1,6 +1,8 @@
 import pandas as pd
 import numpy as np
 
+from jcds.utils import deprecated
+
 
 def dqr_cont(dataframe):
     """
@@ -25,7 +27,6 @@ def dqr_cont(dataframe):
     None
         This function prints the data quality report to the console.
 
-    Docstring generated with assistance from ChatGPT.
     """
 
     # Initialize variables
@@ -116,7 +117,6 @@ def dqr_cat(dataframe):
     None
         This function prints the data quality report to the console.
 
-    Docstring generated with assistance from ChatGPT.
     """
 
     # Initialize variables
@@ -243,6 +243,10 @@ def dqr_cat(dataframe):
     return
 
 
+@deprecated(
+    reason="This will be replaced with a new function.",
+    version="0.3.0",
+)
 def quick_report(dataframe):
     """
     Generate a quick summary report of a pandas DataFrame, including shape, missing value statistics, and memory usage.
@@ -269,7 +273,6 @@ def quick_report(dataframe):
     None
         This function prints the summary report to the console.
 
-    Docstring generated with assistance from ChatGPT.
     """
 
     ROUND = 2
@@ -302,6 +305,10 @@ def quick_report(dataframe):
     print("============================================")
 
 
+@deprecated(
+    reason="This will be replaced with a new function.",
+    version="0.3.0",
+)
 def long_report(dataframe):
     """
     Generate a detailed summary report of a pandas DataFrame, including shape, missing value statistics,
@@ -332,7 +339,6 @@ def long_report(dataframe):
     None
         This function prints the detailed summary report to the console.
 
-    Docstring generated with assistance from ChatGPT.
     """
 
     ROUND = 2
@@ -402,7 +408,6 @@ def display_all_col_head(dataframe, head=5):
     None
         This function prints to the notebook interface and does not return a value.
 
-    Docstring generated with assistance from ChatGPT.
     """
 
     with pd.option_context("display.max_columns", None):

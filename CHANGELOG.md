@@ -7,7 +7,32 @@ This project follows [Semantic Versioning](https://semver.org/) and loosely foll
 
 ## [Unreleased]
 
-### Added 
+### Added
+
+- Example usage notebook: `examples/eda_workflow.ipynb` for demonstrating full EDA flow.
+- **New centralized help system**:
+  - Added `help()` to `jcds/__init__.py` as a unified entry point for documentation on all public functions.
+  - Created a `make_module_help()` utility in `jcds/utils.py` to generate module-specific `help()` functions using `globals()`.
+  - Each submodule (e.g., `eda`, `aws`, `dataio`) now exposes a `help()` function for contextual function lookup:
+    ```python
+    jcds.eda.help("quick_report")
+    jcds.aws.help()
+    ```
+  - Eliminates redundant `help()` definitions across modules while preserving user-friendly discovery.
+
+### Changed 
+
+- Added `DeprecationWarning` to legacy functions scheduled for removal in `v0.3.0`.
+- Updated `.gitignore` to exclude test datasets and notebooks.
+- Refactored submodule `__init__.py` files to use `make_module_help()` instead of defining their own `help()` wrappers.
+- Updated `jcds/__init__.py` to explicitly import and expose submodules (`eda`, `aws`, `dataio`) via `__all__`, enabling access like `jcds.eda.help()` directly from the root import.
+- Ensured all module `help()` functions are test-safe by using delayed imports to prevent circular dependencies.
+
+### Removed
+
+- Deleted obsolete personal test datasets from `tests/datasets/`.
+- Deleted exploratory notebooks from `tests/notebooks/`.
+- Removed unused `tests/integration/` folder.
 
 ---
 
@@ -84,6 +109,7 @@ This project follows [Semantic Versioning](https://semver.org/) and loosely foll
   - Provides a helpful raw byte preview if all decoding attempts fail
   - Raises informative `ValueError` for failed loads to assist with debugging corrupted or misencoded files
 - Unit tests for both `save_csv()` and `load_csv()` using `sample_df` and `tmp_path`
+
   - Includes fallback test simulating corrupted file behavior
 
 - `read_s3()` to `dataio.s3_io`: loads public S3-hosted CSV or Excel files into a DataFrame with built-in error handling

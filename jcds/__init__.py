@@ -1,51 +1,50 @@
-import pkgutil
-import importlib
-import inspect
-import jcds
+from . import eda
+from . import aws
+from . import dataio
+
+__all__ = ["eda", "aws", "dataio", "help"]
 
 
-def help(func_name=None):
+def help(func_name=None, namespace=None):
     """
-    Global help function for the jcds package.
+    Unified help system for the jcds package.
 
-    Use this function to explore the functionality provided by the jcds library.
-
-    Notes
-    -----
-    - Call `help()` to list all public functions from all submodules.
-    - Call `help('function_name')` to view documentation for a specific function.
-
-    Docstring generated with assistance from ChatGPT.
+    Parameters
+    ----------
+    func_name : str or None
+        If provided, shows the docstring for the named function.
+        If None, lists all available public functions.
+    namespace : dict or None
+        Internal override used to pass a custom namespace.
+        If None, collects all callable functions from jcds submodules.
     """
+    import inspect as pyinspect
+    from jcds import eda, aws, dataio
 
-    functions = {}
+    if namespace is None:
+        namespace = {}
 
-    # Dynamically import and inspect all top-level jcds submodules
-    for _, mod_name, _ in pkgutil.iter_modules(jcds.__path__):
-        full_name = f"jcds.{mod_name}"
-        try:
-            module = importlib.import_module(full_name)
+        # Dynamically collect public callables from submodules
+        for mod in [eda, aws, dataio]:
+            for name in dir(mod):
+                # Skip all dunder names like __file__, __name__, etc.
+                if name.startswith("__") and name.endswith("__"):
+                    continue
+                obj = getattr(mod, name)
+                if callable(obj):
+                    namespace[name] = obj
 
-            if hasattr(module, "__all__"):
-                for name in module.__all__:
-                    obj = getattr(module, name, None)
-                    if callable(obj) and name != "help":
-                        functions[name] = obj
-        except Exception as e:
-            print(f"[Warning] Could not load module {full_name}: {e}")
+    functions = {name: obj for name, obj in namespace.items() if name != "help"}
 
     if func_name is None:
-        if not functions:
-            print("No functions found in jcds.")
-        else:
-            print("Available functions in jcds:")
-            for name in sorted(functions):
-                print(f"  - {name}")
-            print('\nUse jcds.help("function_name") to see its documentation.')
+        print("Available functions in jcds:\n")
+        for name in sorted(functions):
+            print(f"  - {name}")
+        print('\nUse jcds.help("function_name") to see its documentation.')
     else:
         func = functions.get(func_name)
         if func:
             print(f"\nHelp for '{func_name}':\n")
-            print(inspect.getdoc(func) or "(No docstring provided)")
+            print(pyinspect.getdoc(func) or "(No docstring provided)")
         else:
             print(f"Function '{func_name}' not found.")

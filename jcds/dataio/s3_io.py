@@ -27,7 +27,6 @@ def read_s3(bucket_name: str, file_name: str, file_type: str = "csv") -> pd.Data
     - Requires the `requests`, `pandas`, and `io` modules.
     - Prints an error message and returns None if the request fails or the file type is unsupported.
 
-    Docstring generated with assistance from ChatGPT.
     """
     url = f"https://{bucket_name}.s3.amazonaws.com/{file_name}"
 

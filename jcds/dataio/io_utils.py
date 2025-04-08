@@ -19,7 +19,6 @@ def save_parquet(dataframe: pd.DataFrame, filepath: Union[str, Path], **kwargs) 
     -----
     Automatically creates the parent directory if it doesn't exist.
 
-    Docstring generated with assistance from ChatGPT.
     """
     filepath = Path(filepath)
     filepath.parent.mkdir(parents=True, exist_ok=True)
@@ -45,7 +44,6 @@ def load_parquet(filepath: Union[str, Path], **kwargs) -> pd.DataFrame:
     -----
     Requires either `pyarrow` or `fastparquet` to be installed.
 
-    Docstring generated with assistance from ChatGPT.
     """
     filepath = Path(filepath)
     return pd.read_parquet(filepath, **kwargs)
@@ -68,7 +66,6 @@ def save_csv(dataframe: pd.DataFrame, filepath: Union[str, Path], **kwargs) -> N
     Automatically creates the parent directory if it doesn't exist.
     Uses `index=False` by default unless overridden.
 
-    Docstring generated with assistance from ChatGPT.
     """
     filepath = Path(filepath)
     filepath.parent.mkdir(parents=True, exist_ok=True)
@@ -111,7 +108,6 @@ def load_csv(
 
     Notes
     -----
-    Docstring generated with assistance from ChatGPT.
     """
     filepath = Path(filepath)
     encodings = encodings or ["utf-8", "utf-8-sig", "latin1", "ISO-8859-1", "cp1252"]
