@@ -64,7 +64,13 @@ This project follows [Semantic Versioning](https://semver.org/) and loosely foll
   - Includes fixtures: `sample_df`, `na_test_df`, `unique_test_df`, `binary_list_df`, `datetime_df`, `dummy_csv_bytes`, `dummy_excel_bytes`, `mock_requests_get`
 
 - **New test module: `tests/unit/test_datetime.py`**
+
   - Organized tests specifically for datetime feature extraction utilities
+
+- New `dataio` module with `save_parquet()` and `load_parquet()` functions for reliable Parquet I/O
+- Type-safe and documented with NumPy-style docstrings
+- Full test coverage using reusable `sample_df` fixture from `conftest.py`
+- Unit test file `test_io_utils.py` to validate read/write functionality and nested directory creation
 
 ### Changed
 
@@ -74,6 +80,9 @@ This project follows [Semantic Versioning](https://semver.org/) and loosely foll
 - `test_utils.py` simplified — now only contains helper functions if needed (no more `@pytest.fixture`)
 - Updated test files (`test_inspect.py`, `test_transform.py`, etc.) to rely on auto-discovered fixtures via `conftest.py`
 - `eda/__init__.py` updated to expose new `datetime` functions
+
+- Renamed `io.py` to `io_utils.py` and moved to `dataio/` to avoid namespace conflict with Python's built-in `io` module
+- Updated all related imports to reflect new structure
 
 ### Fixed
 
