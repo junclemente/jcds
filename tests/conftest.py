@@ -32,7 +32,18 @@ def mock_requests_get(monkeypatch):
         mock_response = MagicMock()
         mock_response.content = content_bytes
         mock_response.status_code = status_code
-        mock_response.raise_for_status = lambda: None
+
+        if status_code >= 400:
+
+            def raise_for_status():
+                raise requests.HTTPError(f"Mocked HTTP {status_code} error")
+
+        else:
+
+            def raise_for_status():
+                return None
+
+        mock_response.raise_for_status = raise_for_status
         monkeypatch.setattr("requests.get", lambda url: mock_response)
         return mock_response
 
