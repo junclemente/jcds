@@ -51,3 +51,9 @@ def test_non_datetime_input_conversion():
     result = create_dt_col(df, "timestamp", "year")
     assert "timestamp_year" in result.columns
     assert result["timestamp_year"].tolist() == [2023, 2023]
+
+
+def test_mixed_date_format_raises_error():
+    df = pd.DataFrame({"timestamp": ["2023/01/01", "2023-02-15"]})
+    with pytest.raises(ValueError, match="Inconsistent datetime format"):
+        create_dt_col(df, "timestamp", "month")
