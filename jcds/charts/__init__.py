@@ -1,8 +1,9 @@
-from jcds.utils import make_module_help
+import sys
+import jcds.utils
 
 # Import your functions from internal files
 from .roc import plot_roc
 
-help = make_module_help
+help = jcds.utils._make_module_help(sys.modules[__name__])
 
 __all__ = ["plot_roc", "help"]

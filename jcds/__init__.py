@@ -1,5 +1,3 @@
-import inspect as pyinspect
-
 from . import eda
 from . import aws
 from . import dataio
@@ -9,26 +7,37 @@ __all__ = ["eda", "aws", "dataio", "help"]
 
 def help(func_name=None, namespace=None):
     """
-    Central help dispatcher.
+    Unified help system for the jcds package.
 
     Parameters
     ----------
     func_name : str or None
-        The function name to get help for. If None, lists available functions.
+        If provided, shows the docstring for the named function.
+        If None, lists all available public functions.
     namespace : dict or None
-        The module namespace (e.g., globals()) to inspect. If None, uses jcds globals.
+        Internal override used to pass a custom namespace.
+        If None, collects all callable functions from jcds submodules.
     """
-    if namespace is None:
-        namespace = globals()
+    import inspect as pyinspect
+    from jcds import eda, aws, dataio
 
-    functions = {
-        name: namespace[name]
-        for name in namespace
-        if name != "help" and callable(namespace.get(name))
-    }
+    if namespace is None:
+        namespace = {}
+
+        # Dynamically collect public callables from submodules
+        for mod in [eda, aws, dataio]:
+            for name in dir(mod):
+                # Skip all dunder names like __file__, __name__, etc.
+                if name.startswith("__") and name.endswith("__"):
+                    continue
+                obj = getattr(mod, name)
+                if callable(obj):
+                    namespace[name] = obj
+
+    functions = {name: obj for name, obj in namespace.items() if name != "help"}
 
     if func_name is None:
-        print("Available functions in jcds:")
+        print("Available functions in jcds:\n")
         for name in sorted(functions):
             print(f"  - {name}")
         print('\nUse jcds.help("function_name") to see its documentation.')
