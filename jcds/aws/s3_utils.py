@@ -18,7 +18,6 @@ def list_s3_bucket(bucket_name):
     - Requires the `boto3` and `botocore` libraries.
     - If the bucket is not public or an error occurs, an error message is printed.
 
-    Docstring generated with assistance from ChatGPT.
     """
 
     try:
