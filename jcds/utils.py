@@ -82,24 +82,31 @@ def deprecated(reason: str = "", version: str = "future"):
     return decorator
 
 
-def make_module_help(namespace):
+def _make_module_help(module):
     """
-    Returns a help() function bound to the given module's namespace.
+    Returns a help() function bound to the given module.
 
     Parameters
     ----------
-    namespace : dict
-        Typically the result of `globals()` from the module calling this.
+    module : module
+        The actual module (e.g., pass in `sys.modules[__name__]` from the caller).
 
     Returns
     -------
     Callable
-        A custom help() function for the module.
+        A custom help() function that introspects only the module’s public API.
     """
 
     def _help(func_name=None):
         from jcds import help as base_help
 
-        return base_help(func_name, namespace=namespace)
+        # Filter out dunder names and non-callables
+        filtered_namespace = {
+            k: v
+            for k, v in vars(module).items()
+            if callable(v) and not (k.startswith("__") and k.endswith("__"))
+        }
+
+        return base_help(func_name, namespace=filtered_namespace)
 
     return _help

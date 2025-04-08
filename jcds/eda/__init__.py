@@ -1,4 +1,5 @@
-from jcds.utils import make_module_help
+import sys
+import jcds.utils
 
 # Import your functions from internal files
 from .datetime import create_dt_col, create_dt_cols
@@ -25,7 +26,7 @@ from .reports import dqr_cat, dqr_cont, quick_report, long_report, display_all_c
 from .transform import rename_col
 
 
-help = make_module_help(globals())
+help = jcds.utils._make_module_help(sys.modules[__name__])
 
 
 # Declare what this module exports
