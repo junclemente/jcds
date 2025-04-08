@@ -20,6 +20,10 @@
 
 ::: jcds.dataio
 
+## AWS
+
+::: jcds.aws
+
 ## jcds Package Overview
 
 ::: jcds

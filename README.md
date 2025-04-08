@@ -12,7 +12,7 @@ This project originated during my time as a graduate student in the **MSADS (Mas
 I often ran into repetitive tasks — inspecting nulls, handling encodings, wrangling column names, or working with messy CSVs and S3-hosted files — across multiple class and capstone projects.  
 To address these real-world pain points, I began building **jcds** as a personal toolkit grounded in **DRY (Don't Repeat Yourself)** principles — and have been pair programming alongside **Generative AI** to refine and expand it throughout my learning journey.
 
-
+git
 > **Compatible with Python 3.7 and above. Developed and tested on Python 3.10.**
 
 ---
