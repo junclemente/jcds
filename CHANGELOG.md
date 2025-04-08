@@ -9,7 +9,7 @@ This project follows [Semantic Versioning](https://semver.org/) and loosely foll
 
 ### Added
 
-- **`eda_helpers.py`** module with the following new functions:
+- **`inspect.py`** module with the following new functions:
 
   - `show_shape` – returns the shape of a DataFrame
   - `show_dupes` – counts duplicated rows
@@ -36,23 +36,55 @@ This project follows [Semantic Versioning](https://semver.org/) and loosely foll
 - **Shared test fixtures** in `tests/conftest.py` for mocking CSV/Excel downloads.
 
 - Added automatic documentation via `mkdocs`
+
   - Add `docs\` folder
   - `mkdocs.yml`
   - `index.md` and `api.md`
+
+- **`eda/datetime.py`** module with datetime feature engineering functions:
+
+  - `create_dt_col()` – creates a single derived datetime column (e.g., `timestamp_year`)
+  - `create_dt_cols()` – supports creation of multiple datetime-derived columns in one call
+    - Supports: `"year"`, `"month"`, `"day"`, `"weekday"`, `"weekday_name"`, `"weekofyear"`, `"quarter"`, `"dayofyear"`, `"is_weekend"`, `"is_month_start"`, `"is_month_end"`
+    - Includes validation for unsupported types and missing columns
+    - Raises error if inconsistent datetime formats (e.g., mixed `"/"` and `"-"`) are detected
+
+- **Unit tests for `eda/datetime.py`**:
+
+  - Test coverage for both single and multi-column expansion
+  - Error handling for:
+    - Invalid column names
+    - Unsupported `col_type`s
+    - Mixed datetime formats
+    - Auto-conversion of string-formatted dates
+
+- **Refactored and consolidated test fixtures into `tests/conftest.py`**:
+
+  - Moved all fixtures from `test_utils.py` into `conftest.py` for automatic discovery across all test files
+  - Includes fixtures: `sample_df`, `na_test_df`, `unique_test_df`, `binary_list_df`, `datetime_df`, `dummy_csv_bytes`, `dummy_excel_bytes`, `mock_requests_get`
+
+- **New test module: `tests/unit/test_datetime.py`**
+  - Organized tests specifically for datetime feature extraction utilities
 
 ### Changed
 
 - `eda/__init__.py` updated to expose all `eda_helpers` functions.
 - `list_unique_values()` updated to handle both single column names and lists.
 
+- `test_utils.py` simplified — now only contains helper functions if needed (no more `@pytest.fixture`)
+- Updated test files (`test_inspect.py`, `test_transform.py`, etc.) to rely on auto-discovered fixtures via `conftest.py`
+- `eda/__init__.py` updated to expose new `datetime` functions
+
 ### Fixed
 
 - Corrected module import paths for internal packages (`from jcds.aws.s3 import ...`).
 - Configured `pytest.ini` to include the project root in `PYTHONPATH`.
 
+- Added input validation to `create_dt_cols()` to prevent datetime parsing issues with inconsistent formats
+
 ### Notes
 
-- Test discovery is working via `pytest`, and all 18 tests are passing.
+- Test discovery is working via `pytest`, and all tests are passing.
 - Added `moto` and `requests` to `environment.yml` to support AWS and HTTP mocking.
 
 ---
