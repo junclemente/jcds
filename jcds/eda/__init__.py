@@ -1,4 +1,4 @@
-import inspect
+import inspect as pyinspect
 
 # Import your functions from internal files
 from .datetime import create_dt_col, create_dt_cols
@@ -77,6 +77,6 @@ def help(func_name=None):
         func = functions.get(func_name)
         if func:
             print(f"\nHelp for '{func_name}':\n")
-            print(inspect.getdoc(func) or "(No docstring provided)")
+            print(pyinspect.getdoc(func) or "(No docstring provided)")  # 👈 change here
         else:
             print(f"Function '{func_name}' not found.")
