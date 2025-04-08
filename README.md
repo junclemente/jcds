@@ -5,8 +5,13 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Docs](https://img.shields.io/badge/docs-online-blue)](https://junclemente.github.io/jcds)
 
-**jcds** is a personal collection of reusable functions for data science and analysis tasks.  
-It’s designed to make your workflow faster and more consistent when working with data in Jupyter notebooks.
+**jcds** is a modular Python library designed to support reproducible workflows in data science and exploratory data analysis (EDA).  
+It provides a curated collection of functions for inspecting, transforming, and accessing tabular data from local and cloud sources, with particular emphasis on usability within Jupyter notebooks.
+
+This project originated during my time as a graduate student in the **MSADS (Master of Science in Applied Data Science)** program at the [University of San Diego](https://www.sandiego.edu/engineering/graduate/ms-applied-data-science.php).  
+I often ran into repetitive tasks — inspecting nulls, handling encodings, wrangling column names, or working with messy CSVs and S3-hosted files — across multiple class and capstone projects.  
+To address these real-world pain points, I began building **jcds** as a personal toolkit grounded in **DRY (Don't Repeat Yourself)** principles — and have been pair programming alongside **Generative AI** to refine and expand it throughout my learning journey.
+
 
 > **Compatible with Python 3.7 and above. Developed and tested on Python 3.10.**
 
