@@ -1,0 +1,12 @@
+pandas
+pyarrow
+numpy
+matplotlib
+seaborn
+ipython
+scikit-learn
+requests
+
+[aws]
+boto3
+botocore
