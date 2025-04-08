@@ -17,7 +17,6 @@ def print_code_line(code):
     None
         This function prints to the console and does not return a value.
 
-    Docstring generated with assistance from ChatGPT.
     """
 
     magenta = "\033[1;35m"

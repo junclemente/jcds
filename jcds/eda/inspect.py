@@ -62,7 +62,6 @@ def show_shape(dataframe):
     tuple of int
         A tuple containing the number of rows and columns in the DataFrame.
 
-    Docstring generated with assistance from ChatGPT.
     """
     return dataframe.shape
 
@@ -81,7 +80,6 @@ def show_dupes(dataframe):
     int
         The count of duplicated rows in the DataFrame.
 
-    Docstring generated with assistance from ChatGPT.
     """
     dupes = dataframe.duplicated()
     return dupes.sum()
@@ -101,7 +99,6 @@ def show_catvar(dataframe):
     list of str
         A list of column names that have categorical or object data types.
 
-    Docstring generated with assistance from ChatGPT.
     """
     cat_features = dataframe.select_dtypes(
         include=["category", "object"]
@@ -123,7 +120,6 @@ def show_convar(dataframe):
     list of str
         A list of column names that are not of categorical or object data types.
 
-    Docstring generated with assistance from ChatGPT.
     """
 
     cont_features = dataframe.select_dtypes(
@@ -148,7 +144,6 @@ def show_lowcardvars(dataframe, max_unique=10):
     list of tuple
         A list of tuples where each tuple contains the column name and the number of unique values.
 
-    Docstring generated with assistance from ChatGPT.
     """
 
     print(f"Showing cat var of cardinality <= {max_unique}")
@@ -179,7 +174,6 @@ def show_binary_list(dataframe, dropna=True):
             - "binary_columns": list of column names that contain exactly two unique non-null values.
             - "binary_with_nan": list of column names that have two unique non-null values and also include NaNs.
 
-    Docstring generated with assistance from ChatGPT.
     """
 
     binary_cols = []
@@ -211,7 +205,6 @@ def count_rows_with_any_na(dataframe):
     int
         The number of rows with at least one NaN value.
 
-    Docstring generated with assistance from ChatGPT.
     """
 
     return dataframe.isna().any(axis=1).sum()
@@ -231,7 +224,6 @@ def count_rows_with_all_na(dataframe):
     int
         The number of rows where every column is NaN.
 
-    Docstring generated with assistance from ChatGPT.
     """
 
     return dataframe.isna().all(axis=1).sum()
@@ -251,7 +243,6 @@ def count_cols_with_any_na(dataframe):
     int
         The number of columns with at least one NaN value.
 
-    Docstring generated with assistance from ChatGPT.
     """
 
     return dataframe.isna().any(axis=0).sum()
@@ -271,7 +262,6 @@ def count_cols_with_all_na(dataframe):
     int
         The number of columns where every row is NaN.
 
-    Docstring generated with assistance from ChatGPT.
     """
 
     return dataframe.isna().all(axis=0).sum()
@@ -291,7 +281,6 @@ def count_total_na(dataframe):
     int
         The total count of NaN values in the DataFrame.
 
-    Docstring generated with assistance from ChatGPT.
     """
 
     return dataframe.isna().sum().sum()
@@ -313,7 +302,6 @@ def count_unique_values(dataframe, columns):
     dict
         A dictionary where each key is a column name and the value is the count of unique entries, including NaNs.
 
-    Docstring generated with assistance from ChatGPT.
     """
 
     unique_counts = {}

@@ -20,7 +20,6 @@ def create_dt_col(dataframe, datetime_col, col_type="month"):
     DataFrame
         A copy of the DataFrame with one new datetime feature column added.
 
-    Docstring generated with assistance from ChatGPT.
     """
     return create_dt_cols(dataframe, datetime_col, [col_type])
 
@@ -50,7 +49,6 @@ def create_dt_cols(dataframe, datetime_col, col_types=["month"]):
     ValueError
         If the datetime_col is missing or if any component in col_types is unsupported.
 
-    Docstring generated with assistance from ChatGPT.
     """
     supported_types = {
         "year": lambda x: x.dt.year,

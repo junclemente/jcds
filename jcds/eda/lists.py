@@ -18,7 +18,6 @@ def get_cat_list(dataframe):
     list of str or pd.DataFrame
         Categorical column names if `return_names` is True, or a DataFrame containing only categorical columns if False.
 
-    Docstring generated with assistance from ChatGPT.
     """
 
     cat_list = dataframe.select_dtypes(include=["category", "object"]).columns.tolist()
@@ -41,7 +40,6 @@ def get_cont_list(dataframe):
     list of str or pd.DataFrame
         Continuous column names if `return_names` is True, or a DataFrame containing only continuous columns if False.
 
-    Docstring generated with assistance from ChatGPT.
     """
 
     cont_list = dataframe.select_dtypes(exclude=["category", "object"]).columns.tolist()
@@ -64,7 +62,6 @@ def list_unique_values(dataframe, column):
     None
         This function prints output to the console and does not return a value.
 
-    Docstring generated with assistance from ChatGPT.
     """
     display_code = f'DataFrame["{column}"].unique().tolist()'
     print_code_line(display_code)

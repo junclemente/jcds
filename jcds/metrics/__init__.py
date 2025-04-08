@@ -19,7 +19,6 @@ def help(func_name=None):
     - Call `help()` to list all public functions.
     - Call `help('function_name')` to view documentation for a specific function.
 
-    Docstring generated with assistance from ChatGPT.
     """
 
     functions = {

@@ -34,7 +34,6 @@ def plot_roc(y_true, y_score, model_name=None, ax=None, show=True):
     float
         The computed AUC (Area Under the Curve) score.
 
-    Docstring generated with assistance from ChatGPT.
     """
 
     fpr, tpr, _ = metrics.roc_curve(y_true, y_score)
