@@ -7,6 +7,12 @@ This project follows [Semantic Versioning](https://semver.org/) and loosely foll
 
 ## [Unreleased]
 
+### Added 
+
+---
+
+## [v0.2.2] - 2025-04-8
+
 ### Added
 
 - **`inspect.py`** module with the following new functions:
@@ -72,6 +78,21 @@ This project follows [Semantic Versioning](https://semver.org/) and loosely foll
 - Full test coverage using reusable `sample_df` fixture from `conftest.py`
 - Unit test file `test_io_utils.py` to validate read/write functionality and nested directory creation
 
+- `save_csv()` function to `dataio` module: cleanly saves DataFrames to CSV with default `index=False` and automatic directory creation
+- `load_csv()` function to `dataio` module:
+  - Attempts to load a CSV file using multiple common encodings (e.g. `'utf-8'`, `'latin1'`, `'cp1252'`)
+  - Provides a helpful raw byte preview if all decoding attempts fail
+  - Raises informative `ValueError` for failed loads to assist with debugging corrupted or misencoded files
+- Unit tests for both `save_csv()` and `load_csv()` using `sample_df` and `tmp_path`
+  - Includes fallback test simulating corrupted file behavior
+
+- `read_s3()` to `dataio.s3_io`: loads public S3-hosted CSV or Excel files into a DataFrame with built-in error handling
+- Unit tests for `read_s3()`:
+  - CSV and Excel load success
+  - Handles unsupported file types (`ValueError`)
+  - Graceful fallback on request errors (returns `None`)
+- `test_s3_utils.py` to test `list_s3_bucket()` from `aws.s3_utils` with mocked `boto3.client`
+
 ### Changed
 
 - `eda/__init__.py` updated to expose all `eda_helpers` functions.
@@ -83,6 +104,11 @@ This project follows [Semantic Versioning](https://semver.org/) and loosely foll
 
 - Renamed `io.py` to `io_utils.py` and moved to `dataio/` to avoid namespace conflict with Python's built-in `io` module
 - Updated all related imports to reflect new structure
+
+- Renamed `s3_file_to_dataframe()` ➝ `read_s3()` for consistency with other I/O functions
+- Split S3-related code:
+  - `list_s3_bucket()` remains in `aws.s3_utils`
+  - `read_s3()` moved to new `dataio/s3_io.py`
 
 ### Fixed
 

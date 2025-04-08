@@ -1,11 +1,11 @@
 import inspect
 
 # Import your functions from internal files
-from .s3 import list_s3_contents, s3_file_to_dataframe
+from .s3_utils import list_s3_bucket
 
 
 # Declare what this module exports
-__all__ = ["list_s3_contents", "s3_file_to_dataframe"]
+__all__ = ["list_s3_bucket", "help"]
 
 
 # Dynamically generated help function
