@@ -9,6 +9,11 @@ This project follows [Semantic Versioning](https://semver.org/) and loosely foll
 
 ### Added 
 
+### Removed
+
+- Deleted obsolete personal test datasets from `tests/datasets/`.
+- Deleted exploratory notebooks from `tests/notebooks/`.
+- Removed unused `tests/integration/` folder. 
 ---
 
 ## [v0.2.2] - 2025-04-8
