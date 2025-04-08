@@ -8,6 +8,10 @@
 
 ::: jcds.eda.lists
 
+## Datetime Utilities
+
+::: jcds.eda.datetime
+
 ## Quick Reports
 
 ::: jcds.eda.reports
