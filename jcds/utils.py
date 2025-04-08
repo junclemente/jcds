@@ -80,3 +80,26 @@ def deprecated(reason: str = "", version: str = "future"):
         return wrapper
 
     return decorator
+
+
+def make_module_help(namespace):
+    """
+    Returns a help() function bound to the given module's namespace.
+
+    Parameters
+    ----------
+    namespace : dict
+        Typically the result of `globals()` from the module calling this.
+
+    Returns
+    -------
+    Callable
+        A custom help() function for the module.
+    """
+
+    def _help(func_name=None):
+        from jcds import help as base_help
+
+        return base_help(func_name, namespace=namespace)
+
+    return _help

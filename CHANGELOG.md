@@ -10,11 +10,23 @@ This project follows [Semantic Versioning](https://semver.org/) and loosely foll
 ### Added
 
 - Example usage notebook: `examples/eda_workflow.ipynb` for demonstrating full EDA flow.
+- **New centralized help system**:
+  - Added `help()` to `jcds/__init__.py` as a unified entry point for documentation on all public functions.
+  - Created a `make_module_help()` utility in `jcds/utils.py` to generate module-specific `help()` functions using `globals()`.
+  - Each submodule (e.g., `eda`, `aws`, `dataio`) now exposes a `help()` function for contextual function lookup:
+    ```python
+    jcds.eda.help("quick_report")
+    jcds.aws.help()
+    ```
+  - Eliminates redundant `help()` definitions across modules while preserving user-friendly discovery.
 
 ### Changed 
 
 - Added `DeprecationWarning` to legacy functions scheduled for removal in `v0.3.0`.
 - Updated `.gitignore` to exclude test datasets and notebooks.
+- Refactored submodule `__init__.py` files to use `make_module_help()` instead of defining their own `help()` wrappers.
+- Updated `jcds/__init__.py` to explicitly import and expose submodules (`eda`, `aws`, `dataio`) via `__all__`, enabling access like `jcds.eda.help()` directly from the root import.
+- Ensured all module `help()` functions are test-safe by using delayed imports to prevent circular dependencies.
 
 ### Removed
 
