@@ -168,3 +168,5 @@ __azurite_db_blob*.json
 tests/datasets/
 tests/notebooks/
 tests/integration/
+__azurite_db_blob__.json
+__azurite_db_blob_extent__.json
