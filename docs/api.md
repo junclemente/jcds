@@ -1,28 +1,16 @@
 # API Reference
 
-## EDA Inspect
+## EDA Helpers
 
-::: jcds.eda.inspect
+::: jcds.eda.eda_helpers
 
 ## Column Utilities
 
 ::: jcds.eda.lists
 
-## Datetime Utilities
-
-::: jcds.eda.datetime
-
 ## Quick Reports
 
 ::: jcds.eda.reports
-
-## Data Input/Output
-
-::: jcds.dataio
-
-## AWS
-
-::: jcds.aws
 
 ## jcds Package Overview
 

@@ -1,5 +1,4 @@
 site_name: jcds Library
-
 theme:
   name: material
 
@@ -10,9 +9,7 @@ nav:
 plugins:
   - search
   - mkdocstrings:
+      default_handler: python
       handlers:
         python:
-          options: 
-            show_source: true
-            show_signature_annotations: true
           paths: [jcds]
