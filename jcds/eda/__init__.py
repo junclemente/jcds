@@ -25,6 +25,10 @@ from .reports import dqr_cat, dqr_cont, quick_report, long_report, display_all_c
 
 from .transform import rename_col
 
+from .univariate import describe_categorical, plot_categorical
+
+from .multivariate import correlation_matrix, plot_correlation_heatmap
+
 
 help = jcds.utils._make_module_help(sys.modules[__name__])
 
@@ -54,5 +58,9 @@ __all__ = [
     "rename_col",
     "create_dt_col",
     "create_dt_cols",
+    "describe_categorical",
+    "plot_categorical",
+    "correlation_matrix",
+    "plot_correlation_heatmap",
     "help",
 ]
