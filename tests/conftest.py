@@ -137,3 +137,47 @@ def datetime_df():
             ]
         }
     )
+
+
+@pytest.fixture
+def datetime_parsed_df():
+    return pd.DataFrame(
+        {
+            "timestamp": pd.to_datetime(["2023-01-01", "2023-02-14", "2023-03-15"]),
+            "non_datetime": ["apple", "banana", "cherry"],
+        }
+    )
+
+
+@pytest.fixture
+def possible_datetime_df():
+    return pd.DataFrame(
+        {
+            "date_strings": ["2023-01-01", "2023-01-02", "2023-01-03"],
+            "random_strings": ["hello", "world", "2023"],
+            "mixed": ["2023-01-01", "banana", "2023-01-02"],
+        }
+    )
+
+
+@pytest.fixture
+def id_like_df():
+    return pd.DataFrame(
+        {
+            "id": [f"id{i}" for i in range(100)],
+            "mostly_unique": list(range(95)) + [1, 2, 3, 4, 5],
+            "not_unique": ["A", "B", "A", "B"] * 25,
+        }
+    )
+
+
+@pytest.fixture
+def constantvars_df():
+    return pd.DataFrame({"A": [1, 1, 1], "B": ["x", "x", "x"], "C": [1, 2, 3]})
+
+
+@pytest.fixture
+def mixed_type_df():
+    return pd.DataFrame(
+        {"clean": [1, 2, 3], "mixed": [1, "1", 1.0], "more_mixed": [True, "True", 1]}
+    )

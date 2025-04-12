@@ -39,13 +39,12 @@ def test_show_lowcardvars_filters_by_cardinality():
             "ID": [1, 2, 3, 4, 5],
         }
     )
-
     result = eda.show_lowcardvars(df, max_unique=3)
     assert isinstance(result, list)
     assert ("City", 3) in result
     assert ("State", 2) in result
     assert ("Zip", 3) in result
-    assert not any(col for col in result if col[0] == "ID")  # Not a cat var
+    assert not any(col for col in result if col[0] == "ID")
 
 
 def test_count_rows_with_any_na(na_test_df):
@@ -83,33 +82,94 @@ def test_count_unique_values_basic():
 def test_count_unique_values_with_empty_column():
     df = pd.DataFrame({"Empty": [None, None, None, None]})
     result = eda.count_unique_values(df, ["Empty"])
-    assert result["Empty"] == 1  # NaNs included with dropna=False
+    assert result["Empty"] == 1
 
 
 def test_count_unique_values_with_mixed_types():
     df = pd.DataFrame({"Mixed": [1, "1", 1.0, "1.0", None]})
     result = eda.count_unique_values(df, ["Mixed"])
-    assert result["Mixed"] == 4  # 1, "1", 1.0, "1.0", None
+    assert result["Mixed"] == 4
 
 
 def test_show_binary_list(binary_list_df):
     result = eda.show_binary_list(binary_list_df)
-
-    # Structure checks
     assert isinstance(result, dict)
     assert "binary_columns" in result
     assert "binary_with_nan" in result
-
-    # Content checks
-    expected_binary = {"bin_clean"}
-    expected_binary_with_nan = {"bin_with_nan"}
-
-    assert set(result["binary_columns"]) == expected_binary
-    assert set(result["binary_with_nan"]) == expected_binary_with_nan
-
-    # Ensure non-binary cols are not falsely included
+    assert set(result["binary_columns"]) == {"bin_clean"}
+    assert set(result["binary_with_nan"]) == {"bin_with_nan"}
     excluded = {"not_bin_3vals", "not_bin_unique", "all_nan"}
-    combined_results = set(result["binary_columns"]) | set(result["binary_with_nan"])
-    assert excluded.isdisjoint(
-        combined_results
-    ), "Non-binary columns should not appear in the result"
+    combined = set(result["binary_columns"]) | set(result["binary_with_nan"])
+    assert excluded.isdisjoint(combined)
+
+
+def test_show_highcardvars(unique_test_df):
+    result = eda.show_highcardvars(unique_test_df, percent_unique=60)
+    assert isinstance(result, list)
+    assert ("Mixed", 60.0) in result
+    assert ("Category", 60.0) in result
+
+
+def test_show_highcardvars_all_unique():
+    df = pd.DataFrame({"ID": ["a", "b", "c", "d", "e"]})
+    result = eda.show_highcardvars(df, percent_unique=90)
+    assert ("ID", 100.0) in result
+    assert len(result) == 1
+
+
+def test_show_highcardvars_all_same():
+    df = pd.DataFrame({"Group": ["X"] * 5})
+    result = eda.show_highcardvars(df, percent_unique=90)
+    assert result == []
+
+
+def test_show_highcardvars_exact_threshold():
+    df = pd.DataFrame({"Code": ["A", "B", "C", "D", "A"]})
+    result = eda.show_highcardvars(df, percent_unique=80)
+    assert ("Code", 80.0) in result
+
+
+def test_show_highcardvars_with_nan():
+    df = pd.DataFrame({"State": ["CA", "NY", None, "TX", "CA"]})
+    result = eda.show_highcardvars(df, percent_unique=60)
+    assert "State" in [col for col, _ in result]
+
+
+def test_show_constantvars_basic(constantvars_df):
+    result = eda.show_constantvars(constantvars_df)
+    assert "A" in result
+    assert "B" in result
+    assert "C" not in result
+    assert len(result) == 2
+
+
+def test_show_datetime_columns(datetime_parsed_df):
+    result = eda.show_datetime_columns(datetime_parsed_df)
+    assert result == ["timestamp"]
+
+
+def test_show_possible_datetime_columns(possible_datetime_df):
+    result = eda.show_possible_datetime_columns(possible_datetime_df)
+    assert "date_strings" in result
+    assert "random_strings" not in result
+    assert "mixed" not in result  # Below threshold if default is 80%
+
+
+def test_show_mixed_type_columns(mixed_type_df):
+    result = eda.show_mixed_type_columns(mixed_type_df)
+    assert "mixed" in result
+    assert "more_mixed" in result
+    assert "clean" not in result
+
+
+def test_count_id_like_columns(id_like_df):
+    result = eda.count_id_like_columns(id_like_df, threshold=0.95)
+    assert result == 2
+
+
+def test_get_dtype_summary(sample_df):
+    result = eda.get_dtype_summary(sample_df)
+    assert isinstance(result, dict)
+    assert result.get(np.dtype("int64"), 0) >= 1
+    assert result.get(np.dtype("float64"), 0) >= 1
+    assert result.get(np.dtype("object"), 0) >= 1

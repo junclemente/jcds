@@ -19,6 +19,13 @@ from .inspect import (
     count_total_na,
     count_unique_values,
     show_binary_list,
+    show_constantvars,
+    show_highcardvars,
+    show_datetime_columns,
+    show_possible_datetime_columns,
+    show_mixed_type_columns,
+    count_id_like_columns,
+    get_dtype_summary,
 )
 
 from .reports import dqr_cat, dqr_cont, quick_report, long_report, display_all_col_head
@@ -62,5 +69,12 @@ __all__ = [
     "plot_categorical",
     "correlation_matrix",
     "plot_correlation_heatmap",
+    "show_constantvars",
+    "show_highcardvars",
+    "show_datetime_columns",
+    "show_possible_datetime_columns",
+    "show_mixed_type_columns",
+    "count_id_like_columns",
+    "get_dtype_summary",
     "help",
 ]
