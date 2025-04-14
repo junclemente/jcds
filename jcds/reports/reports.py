@@ -13,15 +13,20 @@ from jcds.eda import (
 
 def data_info(dataframe):
     shape = show_shape(dataframe)
+    print(f"There are {shape[0]} rows and {shape[1]} columns.")
+
     dupes = show_dupes(dataframe)
+    print(f"There are {dupes} duplicated rows.")
+
     convar = show_convar(dataframe)
+    print(f"There are {len(convar)}")
+
     catvar = show_catvar(dataframe)
+
     binary_list = show_binary_list(dataframe)
+
     lowcardvars = show_lowcardvars(dataframe)
 
-    print(f"There are {shape[0]} rows and {shape[1]} columns.")
-    print(f"There are {dupes} duplicated rows.")
-    print(f"convar: {convar}")
     print(f"catvar: {catvar}")
     print(f"binaray_list: {binary_list}")
     print(f"lowcardvars {lowcardvars}")
