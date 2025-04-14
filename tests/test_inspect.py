@@ -1,8 +1,6 @@
+from jcds import eda
 import pandas as pd
 import numpy as np
-import pytest
-
-from jcds import eda
 
 
 def test_show_shape_returns_correct_shape(sample_df):
@@ -30,16 +28,8 @@ def test_show_convar_returns_numerical_columns(sample_df):
     assert isinstance(con_vars, list)
 
 
-def test_show_lowcardvars_filters_by_cardinality():
-    df = pd.DataFrame(
-        {
-            "City": ["NY", "LA", "SF", "NY", "LA"],
-            "State": ["NY", "CA", "CA", "NY", "CA"],
-            "Zip": ["10001", "90001", "94101", "10001", "90001"],
-            "ID": [1, 2, 3, 4, 5],
-        }
-    )
-    result = eda.show_lowcardvars(df, max_unique=3)
+def test_show_lowcardvars_filters_by_cardinality(lowcard_df):
+    result = eda.show_lowcardvars(lowcard_df, max_unique=3)
     assert isinstance(result, list)
     assert ("City", 3) in result
     assert ("State", 2) in result
@@ -67,27 +57,19 @@ def test_count_total_na(na_test_df):
     assert eda.count_total_na(na_test_df) == 8
 
 
-def test_count_unique_values_basic():
-    df = pd.DataFrame(
-        {
-            "Category": ["A", "B", "A", "C", "B"],
-            "Numeric": [1, 2, 2, 3, 3],
-        }
-    )
-    result = eda.count_unique_values(df, ["Category", "Numeric"])
+def test_count_unique_values_basic(unique_test_df):
+    result = eda.count_unique_values(unique_test_df, ["Category", "Numeric"])
     assert result["Category"] == 3
     assert result["Numeric"] == 3
 
 
-def test_count_unique_values_with_empty_column():
-    df = pd.DataFrame({"Empty": [None, None, None, None]})
-    result = eda.count_unique_values(df, ["Empty"])
+def test_count_unique_values_with_empty_column(empty_col_df):
+    result = eda.count_unique_values(empty_col_df, ["Empty"])
     assert result["Empty"] == 1
 
 
-def test_count_unique_values_with_mixed_types():
-    df = pd.DataFrame({"Mixed": [1, "1", 1.0, "1.0", None]})
-    result = eda.count_unique_values(df, ["Mixed"])
+def test_count_unique_values_with_mixed_types(unique_test_df):
+    result = eda.count_unique_values(unique_test_df, ["Mixed"])
     assert result["Mixed"] == 4
 
 
@@ -110,28 +92,24 @@ def test_show_highcardvars(unique_test_df):
     assert ("Category", 60.0) in result
 
 
-def test_show_highcardvars_all_unique():
-    df = pd.DataFrame({"ID": ["a", "b", "c", "d", "e"]})
-    result = eda.show_highcardvars(df, percent_unique=90)
+def test_show_highcardvars_all_unique(highcard_unique_df):
+    result = eda.show_highcardvars(highcard_unique_df, percent_unique=90)
     assert ("ID", 100.0) in result
     assert len(result) == 1
 
 
-def test_show_highcardvars_all_same():
-    df = pd.DataFrame({"Group": ["X"] * 5})
-    result = eda.show_highcardvars(df, percent_unique=90)
+def test_show_highcardvars_all_same(highcard_same_df):
+    result = eda.show_highcardvars(highcard_same_df, percent_unique=90)
     assert result == []
 
 
-def test_show_highcardvars_exact_threshold():
-    df = pd.DataFrame({"Code": ["A", "B", "C", "D", "A"]})
-    result = eda.show_highcardvars(df, percent_unique=80)
+def test_show_highcardvars_exact_threshold(highcard_threshold_df):
+    result = eda.show_highcardvars(highcard_threshold_df, percent_unique=80)
     assert ("Code", 80.0) in result
 
 
-def test_show_highcardvars_with_nan():
-    df = pd.DataFrame({"State": ["CA", "NY", None, "TX", "CA"]})
-    result = eda.show_highcardvars(df, percent_unique=60)
+def test_show_highcardvars_with_nan(highcard_with_nan_df):
+    result = eda.show_highcardvars(highcard_with_nan_df, percent_unique=60)
     assert "State" in [col for col, _ in result]
 
 

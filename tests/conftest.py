@@ -181,3 +181,52 @@ def mixed_type_df():
     return pd.DataFrame(
         {"clean": [1, 2, 3], "mixed": [1, "1", 1.0], "more_mixed": [True, "True", 1]}
     )
+
+
+@pytest.fixture
+def lowcard_df():
+    return pd.DataFrame(
+        {
+            "City": ["NY", "LA", "SF", "NY", "LA"],
+            "State": ["NY", "CA", "CA", "NY", "CA"],
+            "Zip": ["10001", "90001", "94101", "10001", "90001"],
+            "ID": [1, 2, 3, 4, 5],
+        }
+    )
+
+
+@pytest.fixture
+def lowcard_df():
+    return pd.DataFrame(
+        {
+            "City": ["NY", "LA", "SF", "NY", "LA"],
+            "State": ["NY", "CA", "CA", "NY", "CA"],
+            "Zip": ["10001", "90001", "94101", "10001", "90001"],
+            "ID": [1, 2, 3, 4, 5],
+        }
+    )
+
+
+@pytest.fixture
+def empty_col_df():
+    return pd.DataFrame({"Empty": [None, None, None, None]})
+
+
+@pytest.fixture
+def highcard_unique_df():
+    return pd.DataFrame({"ID": ["a", "b", "c", "d", "e"]})
+
+
+@pytest.fixture
+def highcard_same_df():
+    return pd.DataFrame({"Group": ["X"] * 5})
+
+
+@pytest.fixture
+def highcard_threshold_df():
+    return pd.DataFrame({"Code": ["A", "B", "C", "D", "A"]})
+
+
+@pytest.fixture
+def highcard_with_nan_df():
+    return pd.DataFrame({"State": ["CA", "NY", None, "TX", "CA"]})

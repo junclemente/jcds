@@ -21,6 +21,10 @@ def data_info(dataframe):
 
     print(f"There are {shape[0]} rows and {shape[1]} columns.")
     print(f"There are {dupes} duplicated rows.")
+    print(f"convar: {convar}")
+    print(f"catvar: {catvar}")
+    print(f"binaray_list: {binary_list}")
+    print(f"lowcardvars {lowcardvars}")
 
 
 # def data_quality(dataframe):
