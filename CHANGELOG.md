@@ -20,7 +20,6 @@ This project follows [Semantic Versioning](https://semver.org/) and loosely foll
     ```
   - Eliminates redundant `help()` definitions across modules while preserving user-friendly discovery.
 - New utility functions in `eda.inspect` for enhanced dataset inspection:
-
   - `show_constantvars`
   - `show_highcardvars`
   - `show_datetime_columns`
@@ -28,14 +27,15 @@ This project follows [Semantic Versioning](https://semver.org/) and loosely foll
   - `show_mixed_type_columns`
   - `count_id_like_columns`
   - `get_dtype_summary`
-
+  - `show_memory_use`
 - Comprehensive unit tests for all `eda.inspect` functions:
   - Shape and duplication: `show_shape`, `show_dupes`
   - Variable type detection: `show_catvar`, `show_convar`
   - Missing value detection: `count_rows_with_any_na`, `count_rows_with_all_na`, `count_cols_with_any_na`, `count_cols_with_all_na`, `count_total_na`
   - Cardinality and uniqueness: `count_unique_values`, `show_lowcardvars`, `show_highcardvars`, `show_constantvars`, `show_binary_list`
   - Special type detection: `show_datetime_columns`, `show_possible_datetime_columns`, `show_mixed_type_columns`
-  - ID and type analysis: `count_id_like_columns`, `get_dtype_summary`
+  - ID and type analysis: `count_id_like_columns`, `get_dtype_summary`, `show_memory_use`
+  - Fixtures provided via `conftest.py` for reproducible test data
 
 ### Changed
 
@@ -44,17 +44,20 @@ This project follows [Semantic Versioning](https://semver.org/) and loosely foll
 - Refactored submodule `__init__.py` files to use `make_module_help()` instead of defining their own `help()` wrappers.
 - Updated `jcds/__init__.py` to explicitly import and expose submodules (`eda`, `aws`, `dataio`) via `__all__`, enabling access like `jcds.eda.help()` directly from the root import.
 - Ensured all module `help()` functions are test-safe by using delayed imports to prevent circular dependencies.
-- Refactored `tests/test_inspect.py` to use fixtures from `conftest.py`, improving maintainability and reducing redundancy.
+- Refactored `tests/test_inspect.py` to use reusable fixtures from `conftest.py`, improving maintainability and reducing redundancy.
 
 ### Fixed
 
+- Fixed `test_get_dtype_summary` to match updated string-based key return format (e.g., `"int"` instead of `np.dtype("int64")`).
 - Corrected argument mismatch in `show_possible_datetime_columns` test.
+- Addressed `DeprecationWarning` in `get_dtype_summary` for use of `is_categorical_dtype`.
 
 ### Removed
 
 - Deleted obsolete personal test datasets from `tests/datasets/`.
 - Deleted exploratory notebooks from `tests/notebooks/`.
 - Removed unused `tests/integration/` folder.
+
 
 ---
 

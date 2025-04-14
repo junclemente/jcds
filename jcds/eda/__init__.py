@@ -7,6 +7,7 @@ from .datetime import create_dt_col, create_dt_cols
 from .lists import get_cat_list, get_cont_list, list_unique_values
 
 from .inspect import (
+    show_memory_use,
     show_shape,
     show_dupes,
     show_catvar,
@@ -50,6 +51,7 @@ __all__ = [
     "get_cat_list",
     "get_cont_list",
     "list_unique_values",
+    "show_memory_use", 
     "show_shape",
     "show_dupes",
     "show_catvar",

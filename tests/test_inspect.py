@@ -148,6 +148,39 @@ def test_count_id_like_columns(id_like_df):
 def test_get_dtype_summary(sample_df):
     result = eda.get_dtype_summary(sample_df)
     assert isinstance(result, dict)
-    assert result.get(np.dtype("int64"), 0) >= 1
-    assert result.get(np.dtype("float64"), 0) >= 1
-    assert result.get(np.dtype("object"), 0) >= 1
+    assert result.get("int", 0) >= 1
+    assert result.get("float", 0) >= 1
+    assert result.get("object", 0) >= 1
+
+
+
+def test_show_memory_use_returns_float(sample_df):
+    result = eda.show_memory_use(sample_df)
+    assert isinstance(result, float)
+    assert result > 0  # assuming non-empty dataframe
+
+
+def test_show_memory_use_returns_float(sample_df):
+    result = eda.show_memory_use(sample_df)
+    assert isinstance(result, float)
+    assert result > 0  # assuming non-empty dataframe
+
+
+def test_get_dtype_summary_keys_are_strings(sample_df):
+    result = eda.get_dtype_summary(sample_df)
+    assert isinstance(result, dict)
+    expected_keys = {"object", "int", "float", "bool", "category", "datetime", "other"}
+    assert expected_keys.issubset(result.keys())
+    assert all(isinstance(k, str) for k in result)
+    assert all(isinstance(v, int) for v in result.values())
+
+
+def test_get_dtype_summary_keys_are_strings(sample_df):
+    result = eda.get_dtype_summary(sample_df)
+    assert isinstance(result, dict)
+    expected_keys = {"object", "int", "float", "bool", "category", "datetime", "other"}
+    assert expected_keys.issubset(result.keys())
+    assert all(isinstance(k, str) for k in result)
+    assert all(isinstance(v, int) for v in result.values())
+
+

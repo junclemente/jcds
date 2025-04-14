@@ -1,4 +1,5 @@
 import pandas as pd
+import pandas.api.types as ptypes
 
 # from IPython.display import Markdown, display
 
@@ -47,6 +48,14 @@ import pandas as pd
 
 # Visualizations
 
+def show_memory_use(dataframe):
+    """
+    Returns memory usage of the dataframe in megabytes (MB)
+    """
+    memory_usage = dataframe.memory_usage(deep=True).sum()
+    # convert from bytes to megabytes
+    memory_usage = memory_usage / 1024 ** 2
+    return float(memory_usage)
 
 def show_shape(dataframe):
     """
@@ -433,5 +442,49 @@ def count_id_like_columns(dataframe, threshold=0.95):
     )
 
 
+
+
 def get_dtype_summary(dataframe):
-    return dict(dataframe.dtypes.value_counts())
+    """
+    Returns a dictionary summarizing the count of common data types.
+
+    Parameters
+    ----------
+    dataframe : pd.DataFrame
+        The input DataFrame.
+
+    Returns
+    -------
+    dict
+        Keys are data types (as strings), values are column counts.
+    """
+    type_counts = {
+        "object": 0,
+        "int": 0,
+        "float": 0,
+        "bool": 0,
+        "category": 0,
+        "datetime": 0,
+        "other": 0,
+    }
+
+    for col in dataframe.columns:
+        dtype = dataframe[col].dtype
+
+        if ptypes.is_bool_dtype(dtype):
+            type_counts["bool"] += 1
+        elif ptypes.is_integer_dtype(dtype):
+            type_counts["int"] += 1
+        elif ptypes.is_float_dtype(dtype):
+            type_counts["float"] += 1
+        elif isinstance(dtype, pd.CategoricalDtype):
+            type_counts["category"] += 1
+        elif ptypes.is_datetime64_any_dtype(dtype):
+            type_counts["datetime"] += 1
+        elif ptypes.is_object_dtype(dtype):
+            type_counts["object"] += 1
+        else:
+            type_counts["other"] += 1
+
+    return type_counts
+
