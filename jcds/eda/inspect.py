@@ -1,4 +1,5 @@
 import pandas as pd
+import pandas.api.types as ptypes
 
 # from IPython.display import Markdown, display
 
@@ -47,6 +48,14 @@ import pandas as pd
 
 # Visualizations
 
+def show_memory_use(dataframe):
+    """
+    Returns memory usage of the dataframe in megabytes (MB)
+    """
+    memory_usage = dataframe.memory_usage(deep=True).sum()
+    # convert from bytes to megabytes
+    memory_usage = memory_usage / 1024 ** 2
+    return float(memory_usage)
 
 def show_shape(dataframe):
     """
@@ -153,6 +162,57 @@ def show_lowcardvars(dataframe, max_unique=10):
         count = dataframe[col].nunique()
         if count <= max_unique:
             col_list.append((col, count))
+    return col_list
+
+
+def show_constantvars(dataframe):
+    """
+    Identify columns with only one unique value (including NaNs).
+
+    Parameters
+    ----------
+    dataframe : pd.DataFrame
+
+    Returns
+    -------
+    list of str
+        Column names that are constant.
+    """
+    print("Showing constant columns (only one unique value)")
+    col_list = []
+    for col in dataframe.columns:
+        if dataframe[col].nunique(dropna=False) == 1:
+            col_list.append(col)
+    return col_list
+
+
+def show_highcardvars(dataframe, percent_unique=90):
+    """
+    Identify categorical columns with high cardinality (>= percent_unique).
+
+    Parameters
+    ----------
+    dataframe : pd.DataFrame
+        The input DataFrame.
+    percent_unique : float, optional
+        Minimum % of unique values (vs. total rows) to consider high-cardinality.
+
+    Returns
+    -------
+    list of tuples
+        List of (column name, percent unique) tuples.
+
+    Docstring generated with assistance from ChatGPT.
+    """
+    print(f"Showing cat var of cardinality >= {percent_unique}%")
+    col_list = []
+    total_rows = show_shape(dataframe)[0]
+    cat_cols = show_catvar(dataframe)
+    for col in cat_cols:
+        count = dataframe[col].nunique()
+        percent = (count / total_rows) * 100
+        if percent >= percent_unique:
+            col_list.append((col, percent))
     return col_list
 
 
@@ -309,3 +369,122 @@ def count_unique_values(dataframe, columns):
         count = dataframe[col].nunique(dropna=False)
         unique_counts[col] = count
     return unique_counts
+
+
+def show_datetime_columns(dataframe):
+    """
+    Identify columns with datetime-like data types.
+
+    Parameters
+    ----------
+    dataframe : pd.DataFrame
+        The input DataFrame.
+
+    Returns
+    -------
+    list of str
+        A list of column names whose dtype is datetime64[ns] or similar.
+    """
+    dt_cols = []
+    for col in dataframe.columns:
+        col_dtype = dataframe[col].dtype
+        if pd.api.types.is_datetime64_any_dtype(col_dtype):
+            dt_cols.append(col)
+    return dt_cols
+
+
+def show_possible_datetime_columns(dataframe, sample_size=5):
+    """
+    Identify object columns that may contain datetime-like strings.
+
+    Parameters
+    ----------
+    dataframe : pd.DataFrame
+        The input DataFrame.
+    sample_size : int
+        Number of values to sample for date parsing test.
+
+    Returns
+    -------
+    list of str
+        Columns that appear to contain datetime-like strings.
+    """
+    possible_date_cols = []
+
+    for col in dataframe.select_dtypes(include="object").columns:
+        sample_values = dataframe[col].dropna().head(sample_size)
+        parse_attempts = sample_values.apply(
+            lambda x: pd.to_datetime(x, errors="coerce")
+        )
+        success_ratio = parse_attempts.notna().mean()
+        if success_ratio >= 0.8:  # 80% of values parse as dates
+            possible_date_cols.append(col)
+
+    return possible_date_cols
+
+
+def show_mixed_type_columns(df):
+    mixed_cols = []
+    for col in df.columns:
+        types = df[col].map(type).nunique()
+        if types > 1:
+            mixed_cols.append(col)
+    return mixed_cols
+
+
+def count_id_like_columns(dataframe, threshold=0.95):
+    """
+    Count number of columns with high uniqueness (e.g., IDs).
+    """
+    total_rows = show_shape(dataframe)[0]
+    return sum(
+        dataframe[col].nunique() / total_rows >= threshold for col in dataframe.columns
+    )
+
+
+
+
+def get_dtype_summary(dataframe):
+    """
+    Returns a dictionary summarizing the count of common data types.
+
+    Parameters
+    ----------
+    dataframe : pd.DataFrame
+        The input DataFrame.
+
+    Returns
+    -------
+    dict
+        Keys are data types (as strings), values are column counts.
+    """
+    type_counts = {
+        "object": 0,
+        "int": 0,
+        "float": 0,
+        "bool": 0,
+        "category": 0,
+        "datetime": 0,
+        "other": 0,
+    }
+
+    for col in dataframe.columns:
+        dtype = dataframe[col].dtype
+
+        if ptypes.is_bool_dtype(dtype):
+            type_counts["bool"] += 1
+        elif ptypes.is_integer_dtype(dtype):
+            type_counts["int"] += 1
+        elif ptypes.is_float_dtype(dtype):
+            type_counts["float"] += 1
+        elif isinstance(dtype, pd.CategoricalDtype):
+            type_counts["category"] += 1
+        elif ptypes.is_datetime64_any_dtype(dtype):
+            type_counts["datetime"] += 1
+        elif ptypes.is_object_dtype(dtype):
+            type_counts["object"] += 1
+        else:
+            type_counts["other"] += 1
+
+    return type_counts
+
