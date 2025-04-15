@@ -24,6 +24,7 @@ dependencies = [
   "pyarrow", 
   "numpy",
   "matplotlib",
+  "openpyxl",
   "seaborn",
   "ipython",
   "scikit-learn",
