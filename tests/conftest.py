@@ -230,3 +230,15 @@ def highcard_threshold_df():
 @pytest.fixture
 def highcard_with_nan_df():
     return pd.DataFrame({"State": ["CA", "NY", None, "TX", "CA"]})
+
+
+@pytest.fixture
+def nearconst_test_df():
+    return pd.DataFrame(
+        {
+            "almost_constant": [1] * 95 + [2] * 5,
+            "truly_constant": ["x"] * 100,
+            "not_constant": list(range(100)),
+            "balanced": [0, 1] * 50,
+        }
+    )
