@@ -7,6 +7,7 @@ from jcds.eda import (
     show_catvar,
     show_binary_list,
     show_lowcardvars,
+    show_constantvars,
     show_highcardvars,
     show_datetime_columns,
     show_possible_datetime_columns,
@@ -56,12 +57,12 @@ def data_info(dataframe, show_columns=False):
     convar = show_convar(dataframe)
     print(f"There are {len(convar)} numerical (int/float/bool) variables.")
     if show_columns:
-        print(f"\tColumns: {convar}")
+        print(f" * Columns: {convar}")
 
     catvar = show_catvar(dataframe)
     print(f"There are {len(catvar)} categorical (nominal/ordinal) variables.")
     if show_columns:
-        print(f"\tColumns: {catvar}")
+        print(f" * Columns: {catvar}")
 
     print("\nDATETIME COLUMNS:")
     dt_cols = show_datetime_columns(dataframe)
@@ -75,9 +76,9 @@ def data_info(dataframe, show_columns=False):
     print(f"ID Like Columns: {id_like_columns}")
 
     mixed_columns = show_mixed_type_columns(dataframe)
-    print(f"Mixed dType Columns: {len(mixed_columns)}")
+    print(f"Columns with mixed datatypes: {len(mixed_columns)}")
     if show_columns:
-        print(f"\tColumns: {mixed_columns}")
+        print(f" * Columns: {mixed_columns}")
 
 
 def data_cardinality(dataframe, show_columns=False):
@@ -99,25 +100,85 @@ def data_cardinality(dataframe, show_columns=False):
     """
     print("CARDINALITY:")
 
-    print("BINARY COLUMNS:")
+    print("\nBINARY COLUMNS:")
     binary_list = show_binary_list(dataframe)
     for key, value in binary_list.items():
         total = len(value)
-        print(f"{key}: {total} columns")
+        print(f"There are {total} {key}.")
         if show_columns:
-            print(f"\tColumns: {value}")
+            if total > 0:
+                print(f" * Columns: {value}")
+
+    print("\nCONSTANT VARIABLES:")
+    const_var = show_constantvars(dataframe)
+    print(f"There are {len(const_var)} constant columns.")
+    if show_columns:
+        if len(const_var) > 0:
+            print(f" * Columns: {const_var}")
 
     print("\nLOW CARDINALITY: ")
     lowcardvars = show_lowcardvars(dataframe)
-    print(f"\tThere are {len(lowcardvars)} low cardinality variables.")
+    print(f" * There are {len(lowcardvars)} low cardinality variables.")
     if show_columns:
-        print(f"\tColumns: {lowcardvars}")
+        print(f" * Columns: {lowcardvars}")
 
     print("\nHIGH CARDINALITY: ")
     highcardvars = show_highcardvars(dataframe)
-    print(f"\tThere are {len(highcardvars)} high cardinality variables.")
+    print(f" * There are {len(highcardvars)} high cardinality variables.")
     if show_columns:
-        print(f"\tColumns: {highcardvars}")
+        if len(highcardvars) > 0:
+            print(f" * Columns: {highcardvars}")
+
+
+def data_card2(dataframe, show_columns=False):
+    """
+    Summarizes the cardinality of the columns in the dataset.
+
+    Parameters
+    ----------
+    dataframe : pandas.DataFrame
+        The input dataset.
+
+    show_columns : bool, optional
+        Whether to display the list of columns in each category.
+
+    Returns
+    -------
+    None
+        Prints summary information to the console.
+    """
+    print("CARDINALITY REPORT")
+
+    # BINARY COLUMNS
+    print("\n-- BINARY COLUMNS --")
+    binary_list = show_binary_list(dataframe)
+    for key, cols in binary_list.items():
+        total = len(cols)
+        print(f"There are {total} {key.replace('_', ' ')}.")
+        if show_columns and total > 0:
+            print(" • Columns:", cols)
+
+    # CONSTANT COLUMNS
+    print("\n-- CONSTANT VARIABLES --")
+    const_var = show_constantvars(dataframe)
+    print(f"There are {len(const_var)} constant columns.")
+    if show_columns and const_var:
+        print(" • Columns:", const_var)
+
+    # LOW CARDINALITY
+    print("\n-- LOW CARDINALITY CATEGORICAL --")
+    lowcardvars = show_lowcardvars(dataframe)
+    print(f"Found {len(lowcardvars)} categorical variables with ≤ 10 unique values.")
+    if show_columns and lowcardvars:
+        for col, n in lowcardvars:
+            print(f" • {col}: {n} unique values")
+
+    # HIGH CARDINALITY
+    print("\n-- HIGH CARDINALITY CATEGORICAL --")
+    highcardvars = show_highcardvars(dataframe)
+    print(f"Found {len(highcardvars)} categorical variables with ≥ 90% unique values.")
+    if show_columns and highcardvars:
+        print(" • Columns:", highcardvars)
 
 
 # def data_quality(dataframe):
