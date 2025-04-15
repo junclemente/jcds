@@ -48,14 +48,16 @@ import pandas.api.types as ptypes
 
 # Visualizations
 
+
 def show_memory_use(dataframe):
     """
     Returns memory usage of the dataframe in megabytes (MB)
     """
     memory_usage = dataframe.memory_usage(deep=True).sum()
     # convert from bytes to megabytes
-    memory_usage = memory_usage / 1024 ** 2
+    memory_usage = memory_usage / 1024**2
     return float(memory_usage)
+
 
 def show_shape(dataframe):
     """
@@ -137,7 +139,7 @@ def show_convar(dataframe):
     return cont_features
 
 
-def show_lowcardvars(dataframe, max_unique=10):
+def show_lowcardvars(dataframe, max_unique=10, verbose=False):
     """
     Return a list of categorical variables with unique values less than or equal to the specified threshold.
 
@@ -147,15 +149,16 @@ def show_lowcardvars(dataframe, max_unique=10):
         The input pandas DataFrame.
     max_unique : int, optional
         The maximum number of unique values allowed for a variable to be considered low cardinality. Default is 10.
-
+    verbose : bool, optional
+        Whether to print a summary message (default is False).
     Returns
     -------
     list of tuple
         A list of tuples where each tuple contains the column name and the number of unique values.
 
     """
-
-    print(f"Showing cat var of cardinality <= {max_unique}")
+    if verbose:
+        print(f"Categorical variables with cardinality <= {max_unique}")
     col_list = []
     cols = show_catvar(dataframe)
     for col in cols:
@@ -165,20 +168,22 @@ def show_lowcardvars(dataframe, max_unique=10):
     return col_list
 
 
-def show_constantvars(dataframe):
+def show_constantvars(dataframe, verbose=False):
     """
     Identify columns with only one unique value (including NaNs).
 
     Parameters
     ----------
     dataframe : pd.DataFrame
-
+    verbose : bool, optional
+        Whether to print a summary message (default is False).
     Returns
     -------
     list of str
         Column names that are constant.
     """
-    print("Showing constant columns (only one unique value)")
+    if verbose:
+        print("Columns (only one unique value)")
     col_list = []
     for col in dataframe.columns:
         if dataframe[col].nunique(dropna=False) == 1:
@@ -186,7 +191,37 @@ def show_constantvars(dataframe):
     return col_list
 
 
-def show_highcardvars(dataframe, percent_unique=90):
+def show_nearconstvars(dataframe, threshold=0.95, verbose=False):
+    """
+    Finds columns where a single value makes up more than `threshold` proportion of the data.
+
+    Parameters
+    ----------
+    df : pd.DataFrame
+        The input dataframe.
+    threshold : float, optional
+        The proportion above which a column is considered near-constant (default is 0.95).
+    verbose : bool, optional
+        Whether to print a summary message (default is False).
+
+    Returns
+    -------
+    List[str]
+        List of column names that are near-constant.
+    """
+    if verbose:
+        print(f"Columns with cardinality <= {threshold*100:.1f}% ")
+
+    near_constant = []
+    for col in dataframe.columns:
+        top_freq = dataframe[col].value_counts(normalize=True, dropna=False).values[0]
+        if top_freq >= threshold:
+            near_constant.append(col)
+
+    return near_constant
+
+
+def show_highcardvars(dataframe, percent_unique=90, verbose=False):
     """
     Identify categorical columns with high cardinality (>= percent_unique).
 
@@ -196,7 +231,8 @@ def show_highcardvars(dataframe, percent_unique=90):
         The input DataFrame.
     percent_unique : float, optional
         Minimum % of unique values (vs. total rows) to consider high-cardinality.
-
+    verbose : bool, optional
+        Whether to print a summary message (default is False).
     Returns
     -------
     list of tuples
@@ -204,7 +240,9 @@ def show_highcardvars(dataframe, percent_unique=90):
 
     Docstring generated with assistance from ChatGPT.
     """
-    print(f"Showing cat var of cardinality >= {percent_unique}%")
+    if verbose:
+        print(f"Cateogrical variables with cardinality >= {percent_unique}%")
+
     col_list = []
     total_rows = show_shape(dataframe)[0]
     cat_cols = show_catvar(dataframe)
@@ -442,8 +480,6 @@ def count_id_like_columns(dataframe, threshold=0.95):
     )
 
 
-
-
 def get_dtype_summary(dataframe):
     """
     Returns a dictionary summarizing the count of common data types.
@@ -487,4 +523,3 @@ def get_dtype_summary(dataframe):
             type_counts["other"] += 1
 
     return type_counts
-

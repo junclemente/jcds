@@ -11,52 +11,44 @@ This project follows [Semantic Versioning](https://semver.org/) and loosely foll
 
 - Example usage notebook: `examples/eda_workflow.ipynb` for demonstrating full EDA flow.
 - **New centralized help system**:
-  - Added `help()` to `jcds/__init__.py` as a unified entry point for documentation on all public functions.
-  - Created a `make_module_help()` utility in `jcds/utils.py` to generate module-specific `help()` functions using `globals()`.
-  - Each submodule (e.g., `eda`, `aws`, `dataio`) now exposes a `help()` function for contextual function lookup:
+  - Unified `help()` entry point in `jcds/__init__.py`.
+  - `make_module_help()` utility in `jcds/utils.py` using `globals()`.
+  - All submodules (`eda`, `aws`, `dataio`) now support contextual help:
     ```python
     jcds.eda.help("quick_report")
     jcds.aws.help()
     ```
-  - Eliminates redundant `help()` definitions across modules while preserving user-friendly discovery.
-- New utility functions in `eda.inspect` for enhanced dataset inspection:
-  - `show_constantvars`
-  - `show_highcardvars`
-  - `show_datetime_columns`
-  - `show_possible_datetime_columns`
-  - `show_mixed_type_columns`
-  - `count_id_like_columns`
-  - `get_dtype_summary`
-  - `show_memory_use`
-- Comprehensive unit tests for all `eda.inspect` functions:
-  - Shape and duplication: `show_shape`, `show_dupes`
-  - Variable type detection: `show_catvar`, `show_convar`
-  - Missing value detection: `count_rows_with_any_na`, `count_rows_with_all_na`, `count_cols_with_any_na`, `count_cols_with_all_na`, `count_total_na`
-  - Cardinality and uniqueness: `count_unique_values`, `show_lowcardvars`, `show_highcardvars`, `show_constantvars`, `show_binary_list`
-  - Special type detection: `show_datetime_columns`, `show_possible_datetime_columns`, `show_mixed_type_columns`
-  - ID and type analysis: `count_id_like_columns`, `get_dtype_summary`, `show_memory_use`
-  - Fixtures provided via `conftest.py` for reproducible test data
+- **New utilities in `eda.inspect`**:
+  - Variable inspection: `show_constantvars`, `show_highcardvars`, `get_dtype_summary`, `show_memory_use`
+  - Type detection: `show_datetime_columns`, `show_possible_datetime_columns`, `show_mixed_type_columns`, `count_id_like_columns`
+- **Comprehensive unit tests for all `eda.inspect` functions** using reusable fixtures in `conftest.py`.
+- **New `reports` module** (`jcds.reports`):
+  - `data_info(df, show_columns=False)` — detailed dataset summary
+  - `data_cardinality(df, show_columns=False)` — variable cardinality diagnostics
+  - Includes full docstrings and modular registration in `__init__.py`
 
 ### Changed
 
 - Added `DeprecationWarning` to legacy functions scheduled for removal in `v0.3.0`.
 - Updated `.gitignore` to exclude test datasets and notebooks.
-- Refactored submodule `__init__.py` files to use `make_module_help()` instead of defining their own `help()` wrappers.
-- Updated `jcds/__init__.py` to explicitly import and expose submodules (`eda`, `aws`, `dataio`) via `__all__`, enabling access like `jcds.eda.help()` directly from the root import.
-- Ensured all module `help()` functions are test-safe by using delayed imports to prevent circular dependencies.
-- Refactored `tests/test_inspect.py` to use reusable fixtures from `conftest.py`, improving maintainability and reducing redundancy.
+- Refactored submodule `__init__.py` files to use the centralized `help()` system.
+- Updated `jcds/__init__.py` to explicitly expose `eda`, `aws`, and `dataio` via `__all__`.
+- Ensured delayed imports in module `help()` functions to prevent circular dependencies.
+- Refactored `tests/test_inspect.py` to use shared fixtures in `conftest.py`.
+- Registered `data_info`, `data_cardinality`, and `help()` in `jcds/reports/__init__.py`.
+- Added module-level docstring to `jcds/reports/__init__.py` to enable API documentation.
+- Updated `docs/api.md` to include the `jcds.reports` section.
 
 ### Fixed
 
-- Fixed `test_get_dtype_summary` to match updated string-based key return format (e.g., `"int"` instead of `np.dtype("int64")`).
-- Corrected argument mismatch in `show_possible_datetime_columns` test.
-- Addressed `DeprecationWarning` in `get_dtype_summary` for use of `is_categorical_dtype`.
+- Fixed `test_get_dtype_summary` to match string-based dtype format (e.g., `"int"`).
+- Corrected test argument for `show_possible_datetime_columns`.
+- Silenced deprecation warning in `get_dtype_summary` by avoiding deprecated pandas API.
 
 ### Removed
 
 - Deleted obsolete personal test datasets from `tests/datasets/`.
-- Deleted exploratory notebooks from `tests/notebooks/`.
-- Removed unused `tests/integration/` folder.
+- Deleted unused `tests/integration/` folder.
 
 
 ---
