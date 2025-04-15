@@ -5,6 +5,16 @@ This project follows [Semantic Versioning](https://semver.org/) and loosely foll
 
 ---
 
+## [Unreleased]
+
+### Changed
+
+- Migrated to `src/` layout for improved packaging hygiene and import safety.
+- Updated `pyproject.toml` to use `package-dir = {"" = "src"}`.
+- Moved all library code from root-level `jcds/` to `src/jcds/`.
+- Verified that tests, documentation, and example notebooks continue to work under the new structure.
+
+
 ## [v0.2.3] - 2025-04-15
 
 ### Added

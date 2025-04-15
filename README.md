@@ -1,6 +1,5 @@
 # jcds (Python Library)
 
-
 [![Latest Release](https://img.shields.io/github/v/release/junclemente/jcds-lib?label=release)](https://github.com/junclemente/jcds-lib/releases)
 ![Python Version](https://img.shields.io/badge/python-3.7%2B-blue)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
