@@ -87,6 +87,14 @@ import jcds.eda as jeda
 df = pd.read_csv('data.csv')
 ```
 
+### More Examples
+
+For a full example of an EDA workflow, see:
+
+- [eda_workflow.ipynb](./examples/eda_workflow.ipynb)
+
+You can find additional notebooks and usage demonstrations in the [examples/](./examples/) folder.
+
 ## Branching Info
 
 When specifying the `ref` in `httpimport.github_repo()`, use one of the following:
@@ -151,7 +159,6 @@ pytest --cov=jcds --cov-report=term
 
 **Documentation:** [https://junclemente.github.io/jcds](https://junclemente.github.io/jcds)
 
-
 This project uses [MkDocs](https://www.mkdocs.org/) with the [Material theme](https://squidfunk.github.io/mkdocs-material/) and [mkdocstrings](https://mkdocstrings.github.io/).
 
 ### 🔄 Updating the Docs
@@ -163,16 +170,20 @@ This project uses [MkDocs](https://www.mkdocs.org/) with the [Material theme](ht
    ```bash
    mkdocs serve
    ```
-    This starts a local dev server at: 
-    ```cpp
-    http://127.0.0.1:8000/
-    ``` 
-    Any changes make to the Markdown files, Python docstrings, or theme settings will auto-reload. 
+
+   This starts a local dev server at:
+
+   ```cpp
+   http://127.0.0.1:8000/
+   ```
+
+   Any changes make to the Markdown files, Python docstrings, or theme settings will auto-reload.
+
 4. To deploy to GitHub Pages:
-    ```bash
-    mkdocs gh-deploy
-    ```
-    Make sure `site_url` and `repo_url` are set correctly in the `mkdocs.yml`. 
+   ```bash
+   mkdocs gh-deploy
+   ```
+   Make sure `site_url` and `repo_url` are set correctly in the `mkdocs.yml`.
 
 ## Changelog
 
