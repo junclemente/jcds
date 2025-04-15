@@ -1,12 +1,12 @@
 # jcds (Python Library)
 
-[![Latest Release](https://img.shields.io/github/v/release/junclemente/jcds-lib?label=release)](https://github.com/junclemente/jcds-lib/releases)
+[![Latest Release](https://img.shields.io/github/v/release/junclemente/jcds?label=release)](https://github.com/junclemente/jcds/releases)
 ![Python Version](https://img.shields.io/badge/python-3.7%2B-blue)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-![Build Status](https://github.com/junclemente/jcds-lib/actions/workflows/python-app.yml/badge.svg)
-[![Docs](https://img.shields.io/badge/docs-online-blue)](https://junclemente.github.io/jcds-lib/)
+![Build Status](https://github.com/junclemente/jcds/actions/workflows/python-app.yml/badge.svg)
+[![Docs](https://img.shields.io/badge/docs-online-blue)](https://junclemente.github.io/jcds/)
 
-**jcds** is a modular Python library (hosted in the [jcds-lib](https://github.com/junclemente/jcds-lib) repository) designed to support reproducible workflows in data science and exploratory data analysis (EDA).  
+**jcds** is a modular Python library (hosted in the [jcds-lib](https://github.com/junclemente/jcds) repository) designed to support reproducible workflows in data science and exploratory data analysis (EDA).  
 It provides a curated collection of functions for inspecting, transforming, and accessing tabular data from local and cloud sources, with particular emphasis on usability within Jupyter notebooks.
 
 This project originated during my time as a graduate student in the **MSADS (Master of Science in Applied Data Science)** program at the [University of San Diego](https://www.sandiego.edu/engineering/graduate/ms-applied-data-science.php).  
