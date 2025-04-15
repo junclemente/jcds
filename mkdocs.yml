@@ -12,7 +12,7 @@ plugins:
   - mkdocstrings:
       handlers:
         python:
-          options: 
+          options:
             show_source: true
             show_signature_annotations: true
-          paths: [jcds]
+          paths: ["."]
