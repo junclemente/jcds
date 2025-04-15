@@ -98,6 +98,8 @@ def data_cardinality(dataframe, show_columns=False):
         Prints summary information to the console.
     """
     print("CARDINALITY:")
+
+    print("BINARY COLUMNS:")
     binary_list = show_binary_list(dataframe)
     for key, value in binary_list.items():
         total = len(value)
@@ -105,11 +107,13 @@ def data_cardinality(dataframe, show_columns=False):
         if show_columns:
             print(f"\tColumns: {value}")
 
+    print("\nLOW CARDINALITY: ")
     lowcardvars = show_lowcardvars(dataframe)
     print(f"\tThere are {len(lowcardvars)} low cardinality variables.")
     if show_columns:
         print(f"\tColumns: {lowcardvars}")
 
+    print("\nHIGH CARDINALITY: ")
     highcardvars = show_highcardvars(dataframe)
     print(f"\tThere are {len(highcardvars)} high cardinality variables.")
     if show_columns:
