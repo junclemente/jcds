@@ -1,4 +1,4 @@
-# jcds (Python Library)
+# 📦 jcds (Python Library)
 
 [![Latest Release](https://img.shields.io/github/v/release/junclemente/jcds?label=release)](https://github.com/junclemente/jcds/releases)
 ![Python Version](https://img.shields.io/badge/python-3.7%2B-blue)
@@ -9,62 +9,52 @@
 **jcds** is a modular Python library (hosted in the [jcds-lib](https://github.com/junclemente/jcds) repository) designed to support reproducible workflows in data science and exploratory data analysis (EDA).  
 It provides a curated collection of functions for inspecting, transforming, and accessing tabular data from local and cloud sources, with particular emphasis on usability within Jupyter notebooks.
 
-This project originated during my time as a graduate student in the **MSADS (Master of Science in Applied Data Science)** program at the [University of San Diego](https://www.sandiego.edu/engineering/graduate/ms-applied-data-science.php).  
+📚 This project originated during my time as a graduate student in the **MSADS (Master of Science in Applied Data Science)** program at the [University of San Diego](https://www.sandiego.edu/engineering/graduate/ms-applied-data-science.php).  
 I often ran into repetitive tasks — inspecting nulls, handling encodings, wrangling column names, or working with messy CSVs and S3-hosted files — across multiple class and capstone projects.  
-To address these real-world pain points, I began building **jcds** as a personal toolkit grounded in **DRY (Don't Repeat Yourself)** principles — and have been pair programming alongside **Generative AI** to refine and expand it throughout my learning journey.
+To address these real-world pain points, I began building **jcds** as a personal toolkit grounded in **DRY (Don't Repeat Yourself)** principles — and have been pair programming alongside **Generative AI 🤖** to refine and expand it throughout my learning journey.
 
-> **Compatible with Python 3.7 and above. Developed and tested on Python 3.10.**
+> ✅ **Compatible with Python 3.7 and above. Developed and tested on Python 3.10.**
 
 ---
 
-## How to Use
+## 🔧 How to Use
 
-### Install with `pip`
+### 📥 Install with `pip`
 
-#### Quick Install
-
-This installs the latest version of the library and all core dependencies.
+#### ⚡ Quick Install
 
 ```bash
 pip install git+https://github.com/junclemente/jcds.git
 ```
 
-#### Specific Version
-
-To install a specific version (e.g., `v0.2.1`), add the version tag at the end:
+#### 📌 Specific Version
 
 ```bash
 pip install git+https://github.com/junclemente/jcds.git@v0.2.1
 ```
 
-#### Develop Branch
-
-Or install from the `develop` branch (not recommended):
+#### 🧪 Develop Branch (unstable)
 
 ```bash
 pip install git+https://github.com/junclemente/jcds.git@develop
 ```
 
-#### Optional: AWS Support
-
-If you plan to use the `aws` module (for working with AWS S3, etc.), you'll need to install with the optional `aws` dependencies:
+#### ☁️ Optional: AWS Support
 
 ```bash
 pip install git+https://github.com/junclemente/jcds.git@v0.2.1[aws]
 ```
 
-This will install:
+Installs:
 
 - `boto3`
 - `botocore`
 
-These dependencies are only required if you need to use the AWS module.
-
 ---
 
-### Import with `httpimport`
+### 🌐 Import with `httpimport`
 
-You can also import this library directly into your Jupyter notebook using [`httpimport`](https://pypi.org/project/httpimport/):
+Use [`httpimport`](https://pypi.org/project/httpimport/) directly in Jupyter:
 
 ```python
 import httpimport
@@ -73,13 +63,15 @@ with httpimport.github_repo('junclemente', 'jcds', ref='<branch>'):
     import jcds as jcds
 ```
 
-You can also import specific submodules as needed:
+You can also import specific submodules:
 
 ```python
 import jcds.eda as eda
 ```
 
-### Minimal Usage Example
+---
+
+### 🧪 Minimal Usage Example
 
 ```python
 import pandas as pd
@@ -88,146 +80,157 @@ import jcds.eda as jeda
 df = pd.read_csv('data.csv')
 ```
 
-### More Examples
+---
 
-For a full example of an EDA workflow, see:
+### 📓 More Examples
 
-- [eda_workflow.ipynb](./examples/eda_workflow.ipynb)
+See the EDA workflow notebook:
 
-You can find additional notebooks and usage demonstrations in the [examples/](./examples/) folder.
+- [examples/eda_workflow.ipynb](./examples/eda_workflow.ipynb)
 
-## Branching Info
+---
 
-When specifying the `ref` in `httpimport.github_repo()`, use one of the following:
+## 🌿 Branching Info
 
-- `develop` - Actively evolving. This may contain breaking changes as new features are added or modified.
-- Versioned tags (e.g., `0.1.0`, `0.2.0`) - Stable and locked. These will not change and are safe for reproducibility.
+When specifying the `ref` in `httpimport.github_repo()`:
 
-**Recommended:** Use a versioned branch to ensure your code doesn't break when updates are pushed to `develop`.
+- `develop` – Actively evolving 🚧
+- `0.x.x` – Stable and reproducible ✅
 
-## Help System
+> 🔒 Recommended: Use a versioned tag for reproducibility.
 
-Each **subpackage** in the `jcds` library includes a `help()` function that lists all **public functions** available within.
+---
 
-### Global help -- across all submodules
+## 🆘 Help System
+
+Each subpackage has a built-in `help()` function.
+
+### 🌍 Global help
 
 ```python
 import jcds
-jcds.help() # List all functions in the jcds library (aws, eda, etc...)
+jcds.help()
 ```
 
-### Subpackage-specific help
+### 📁 Subpackage-specific help
 
 ```python
 import jcds.eda
-jcds.eda.help() # List all functions in the jcds.eda package
+jcds.eda.help()
 
 import jcds.aws as jaws
-jaws.help() # List all functions in the jcds.aws package
+jaws.help()
 ```
 
-### To view documentation for a specific function:
+### 🔎 Function-level help
 
 ```python
-jcds.eda.help('dqr_cat') # Shows the docstring for the function 'dqr_cat`
+jcds.eda.help('dqr_cat')
 ```
 
-## Testing
+---
 
-This project uses `pytest` for unit testing.
+## 🧪 Testing
 
-To run all tests:
+This project uses `pytest`.
+
+Run all tests:
 
 ```bash
 pytest
 ```
 
-To run a specific test file:
+Run a specific test file:
 
 ```bash
 pytest tests/unit/test_eda_helpers.py
 ```
 
-Fixtures and sample test datasets are defined in `tests/unit/test_utils.py`.
-
-Test coverage:
+Measure test coverage:
 
 ```bash
 pytest --cov=jcds --cov-report=term
 ```
 
-## Documentation
+---
 
-**Documentation:** [https://junclemente.github.io/jcds](https://junclemente.github.io/jcds)
+## 📚 Documentation
 
-This project uses [MkDocs](https://www.mkdocs.org/) with the [Material theme](https://squidfunk.github.io/mkdocs-material/) and [mkdocstrings](https://mkdocstrings.github.io/).
+📄 [jcds documentation](https://junclemente.github.io/jcds)
 
-### 🔄 Updating the Docs
+Built with:
 
-1. Make sure all public functions and modules have proper docstrings (Google or NumPy style recommended).
-2. If you add or rename modules, update `mkdocs.yml` and corresponding `.md` files in the `docs/` folder.
-3. Preview docs locally:
+- [MkDocs](https://www.mkdocs.org/)
+- [Material theme](https://squidfunk.github.io/mkdocs-material/)
+- [mkdocstrings](https://mkdocstrings.github.io/)
 
-   ```bash
-   mkdocs serve
-   ```
+### 🔁 Updating the Docs
 
-   This starts a local dev server at:
+1. Add/update docstrings (Google or NumPy style).
+2. Update `mkdocs.yml` and related `.md` files.
+3. Preview locally:
 
-   ```cpp
-   http://127.0.0.1:8000/
-   ```
+```bash
+mkdocs serve
+```
 
-   Any changes make to the Markdown files, Python docstrings, or theme settings will auto-reload.
+URL:
 
-4. To deploy to GitHub Pages:
-   ```bash
-   mkdocs gh-deploy
-   ```
-   Make sure `site_url` and `repo_url` are set correctly in the `mkdocs.yml`.
+```text
+http://127.0.0.1:8000/
+```
 
-## Changelog
+4. Deploy to GitHub Pages:
 
-See [CHANGELOG.md](./CHANGELOG.md) for a list of version history and updates.
-
-## Release & Changelog Automation
-
-This project uses [`git-cliff`](https://github.com/orhun/git-cliff) to generate semantically grouped changelogs based on [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
-
-Changelog generation and release tagging are automated with a `Makefile` for consistency and ease of use.
-
-### ✅ Conventional Commit Guidelines
-
-Use these prefixes in your commit messages to ensure they appear properly in the changelog:
-
-| Type       | Description                        | Example                                      |
-| ---------- | ---------------------------------- | -------------------------------------------- |
-| `feat`     | New feature                        | `feat: add data_info report to jcds.reports` |
-| `fix`      | Bug fix                            | `fix: handle NaN values in datetime parser`  |
-| `chore`    | Maintenance, tooling, config       | `chore: update Makefile for git-cliff`       |
-| `docs`     | Documentation only                 | `docs: update README with usage examples`    |
-| `style`    | Formatting, whitespace, linter     | `style: reformat eda.py with black`          |
-| `refactor` | Code refactor (no behavior change) | `refactor: simplify logic in show_dupes()`   |
-| `test`     | Tests added or updated             | `test: add tests for aws.s3_io.read_s3()`    |
-| `ci`       | CI config changes                  | `ci: update GitHub Actions workflow`         |
-
-> You don’t have to use conventional commits for **all** your commits — just the ones you want to appear in the changelog.
+```bash
+mkdocs gh-deploy
+```
 
 ---
 
-### 📝 Common Makefile Commands
+## 📝 Changelog
 
-- **Preview changelog (no file changes):**
+See [CHANGELOG.md](./CHANGELOG.md) for version history and updates.
+
+---
+
+## 🚀 Release & Changelog Automation
+
+This project uses [`git-cliff`](https://github.com/orhun/git-cliff) with [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) to generate structured changelogs.
+
+### 📐 Commit Message Guide
+
+| Type       | Description                        | Example                                      |
+|------------|------------------------------------|----------------------------------------------|
+| `feat`     | New feature                        | `feat: add data_info report to jcds.reports` |
+| `fix`      | Bug fix                            | `fix: handle NaN values in datetime parser`  |
+| `chore`    | Maintenance                        | `chore: update Makefile for git-cliff`       |
+| `docs`     | Documentation only                 | `docs: update README with usage examples`    |
+| `style`    | Formatting, no logic change        | `style: reformat eda.py with black`          |
+| `refactor` | Code refactor                      | `refactor: simplify logic in show_dupes()`   |
+| `test`     | Add or update tests                | `test: add tests for aws.s3_io.read_s3()`    |
+| `ci`       | CI/CD config changes               | `ci: update GitHub Actions workflow`         |
+
+> 📌 Only commits with these tags will be included in the changelog.
+
+---
+
+### 📂 Makefile Commands
+
+- 🔍 Preview changelog:
 
   ```bash
   make changelog VERSION=0.2.5
   ```
 
-- **Save changelog to `CHANGELOG.md`:**
-   ```bash
-   make changelog-save VERSIONE=0.2.5 
-   ``` 
-- **Finalize and tag a new release:**
-   ```bash
-   make release VERSION=0.2.5
-   ``` 
+- 💾 Save changelog to `CHANGELOG.md`:
+
+  ```bash
+  make changelog-save VERSION=0.2.5
+  ```
+
+- 🏷️ Finalize and tag a release:
+
+  ```bash
+  make release VERSION=0.2.5
+  ```
