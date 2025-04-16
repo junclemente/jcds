@@ -25,7 +25,6 @@ conventional_commits = true
 filter_unconventional = true
 tag_pattern = "v[0-9]*"
 
-[git.commit_parsers]
 [[git.commit_parsers]]
 type = "feat"
 section = "🚀 Features"
