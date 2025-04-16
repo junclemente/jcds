@@ -28,7 +28,8 @@ dependencies = [
   "seaborn",
   "ipython",
   "scikit-learn",
-  "requests"
+  "requests", 
+  "ipython",
 ]
 
 [project.optional-dependencies]
