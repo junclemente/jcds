@@ -171,6 +171,7 @@ def data_cardinality(dataframe, show_columns=False):
 def data_quality(dataframe, show_columns=False):
 
     NEAR_CONSTANT_COLUMNS_THRESHOLD = 0.95
+    HIGH_CARDINALITY_PERCENT = 60
     print("DATA QUALITY REPORT")
     print("====================")
 
@@ -191,6 +192,7 @@ def data_quality(dataframe, show_columns=False):
 
     # missing rows
     print("\nROWS:")
+    print("--------------------")
     rows_missing_any = count_rows_with_any_na(dataframe)
     rows_missing_all = count_rows_with_all_na(dataframe)
     print(f" * Rows missing any: {rows_missing_any}")
@@ -202,6 +204,7 @@ def data_quality(dataframe, show_columns=False):
 
     # missing columns
     print("\nCOLUMNS:")
+    print("--------------------")
     missing_summary = show_missing_summary(dataframe, sort=True, threshold=0.0)
     key_list = list(missing_summary.keys())
     print(f"Columns missing any: {len(missing_summary)}")
@@ -232,5 +235,12 @@ def data_quality(dataframe, show_columns=False):
         print(f"Column list: {mixed_data_columns}")
 
     # high cardinality
+    high_card_columns = show_highcardvars(
+        dataframe, percent_unique=HIGH_CARDINALITY_PERCENT, verbose=False
+    )
+    print(f"\nHIGH CARDINALITY: {len(high_card_columns)}")
+    print(f"\t({HIGH_CARDINALITY_PERCENT}% >= unique values)")
+    if show_columns and high_card_columns:
+        print(f"\nColumn list: {high_card_columns}")
 
     # outlier detection?
