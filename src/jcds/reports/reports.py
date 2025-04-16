@@ -163,9 +163,11 @@ def data_cardinality(dataframe, show_columns=False):
             print(f" * Columns: {highcardvars}")
 
 
-# def data_quality(dataframe):
-#     shape = show_shape(dataframe)
-#     dupes = show_dupes(dataframe)
+def data_quality(dataframe, show_columns=False):
+    print("DATA QUALITY REPORT")
 
-#     print(f"There are {shape[0]} rows and {shape[1]} columns.")
-#     print(f"There are {dupes} duplicated rows.")
+    shape = show_shape(dataframe)
+    dupes = show_dupes(dataframe)
+
+    print(f"There are {shape[0]} rows and {shape[1]} columns.")
+    print(f"There are {dupes} duplicated rows.")
