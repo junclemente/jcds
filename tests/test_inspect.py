@@ -172,3 +172,21 @@ def test_show_nearconstvars_detects_near_constant_columns(nearconst_test_df):
     result = eda.show_nearconstvars(nearconst_test_df)
     assert "almost_constant" in result
     ...
+
+
+def test_show_missing_summary_filters_by_threshold(missing_data_df):
+    # Without threshold
+    result = eda.show_missing_summary(missing_data_df)
+    assert result == {"D": (5, 100.0), "B": (2, 40.0), "A": (1, 20.0)}
+
+    # With threshold = 30%
+    result_thresh = eda.show_missing_summary(missing_data_df, threshold=30)
+    assert result_thresh == {"D": (5, 100.0), "B": (2, 40.0)}
+
+    # With threshold = 100%
+    result_100 = eda.show_missing_summary(missing_data_df, threshold=100)
+    assert result_100 == {"D": (5, 100.0)}
+
+    # With threshold = 101% (nothing should pass)
+    result_empty = eda.show_missing_summary(missing_data_df, threshold=101)
+    assert result_empty == {}

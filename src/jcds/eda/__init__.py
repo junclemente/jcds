@@ -28,6 +28,7 @@ from .inspect import (
     show_mixed_type_columns,
     count_id_like_columns,
     get_dtype_summary,
+    show_missing_summary,
 )
 
 from .reports import dqr_cat, dqr_cont, quick_report, long_report, display_all_col_head
@@ -80,5 +81,6 @@ __all__ = [
     "show_mixed_type_columns",
     "count_id_like_columns",
     "get_dtype_summary",
+    "show_missing_summary",
     "help",
 ]

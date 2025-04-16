@@ -242,3 +242,20 @@ def nearconst_test_df():
             "balanced": [0, 1] * 50,
         }
     )
+
+
+import pytest
+import pandas as pd
+import numpy as np
+
+
+@pytest.fixture
+def missing_data_df():
+    return pd.DataFrame(
+        {
+            "A": [1, 2, np.nan, 4, 5],
+            "B": [np.nan, np.nan, 3, 4, 5],
+            "C": [1, 2, 3, 4, 5],  # no missing
+            "D": [np.nan, np.nan, np.nan, np.nan, np.nan],  # all missing
+        }
+    )
