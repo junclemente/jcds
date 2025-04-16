@@ -98,8 +98,8 @@ def show_dimensions(dataframe):
     rows, cols = dataframe.shape
     size = dataframe.size
     memory_use = dataframe.memory_usage(deep=True).sum()
-    # convert from bytes to megabytes
-    memory_use = memory_use / 1024**2
+    # convert from bytes to megabytes, round to 2 dec places
+    memory_use = round((memory_use / 1024**2), 2)
     return rows, cols, size, memory_use
 
 
