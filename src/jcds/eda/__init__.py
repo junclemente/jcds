@@ -32,6 +32,8 @@ from .inspect import (
     show_missing_summary,
 )
 
+from .outliers import detect_outliers_iqr
+
 from .reports import dqr_cat, dqr_cont, quick_report, long_report, display_all_col_head
 
 from .transform import rename_col
@@ -84,5 +86,6 @@ __all__ = [
     "count_id_like_columns",
     "get_dtype_summary",
     "show_missing_summary",
+    "detect_outliers_iqr",
     "help",
 ]
