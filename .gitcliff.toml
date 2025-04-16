@@ -26,13 +26,42 @@ filter_unconventional = true
 tag_pattern = "v[0-9]*"
 
 [git.commit_parsers]
-feat = "🚀 Features"
-fix = "🐛 Fixes"
-docs = "📝 Documentation"
-chore = "⚙️ Miscellaneous Tasks"
-refactor = "🧼 Refactoring"
-test = "✅ Tests"
-ci = "🔧 CI"
-build = "📦 Build"
-style = "🎨 Style"
-perf = "⚡ Performance"
+[[git.commit_parsers]]
+type = "feat"
+section = "🚀 Features"
+
+[[git.commit_parsers]]
+type = "fix"
+section = "🐛 Fixes"
+
+[[git.commit_parsers]]
+type = "docs"
+section = "📝 Documentation"
+
+[[git.commit_parsers]]
+type = "chore"
+section = "⚙️ Miscellaneous Tasks"
+
+[[git.commit_parsers]]
+type = "refactor"
+section = "🧼 Refactoring"
+
+[[git.commit_parsers]]
+type = "test"
+section = "✅ Tests"
+
+[[git.commit_parsers]]
+type = "ci"
+section = "🔧 CI"
+
+[[git.commit_parsers]]
+type = "build"
+section = "📦 Build"
+
+[[git.commit_parsers]]
+type = "style"
+section = "🎨 Style"
+
+[[git.commit_parsers]]
+type = "perf"
+section = "⚡ Performance"
