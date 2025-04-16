@@ -190,3 +190,15 @@ def test_show_missing_summary_filters_by_threshold(missing_data_df):
     # With threshold = 101% (nothing should pass)
     result_empty = eda.show_missing_summary(missing_data_df, threshold=101)
     assert result_empty == {}
+
+
+from jcds.eda.inspect import show_dimensions
+
+
+def test_show_dimensions_returns_correct_values(sample_df):
+    rows, cols, size, memory_use = show_dimensions(sample_df)
+
+    assert rows == 10
+    assert cols == 5
+    assert size == 50
+    assert isinstance(memory_use, float)
