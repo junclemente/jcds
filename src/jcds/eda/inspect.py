@@ -77,6 +77,32 @@ def show_shape(dataframe):
     return dataframe.shape
 
 
+def show_dimensions(dataframe):
+    """
+    Return structural and memory usage information for the DataFrame.
+
+    Parameters
+    ----------
+    dataframe : pd.DataFrame
+        The input pandas DataFrame.
+
+    Returns
+    -------
+    tuple
+        A tuple containing:
+        - rows (int): Number of rows
+        - cols (int): Number of columns
+        - size (int): Total number of data cells (rows × columns)
+        - memory_use (float): Approximate memory usage in megabytes (MB)
+    """
+    rows, cols = dataframe.shape
+    size = dataframe.size
+    memory_use = dataframe.memory_usage(deep=True).sum()
+    # convert from bytes to megabytes
+    memory_use = memory_use / 1024**2
+    return rows, cols, size, memory_use
+
+
 def show_dupes(dataframe):
     """
     Return the number of duplicate rows in the given DataFrame.
