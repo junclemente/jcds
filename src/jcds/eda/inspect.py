@@ -523,3 +523,38 @@ def get_dtype_summary(dataframe):
             type_counts["other"] += 1
 
     return type_counts
+
+
+def show_missing_summary(dataframe, sort=True, threshold=0.0):
+    """
+    Summarize missing values in the DataFrame.
+
+    Parameters
+    ----------
+    dataframe : pd.DataFrame
+        The input DataFrame.
+    sort : bool, optional
+        If True, sorts the result by descending missing count. Default is True.
+    threshold : float, optional
+        Minimum percentage (0–100) of missing values to include a column. Default is 0.0.
+
+    Returns
+    -------
+    dict
+        A dictionary where keys are column names and values are tuples of
+        (missing count, percent missing), filtered by the threshold.
+    """
+    null_counts = dataframe.isnull().sum()
+    null_counts = null_counts[null_counts > 0]
+    total_rows = len(dataframe)
+
+    summary = {}
+    for col, count in null_counts.items():
+        pct = (count / total_rows) * 100
+        if pct >= threshold:
+            summary[col] = (int(count), round(pct, 1))
+
+    if sort:
+        summary = dict(sorted(summary.items(), key=lambda x: x[1][0], reverse=True))
+
+    return summary
