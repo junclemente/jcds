@@ -4,6 +4,10 @@
 
 ::: jcds.eda.inspect
 
+## EDA Outliers
+
+::: jcds.eda.outliers
+
 ## Column Utilities
 
 ::: jcds.eda.lists
