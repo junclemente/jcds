@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.  
 This project follows [Semantic Versioning](https://semver.org/) and loosely follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format.
 
+## [v0.2.6] - 2025-04-16
+
+### 🚀 Features
+
+- Add `data_quality()` report function to generate structured diagnostics on missing values, duplicates, constants, near-constants, mixed types, and high cardinality variables.
+- Add `show_missing_summary()` to support missing data analysis by column, with percentage filtering.
+- Add `show_dimensions()` to report total entries and memory usage alongside shape.
+
+### 🧪 Tests
+
+- Added unit tests for `data_quality()`, `show_dimensions()`, and `show_missing_summary()` using `conftest.py` fixtures.
+
+### 📝 Documentation
+
+- Added comprehensive docstring for `data_quality()` outlining its use and structure.
+- Updated CHANGELOG.md with release details.
+
 ## [v0.2.5] - 2025-04-16
 
 ### 🚜 Refactor
