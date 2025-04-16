@@ -15,6 +15,7 @@ from jcds.eda import (
     get_dtype_summary,
     show_mixed_type_columns,
     count_id_like_columns,
+    show_missing_summary,
 )
 
 # from jcds.utils.formatting import render_html_block
@@ -165,9 +166,23 @@ def data_cardinality(dataframe, show_columns=False):
 
 def data_quality(dataframe, show_columns=False):
     print("DATA QUALITY REPORT")
+    print("====================")
 
+    # shape
     shape = show_shape(dataframe)
-    dupes = show_dupes(dataframe)
+    print(f"\n * Total rows: {shape[0]}")
+    print(f" * Total cols: {shape[1]}")
 
-    print(f"There are {shape[0]} rows and {shape[1]} columns.")
-    print(f"There are {dupes} duplicated rows.")
+    # missing data summary
+    print("\nCOLUMNS WITH MISSING DATA:")
+    missing_summary = show_missing_summary(dataframe, sort=True, threshold=0.0)
+    key_list = list(missing_summary.keys())
+    print(f"{len(missing_summary)} columns containing missing values:")
+    if show_columns:
+        for key, value in missing_summary.items():
+            print(f"\t{key}: {value[0]} missing ({value[1]:.1f}%)")
+        print(f"Column list: {key_list}")
+
+    print("\nDUPLICATE ROWS:")
+    duplicates = show_dupes(dataframe)
+    print(f"\t{duplicates} duplicate rows found.")
