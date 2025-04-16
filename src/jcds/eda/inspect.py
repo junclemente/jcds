@@ -77,6 +77,32 @@ def show_shape(dataframe):
     return dataframe.shape
 
 
+def show_dimensions(dataframe):
+    """
+    Return structural and memory usage information for the DataFrame.
+
+    Parameters
+    ----------
+    dataframe : pd.DataFrame
+        The input pandas DataFrame.
+
+    Returns
+    -------
+    tuple
+        A tuple containing:
+        - rows (int): Number of rows
+        - cols (int): Number of columns
+        - size (int): Total number of data cells (rows × columns)
+        - memory_use (float): Approximate memory usage in megabytes (MB)
+    """
+    rows, cols = dataframe.shape
+    size = dataframe.size
+    memory_use = dataframe.memory_usage(deep=True).sum()
+    # convert from bytes to megabytes, round to 2 dec places
+    memory_use = round((memory_use / 1024**2), 2)
+    return rows, cols, size, memory_use
+
+
 def show_dupes(dataframe):
     """
     Return the number of duplicate rows in the given DataFrame.
@@ -523,3 +549,38 @@ def get_dtype_summary(dataframe):
             type_counts["other"] += 1
 
     return type_counts
+
+
+def show_missing_summary(dataframe, sort=True, threshold=0.0):
+    """
+    Summarize missing values in the DataFrame.
+
+    Parameters
+    ----------
+    dataframe : pd.DataFrame
+        The input DataFrame.
+    sort : bool, optional
+        If True, sorts the result by descending missing count. Default is True.
+    threshold : float, optional
+        Minimum percentage (0–100) of missing values to include a column. Default is 0.0.
+
+    Returns
+    -------
+    dict
+        A dictionary where keys are column names and values are tuples of
+        (missing count, percent missing), filtered by the threshold.
+    """
+    null_counts = dataframe.isnull().sum()
+    null_counts = null_counts[null_counts > 0]
+    total_rows = len(dataframe)
+
+    summary = {}
+    for col, count in null_counts.items():
+        pct = (count / total_rows) * 100
+        if pct >= threshold:
+            summary[col] = (int(count), round(pct, 1))
+
+    if sort:
+        summary = dict(sorted(summary.items(), key=lambda x: x[1][0], reverse=True))
+
+    return summary

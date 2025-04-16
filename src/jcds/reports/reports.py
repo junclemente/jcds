@@ -2,6 +2,7 @@ from IPython.display import display, HTML
 from jcds.eda import (
     show_memory_use,
     show_shape,
+    show_dimensions,
     show_dupes,
     show_convar,
     show_catvar,
@@ -15,6 +16,10 @@ from jcds.eda import (
     get_dtype_summary,
     show_mixed_type_columns,
     count_id_like_columns,
+    show_missing_summary,
+    count_rows_with_any_na,
+    count_rows_with_all_na,
+    count_total_na,
 )
 
 # from jcds.utils.formatting import render_html_block
@@ -139,7 +144,7 @@ def data_cardinality(dataframe, show_columns=False):
         if len(near_constvar) > 0:
             print(f" * Columns: {near_constvar}")
 
-    print("\nLOW CARDINALITY CATEGORICAL COLUMNS]")
+    print("\n[LOW CARDINALITY CATEGORICAL COLUMNS]")
     lowcardvars = show_lowcardvars(
         dataframe, max_unique=LOW_CARD_MAX_UNIQUE, verbose=False
     )
@@ -163,9 +168,104 @@ def data_cardinality(dataframe, show_columns=False):
             print(f" * Columns: {highcardvars}")
 
 
-# def data_quality(dataframe):
-#     shape = show_shape(dataframe)
-#     dupes = show_dupes(dataframe)
+def data_quality(dataframe, show_columns=False):
+    """
+    Print a comprehensive data quality report for the given DataFrame.
 
-#     print(f"There are {shape[0]} rows and {shape[1]} columns.")
-#     print(f"There are {dupes} duplicated rows.")
+    This function summarizes key structural and content-based diagnostics to assess
+    the cleanliness, consistency, and usability of a dataset. It includes checks for:
+
+    - Overall shape and memory usage
+    - Missing values (total, per row, and per column)
+    - Duplicate rows
+    - Constant and near-constant columns
+    - Mixed data types within columns
+    - High-cardinality categorical columns
+
+    Parameters
+    ----------
+    dataframe : pandas.DataFrame
+        The input dataset to evaluate.
+
+    show_columns : bool, optional (default=False)
+        If True, prints the list of columns associated with each quality issue (e.g. columns with missing values, constants).
+
+    Returns
+    -------
+    None
+        Outputs the report directly to the console.
+    """
+    NEAR_CONSTANT_COLUMNS_THRESHOLD = 0.95
+    HIGH_CARDINALITY_PERCENT = 60
+    print("DATA QUALITY REPORT")
+    print("====================")
+
+    # shape
+    rows, cols, dataframe_size, memory_usage = show_dimensions(dataframe)
+    print(f"\n * Total entries (rows * cols): {dataframe_size}")
+    print(f" * Memory usage: {memory_usage} MB")
+    print(f" * Rows: {rows}")
+    print(f" * Columns: {cols}")
+
+    # missing data summary
+    print("\nMISSING DATA:")
+
+    total_missing = count_total_na(dataframe)
+    print(
+        f" * Total entries: {total_missing} missing ({(total_missing / dataframe_size) * 100:.1f}%)"
+    )
+
+    # missing rows
+    print("\nROWS:")
+    print("--------------------")
+    rows_missing_any = count_rows_with_any_na(dataframe)
+    rows_missing_all = count_rows_with_all_na(dataframe)
+    print(f" * Rows missing any: {rows_missing_any}")
+    print(f" * Rows missing all: {rows_missing_all}")
+
+    # duplicate rows
+    duplicates = show_dupes(dataframe)
+    print(f"\nDUPLICATES: {duplicates}")
+
+    # missing columns
+    print("\nCOLUMNS:")
+    print("--------------------")
+    missing_summary = show_missing_summary(dataframe, sort=True, threshold=0.0)
+    key_list = list(missing_summary.keys())
+    print(f"Columns missing any: {len(missing_summary)}")
+    if show_columns and missing_summary:
+        for key, value in missing_summary.items():
+            print(f"\t{key}: {value[0]} missing ({value[1]:.1f}%)")
+        print(f"Column list: {key_list}")
+
+    # constant columns
+    constant_cols = show_constantvars(dataframe)
+    print(f"\nCONSTANT: {len(constant_cols)}")
+    if show_columns and constant_cols:
+        print(f"Column list: {constant_cols}")
+
+    # near constant columns
+    near_constant_columns = show_nearconstvars(
+        dataframe, threshold=NEAR_CONSTANT_COLUMNS_THRESHOLD, verbose=False
+    )
+    print(f"\nNEAR CONSTANT: {len(near_constant_columns)}")
+    print(f"\t({NEAR_CONSTANT_COLUMNS_THRESHOLD * 100:.0f}% of values are the same)")
+    if show_columns and near_constant_columns:
+        print(f"Column list: {near_constant_columns}")
+
+    # mixed data types
+    mixed_data_columns = show_mixed_type_columns(dataframe)
+    print(f"\nMIXED DATATYPES: {len(mixed_data_columns)}")
+    if show_columns and mixed_data_columns:
+        print(f"Column list: {mixed_data_columns}")
+
+    # high cardinality
+    high_card_columns = show_highcardvars(
+        dataframe, percent_unique=HIGH_CARDINALITY_PERCENT, verbose=False
+    )
+    print(f"\nHIGH CARDINALITY: {len(high_card_columns)}")
+    print(f"\t({HIGH_CARDINALITY_PERCENT}% >= unique values)")
+    if show_columns and high_card_columns:
+        print(f"\nColumn list: {high_card_columns}")
+
+    # outlier detection?

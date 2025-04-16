@@ -9,6 +9,7 @@ from .lists import get_cat_list, get_cont_list, list_unique_values
 from .inspect import (
     show_memory_use,
     show_shape,
+    show_dimensions,
     show_dupes,
     show_catvar,
     show_convar,
@@ -28,7 +29,10 @@ from .inspect import (
     show_mixed_type_columns,
     count_id_like_columns,
     get_dtype_summary,
+    show_missing_summary,
 )
+
+from .outliers import detect_outliers_iqr
 
 from .reports import dqr_cat, dqr_cont, quick_report, long_report, display_all_col_head
 
@@ -54,6 +58,7 @@ __all__ = [
     "list_unique_values",
     "show_memory_use",
     "show_shape",
+    "show_dimensions",
     "show_dupes",
     "show_catvar",
     "show_convar",
@@ -80,5 +85,7 @@ __all__ = [
     "show_mixed_type_columns",
     "count_id_like_columns",
     "get_dtype_summary",
+    "show_missing_summary",
+    "detect_outliers_iqr",
     "help",
 ]
