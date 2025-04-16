@@ -189,3 +189,45 @@ This project uses [MkDocs](https://www.mkdocs.org/) with the [Material theme](ht
 ## Changelog
 
 See [CHANGELOG.md](./CHANGELOG.md) for a list of version history and updates.
+
+## Release & Changelog Automation
+
+This project uses [`git-cliff`](https://github.com/orhun/git-cliff) to generate semantically grouped changelogs based on [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
+
+Changelog generation and release tagging are automated with a `Makefile` for consistency and ease of use.
+
+### ✅ Conventional Commit Guidelines
+
+Use these prefixes in your commit messages to ensure they appear properly in the changelog:
+
+| Type       | Description                        | Example                                      |
+| ---------- | ---------------------------------- | -------------------------------------------- |
+| `feat`     | New feature                        | `feat: add data_info report to jcds.reports` |
+| `fix`      | Bug fix                            | `fix: handle NaN values in datetime parser`  |
+| `chore`    | Maintenance, tooling, config       | `chore: update Makefile for git-cliff`       |
+| `docs`     | Documentation only                 | `docs: update README with usage examples`    |
+| `style`    | Formatting, whitespace, linter     | `style: reformat eda.py with black`          |
+| `refactor` | Code refactor (no behavior change) | `refactor: simplify logic in show_dupes()`   |
+| `test`     | Tests added or updated             | `test: add tests for aws.s3_io.read_s3()`    |
+| `ci`       | CI config changes                  | `ci: update GitHub Actions workflow`         |
+
+> You don’t have to use conventional commits for **all** your commits — just the ones you want to appear in the changelog.
+
+---
+
+### 📝 Common Makefile Commands
+
+- **Preview changelog (no file changes):**
+
+  ```bash
+  make changelog VERSION=0.2.5
+  ```
+
+- **Save changelog to `CHANGELOG.md`:**
+   ```bash
+   make changelog-save VERSIONE=0.2.5 
+   ``` 
+- **Finalize and tag a new release:**
+   ```bash
+   make release VERSION=0.2.5
+   ``` 
