@@ -169,7 +169,32 @@ def data_cardinality(dataframe, show_columns=False):
 
 
 def data_quality(dataframe, show_columns=False):
+    """
+    Print a comprehensive data quality report for the given DataFrame.
 
+    This function summarizes key structural and content-based diagnostics to assess
+    the cleanliness, consistency, and usability of a dataset. It includes checks for:
+
+    - Overall shape and memory usage
+    - Missing values (total, per row, and per column)
+    - Duplicate rows
+    - Constant and near-constant columns
+    - Mixed data types within columns
+    - High-cardinality categorical columns
+
+    Parameters
+    ----------
+    dataframe : pandas.DataFrame
+        The input dataset to evaluate.
+
+    show_columns : bool, optional (default=False)
+        If True, prints the list of columns associated with each quality issue (e.g. columns with missing values, constants).
+
+    Returns
+    -------
+    None
+        Outputs the report directly to the console.
+    """
     NEAR_CONSTANT_COLUMNS_THRESHOLD = 0.95
     HIGH_CARDINALITY_PERCENT = 60
     print("DATA QUALITY REPORT")
