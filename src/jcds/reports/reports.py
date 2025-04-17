@@ -266,6 +266,7 @@ def data_quality(dataframe, show_columns=False):
     print(f"\nHIGH CARDINALITY: {len(high_card_columns)}")
     print(f"\t({HIGH_CARDINALITY_PERCENT}% >= unique values)")
     if show_columns and high_card_columns:
-        print(f"\tColumn list: {high_card_columns}")
+        for col in high_card_columns:
+            print(f"\t* '{col[0]}': {col[1]:.1f}%")
 
     # outlier detection?
