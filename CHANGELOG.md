@@ -3,6 +3,43 @@
 All notable changes to this project will be documented in this file.  
 This project follows [Semantic Versioning](https://semver.org/) and loosely follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format.
 
+
+## [v0.2.7] - 2025-04-15
+
+### ✨ Features
+- `transform.py`:
+  - Add `convert_to_int()`, `convert_to_categorical()`, `convert_to_object()`, `convert_to_datetime()`, `convert_to_numeric()`, and `convert_to_bool()` functions
+  - Add `clean_column_names()` and `delete_columns()` utility functions
+- `inspect.py`:
+  - Add `show_dimensions()` function for quick dataset shape overview
+- `eda/eda_helpers.py`:
+  - Create `detect_outliers.iqr()` for outlier detection
+- Cardinality Report:
+  - Reformat high-cardinality output to display percent uniqueness
+
+### 🧪 Tests
+- Added unit tests for:
+  - `show_dimensions()`
+  - `convert_to_int()`, `convert_to_datetime()`, `convert_to_bool()`, `convert_to_numeric()`
+  - `clean_column_names()`, `delete_columns()`
+- Updated test suite to match function name changes (`rename_col` → `rename_column`)
+
+### 🛠 Refactoring
+- Renamed `rename_col()` to `rename_column()` across codebase and tests
+
+### 🧹 Chores
+- Updated `.gitignore` to exclude test-generated CSVs
+- Added sample datasets for testing
+- Added VS Code dev test notebook template: `dev_test_nb`
+- Updated various notebooks for testing and demonstration
+- Merged latest `main` into `develop`
+
+### 📜 Documentation & Style
+- Added docstrings to `rename_column()` and `data_quality()`
+- Adjusted print formatting and divider lengths for improved readability in reports
+
+
+
 ## [v0.2.6] - 2025-04-16
 
 ### 🚀 Features
