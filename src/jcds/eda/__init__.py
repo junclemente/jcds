@@ -45,6 +45,7 @@ from .transform import (
     convert_to_datetime,
     convert_to_numeric,
     clean_column_names,
+    convert_to_bool,
 )
 
 from .univariate import describe_categorical, plot_categorical
@@ -103,5 +104,6 @@ __all__ = [
     "convert_to_datetime",
     "convert_to_numeric",
     "clean_column_names",
+    "convert_to_bool",
     "help",
 ]

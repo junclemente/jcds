@@ -2,13 +2,14 @@
 import pytest
 import pandas as pd
 import pandas.testing as pdt
-from pandas.api.types import is_categorical_dtype
+from pandas.api.types import is_categorical_dtype, is_bool_dtype
 from jcds.eda.transform import (
     rename_column,
     delete_columns,
     convert_to_int,
     convert_to_categorical,
     convert_to_object,
+    convert_to_bool,
 )
 
 
@@ -169,3 +170,58 @@ def test_convert_to_object_inplace(unique_test_df):
     ret = convert_to_object(df_cat, columns=["Category"], inplace=True)
     assert ret is None
     assert df_cat["Category"].dtype == object
+
+
+# --- convert_to_bool tests ---
+def test_convert_to_bool_numeric(sample_df):
+    # sample_df.Subscribed is 0/1 → should map to boolean
+    df2 = convert_to_bool(sample_df, "Subscribed", inplace=False)
+    assert df2 is not sample_df
+    assert df2["Subscribed"].dtype.name == "boolean"
+    # positions where original was 1 → True, 0 → False
+    assert df2["Subscribed"].iloc[0] == True  # first row in sample_df has Subscribed=1
+    assert df2["Subscribed"].iloc[1] == False  # second row Subscribed=0
+
+
+def test_convert_to_bool_strings():
+    data = {"flag": ["Yes", "no", "TRUE", "False", "1", "0", " maybe "]}
+    df = pd.DataFrame(data)
+    # default errors='raise' should choke on "maybe"
+    with pytest.raises(ValueError):
+        convert_to_bool(df, "flag", inplace=False)
+
+    # with errors='coerce', "maybe" → <NA>
+    df2 = convert_to_bool(df, "flag", errors="coerce", inplace=False)
+    assert df2["flag"].dtype.name == "boolean"
+    # check mapping
+    expected = [True, False, True, False, True, False, pd.NA]
+    assert df2["flag"].tolist() == expected
+
+
+def test_convert_to_bool_custom_mapping():
+    data = {"tf": ["ON", "OFF", "on ", "off", "unknown"]}
+    df = pd.DataFrame(data)
+    # define custom true/false lists
+    df2 = convert_to_bool(
+        df,
+        "tf",
+        true_values=["on"],
+        false_values=["off"],
+        errors="coerce",
+        inplace=False,
+    )
+    assert df2["tf"].dtype.name == "boolean"
+    assert df2["tf"].tolist() == [True, False, True, False, pd.NA]
+
+
+def test_convert_to_bool_missing_column(sample_df):
+    with pytest.raises(KeyError):
+        convert_to_bool(sample_df, "does_not_exist")
+
+
+def test_convert_to_bool_inplace(mixed_type_df):
+    # inline test: use mixed_type_df and map "1"→True, others raise
+    df = pd.DataFrame({"col": ["1", "0"]})
+    ret = convert_to_bool(df, "col", inplace=True)
+    assert ret is df
+    assert is_bool_dtype(df["col"].dtype)
