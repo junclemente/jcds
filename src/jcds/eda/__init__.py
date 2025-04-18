@@ -36,7 +36,13 @@ from .outliers import detect_outliers_iqr
 
 from .reports import dqr_cat, dqr_cont, quick_report, long_report, display_all_col_head
 
-from .transform import rename_col, delete_columns
+from .transform import (
+    rename_col,
+    delete_columns,
+    convert_to_int,
+    convert_to_categorical,
+    convert_to_object,
+)
 
 from .univariate import describe_categorical, plot_categorical
 
@@ -88,5 +94,8 @@ __all__ = [
     "show_missing_summary",
     "detect_outliers_iqr",
     "delete_columns",
+    "convert_to_int",
+    "convert_to_categorical",
+    "convert_to_object",
     "help",
 ]

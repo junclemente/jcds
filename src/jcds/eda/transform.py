@@ -134,3 +134,103 @@ def convert_to_int(
 
     if not inplace:
         return df
+
+
+def convert_to_categorical(
+    dataframe: pd.DataFrame,
+    columns: list[str] | None = None,
+    ordered: bool = False,
+    inplace: bool = False,
+) -> pd.DataFrame | None:
+    """
+    Convert one or more columns to pandas Categorical dtype.
+
+    Parameters
+    ----------
+    dataframe : pandas.DataFrame
+        The DataFrame containing columns to convert.
+    columns : list[str] or None, default None
+        List of column names to convert. If None, all object‐ or string‐
+        typed columns will be converted.
+    ordered : bool, default False
+        Whether the resulting Categorical should be ordered.
+    inplace : bool, default False
+        If True, modify `dataframe` in place and return None.
+        If False, return a new DataFrame with the conversions applied.
+
+    Returns
+    -------
+    pandas.DataFrame or None
+        New DataFrame if `inplace=False`, or None if `inplace=True`.
+
+    Raises
+    ------
+    ValueError
+        If any name in `columns` isn’t found in `dataframe.columns`.
+
+    Notes
+    -----
+    Uses `Series.astype('category')` under the hood; ordering only applies
+    if you need to compare categories (e.g., for sorting or inequalities).
+    """
+    df = dataframe if inplace else dataframe.copy()
+
+    # pick target cols
+    if columns is None:
+        cols = df.select_dtypes(include=["object", "string"]).columns
+    else:
+        missing = set(columns) - set(df.columns)
+        if missing:
+            raise ValueError(f"Columns not found: {missing}")
+        cols = columns
+
+    for col in cols:
+        df[col] = df[col].astype(pd.CategoricalDtype(ordered=ordered))
+
+    if not inplace:
+        return df
+
+
+def convert_to_object(
+    dataframe: pd.DataFrame, columns: list[str], inplace: bool = False
+) -> pd.DataFrame | None:
+    """
+    Cast one or more columns to the generic Python object dtype.
+
+    Parameters
+    ----------
+    dataframe : pandas.DataFrame
+        The DataFrame containing columns to convert.
+    columns : list[str]
+        List of column names to convert to object.
+    inplace : bool, default False
+        If True, modify `dataframe` in place and return None.
+        If False, return a new DataFrame with the conversions applied.
+
+    Returns
+    -------
+    pandas.DataFrame or None
+        New DataFrame if `inplace=False`, or None if `inplace=True`.
+
+    Raises
+    ------
+    ValueError
+        If any name in `columns` isn’t found in `dataframe.columns`.
+
+    Notes
+    -----
+    Converting to “object” is rarely needed for strings—consider using
+    pandas’ `StringDtype()` for better missing‐value support. This exists
+    mainly for legacy interoperability.
+    """
+    df = dataframe if inplace else dataframe.copy()
+
+    missing = set(columns) - set(df.columns)
+    if missing:
+        raise ValueError(f"Columns not found: {missing}")
+
+    for col in columns:
+        df[col] = df[col].astype("object")
+
+    if not inplace:
+        return df
