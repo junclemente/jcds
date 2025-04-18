@@ -1,4 +1,5 @@
 import pandas as pd
+import re
 
 
 def rename_column(dataframe, oldname, newname):
@@ -131,6 +132,47 @@ def convert_to_int(
 
     if not inplace:
         return df
+
+
+def convert_to_numeric(
+    dataframe, columns, errors="raise", downcast=None, inplace=False
+):
+    """
+    Converts one or more DataFrame columns to a numeric dtype.
+
+    Parameters
+    ----------
+    dataframe : pandas.DataFrame
+        Input DataFrame.
+    columns : str or list of str
+        Column name or list of column names to convert.
+    errors : {'raise', 'coerce', 'ignore'}, default 'raise'
+        How to handle parsing errors, passed to pandas.to_numeric.
+    downcast : {'integer', 'signed', 'unsigned', 'float'}, optional
+        Downcast numeric types if possible.
+    inplace : bool, optional
+        If True, convert columns in place on the original DataFrame; otherwise operate on a copy.
+
+    Returns
+    -------
+    pandas.DataFrame
+        DataFrame with specified columns converted to numeric. If inplace is True, the original DataFrame is modified and returned.
+    """
+    df = dataframe if inplace else dataframe.copy()
+
+    if isinstance(columns, str):
+        cols = [columns]
+    else:
+        cols = list(columns)
+
+    missing = set(cols) - set(df.columns)
+    if missing:
+        raise KeyError(f"Columns not found in DataFrame: {missing}")
+
+    for col in cols:
+        df[col] = pd.to_numeric(df[col], errors=errors, downcast=downcast)
+
+    return df
 
 
 def convert_to_categorical(
@@ -273,4 +315,32 @@ def convert_to_datetime(dataframe, columns, format=None, errors="raise", inplace
     for col in cols:
         df[col] = pd.to_datetime(df[col], format=format, errors=errors)
 
+    return df
+
+
+def clean_column_names(dataframe, inplace=False):
+    """
+    Cleans DataFrame column names by stripping whitespace, lowercasing, and replacing non-alphanumeric characters with underscores.
+
+    Parameters
+    ----------
+    dataframe : pandas.DataFrame
+        Input DataFrame.
+    inplace : bool, optional
+        If True, clean names in place on the original DataFrame; otherwise operate on a copy.
+
+    Returns
+    -------
+    pandas.DataFrame
+        DataFrame with cleaned column names. If inplace is True, the original DataFrame is modified and returned.
+    """
+    df = dataframe if inplace else dataframe.copy()
+    mapping = {}
+    for col in df.columns:
+        new_col = col.strip()
+        new_col = new_col.lower()
+        new_col = re.sub(r"[^0-9a-z]+", "_", new_col)
+        new_col = re.sub(r"__+", "_", new_col).strip("_")
+        mapping[col] = new_col
+    df.rename(columns=mapping, inplace=True)
     return df
