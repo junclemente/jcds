@@ -1,4 +1,4 @@
-import pandas
+import pandas as pd
 
 
 def rename_column(dataframe, oldname, newname):
@@ -67,9 +67,6 @@ def delete_columns(dataframe, columns_to_drop, inplace=False):
         return None
     else:
         return dataframe.drop(columns=columns_to_drop)
-
-
-import pandas as pd
 
 
 def convert_to_int(
@@ -234,3 +231,46 @@ def convert_to_object(
 
     if not inplace:
         return df
+
+
+def convert_to_datetime(dataframe, columns, format=None, errors="raise", inplace=False):
+    """
+    Converts one or more DataFrame columns to datetime dtype.
+
+    Parameters
+    ----------
+    dataframe : pandas.DataFrame
+        Input DataFrame.
+    columns : str or list of str
+        Column name or list of column names to convert.
+    format : str, optional
+        Datetime format string to use, passed to pandas.to_datetime.
+    errors : {'raise', 'coerce', 'ignore'}, default 'raise'
+        How to handle parsing errors, passed to pandas.to_datetime.
+    inplace : bool, optional
+        If True, convert columns in place on the original DataFrame; otherwise operate on a copy.
+
+    Returns
+    -------
+    pandas.DataFrame
+        DataFrame with specified columns converted to datetime. If inplace is True, the original DataFrame is modified and returned.
+    """
+    # Determine target DataFrame
+    df = dataframe if inplace else dataframe.copy()
+
+    # Normalize columns list
+    if isinstance(columns, str):
+        cols = [columns]
+    else:
+        cols = list(columns)
+
+    # Validate columns exist
+    missing = set(cols) - set(df.columns)
+    if missing:
+        raise KeyError(f"Columns not found in DataFrame: {missing}")
+
+    # Convert each column
+    for col in cols:
+        df[col] = pd.to_datetime(df[col], format=format, errors=errors)
+
+    return df
