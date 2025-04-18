@@ -9,6 +9,7 @@ from jcds.eda.transform import (
     convert_to_int,
     convert_to_categorical,
     convert_to_object,
+    convert_to_datetime,
 )
 
 
@@ -169,3 +170,70 @@ def test_convert_to_object_inplace(unique_test_df):
     ret = convert_to_object(df_cat, columns=["Category"], inplace=True)
     assert ret is None
     assert df_cat["Category"].dtype == object
+
+
+# --- convert_to_datetime tests ---
+def test_convert_to_datetime_single_column(datetime_df):
+    # non‑inplace, returns a new DataFrame
+    df2 = convert_to_datetime(datetime_df, "timestamp", inplace=False)
+    assert df2 is not datetime_df
+    assert df2["timestamp"].dtype == "datetime64[ns]"
+    # first value parsed correctly
+    assert df2["timestamp"].iloc[0] == pd.Timestamp("2023-01-01")
+
+
+def test_convert_to_datetime_multiple_columns_coerce(datetime_parsed_df):
+    # coerce invalid strings in 'non_datetime' to NaT
+    df2 = convert_to_datetime(
+        datetime_parsed_df,
+        ["timestamp", "non_datetime"],
+        errors="coerce",
+        inplace=False,
+    )
+    assert df2["timestamp"].dtype == "datetime64[ns]"
+    # original dates stay valid
+    assert df2["timestamp"].iloc[1] == pd.Timestamp("2023-02-14")
+    # 'non_datetime' all unparseable → all NaT
+    assert df2["non_datetime"].isna().all()
+
+
+def test_convert_to_datetime_with_format(datetime_df):
+    # specify exact format
+    df2 = convert_to_datetime(datetime_df, "timestamp", format="%Y-%m-%d")
+    assert df2["timestamp"].dtype == "datetime64[ns]"
+    assert df2["timestamp"].iloc[3] == pd.Timestamp("2023-04-22")
+
+
+def test_convert_to_datetime_errors_raise(possible_datetime_df):
+    # mixing valid and invalid without coercion should raise
+    with pytest.raises(ValueError):
+        convert_to_datetime(
+            possible_datetime_df,
+            ["date_strings", "mixed"],
+            errors="raise",
+            inplace=False,
+        )
+
+
+def test_convert_to_datetime_errors_coerce(possible_datetime_df):
+    # coerce drops bad entries to NaT
+    df2 = convert_to_datetime(
+        possible_datetime_df, ["mixed"], errors="coerce", inplace=False
+    )
+    # 'mixed' has 3 values, one invalid → 1 NaT
+    assert df2["mixed"].isna().sum() == 1
+    assert df2["mixed"].dtype == "datetime64[ns]"
+
+
+def test_convert_to_datetime_missing_column(sample_df):
+    # non‑existent column → KeyError
+    with pytest.raises(KeyError):
+        convert_to_datetime(sample_df, "no_such_col")
+
+
+def test_convert_to_datetime_inplace(datetime_df):
+    # inplace=True should modify original and return it
+    df = datetime_df.copy()
+    returned = convert_to_datetime(df, "timestamp", inplace=True)
+    assert returned is df
+    assert df["timestamp"].dtype == "datetime64[ns]"

@@ -42,6 +42,7 @@ from .transform import (
     convert_to_int,
     convert_to_categorical,
     convert_to_object,
+    convert_to_datetime,
 )
 
 from .univariate import describe_categorical, plot_categorical
@@ -97,5 +98,6 @@ __all__ = [
     "convert_to_int",
     "convert_to_categorical",
     "convert_to_object",
+    "convert_to_datetime",
     "help",
 ]
