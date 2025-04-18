@@ -217,7 +217,7 @@ def data_quality(dataframe, show_columns=False):
 
     # missing rows
     print("\nROWS:")
-    print("--------------------")
+    print("----------")
     rows_missing_any = count_rows_with_any_na(dataframe)
     rows_missing_all = count_rows_with_all_na(dataframe)
     print(f" * Rows missing any: {rows_missing_any}")
@@ -229,7 +229,7 @@ def data_quality(dataframe, show_columns=False):
 
     # missing columns
     print("\nCOLUMNS:")
-    print("--------------------")
+    print("----------------")
     missing_summary = show_missing_summary(dataframe, sort=True, threshold=0.0)
     key_list = list(missing_summary.keys())
     print(f"Columns missing any: {len(missing_summary)}")
