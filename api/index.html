@@ -7878,7 +7878,8 @@ the cleanliness, consistency, and usability of a dataset. It includes checks for
 <span class="normal">266</span>
 <span class="normal">267</span>
 <span class="normal">268</span>
-<span class="normal">269</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">data_quality</span><span class="p">(</span><span class="n">dataframe</span><span class="p">,</span> <span class="n">show_columns</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="normal">269</span>
+<span class="normal">270</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">data_quality</span><span class="p">(</span><span class="n">dataframe</span><span class="p">,</span> <span class="n">show_columns</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Print a comprehensive data quality report for the given DataFrame.</span>
 
@@ -7927,7 +7928,7 @@ the cleanliness, consistency, and usability of a dataset. It includes checks for
 
     <span class="c1"># missing rows</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">ROWS:&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;--------------------&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;----------&quot;</span><span class="p">)</span>
     <span class="n">rows_missing_any</span> <span class="o">=</span> <span class="n">count_rows_with_any_na</span><span class="p">(</span><span class="n">dataframe</span><span class="p">)</span>
     <span class="n">rows_missing_all</span> <span class="o">=</span> <span class="n">count_rows_with_all_na</span><span class="p">(</span><span class="n">dataframe</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot; * Rows missing any: </span><span class="si">{</span><span class="n">rows_missing_any</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -7939,13 +7940,13 @@ the cleanliness, consistency, and usability of a dataset. It includes checks for
 
     <span class="c1"># missing columns</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">COLUMNS:&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;--------------------&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;----------------&quot;</span><span class="p">)</span>
     <span class="n">missing_summary</span> <span class="o">=</span> <span class="n">show_missing_summary</span><span class="p">(</span><span class="n">dataframe</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
     <span class="n">key_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">missing_summary</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Columns missing any: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">missing_summary</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">show_columns</span> <span class="ow">and</span> <span class="n">missing_summary</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">missing_summary</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\t</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> missing (</span><span class="si">{</span><span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">%)&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&#39;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">&#39;: </span><span class="si">{</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> missing (</span><span class="si">{</span><span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">%)&quot;</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Column list: </span><span class="si">{</span><span class="n">key_list</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
     <span class="c1"># constant columns</span>
@@ -7961,13 +7962,13 @@ the cleanliness, consistency, and usability of a dataset. It includes checks for
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">NEAR CONSTANT: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">near_constant_columns</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">(</span><span class="si">{</span><span class="n">NEAR_CONSTANT_COLUMNS_THRESHOLD</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">100</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2">% of values are the same)&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">show_columns</span> <span class="ow">and</span> <span class="n">near_constant_columns</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Column list: </span><span class="si">{</span><span class="n">near_constant_columns</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">Column list: </span><span class="si">{</span><span class="n">near_constant_columns</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
     <span class="c1"># mixed data types</span>
     <span class="n">mixed_data_columns</span> <span class="o">=</span> <span class="n">show_mixed_type_columns</span><span class="p">(</span><span class="n">dataframe</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">MIXED DATATYPES: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">mixed_data_columns</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">show_columns</span> <span class="ow">and</span> <span class="n">mixed_data_columns</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Column list: </span><span class="si">{</span><span class="n">mixed_data_columns</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">Column list: </span><span class="si">{</span><span class="n">mixed_data_columns</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
     <span class="c1"># high cardinality</span>
     <span class="n">high_card_columns</span> <span class="o">=</span> <span class="n">show_highcardvars</span><span class="p">(</span>
@@ -7976,7 +7977,8 @@ the cleanliness, consistency, and usability of a dataset. It includes checks for
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">HIGH CARDINALITY: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">high_card_columns</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">(</span><span class="si">{</span><span class="n">HIGH_CARDINALITY_PERCENT</span><span class="si">}</span><span class="s2">% &gt;= unique values)&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">show_columns</span> <span class="ow">and</span> <span class="n">high_card_columns</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Column list: </span><span class="si">{</span><span class="n">high_card_columns</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">high_card_columns</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">* &#39;</span><span class="si">{</span><span class="n">col</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&#39;: </span><span class="si">{</span><span class="n">col</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
