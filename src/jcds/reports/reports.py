@@ -217,7 +217,7 @@ def data_quality(dataframe, show_columns=False):
 
     # missing rows
     print("\nROWS:")
-    print("--------------------")
+    print("----------")
     rows_missing_any = count_rows_with_any_na(dataframe)
     rows_missing_all = count_rows_with_all_na(dataframe)
     print(f" * Rows missing any: {rows_missing_any}")
@@ -229,13 +229,13 @@ def data_quality(dataframe, show_columns=False):
 
     # missing columns
     print("\nCOLUMNS:")
-    print("--------------------")
+    print("----------------")
     missing_summary = show_missing_summary(dataframe, sort=True, threshold=0.0)
     key_list = list(missing_summary.keys())
     print(f"Columns missing any: {len(missing_summary)}")
     if show_columns and missing_summary:
         for key, value in missing_summary.items():
-            print(f"\t{key}: {value[0]} missing ({value[1]:.1f}%)")
+            print(f"\t'{key}': {value[0]} missing ({value[1]:.1f}%)")
         print(f"Column list: {key_list}")
 
     # constant columns
@@ -251,13 +251,13 @@ def data_quality(dataframe, show_columns=False):
     print(f"\nNEAR CONSTANT: {len(near_constant_columns)}")
     print(f"\t({NEAR_CONSTANT_COLUMNS_THRESHOLD * 100:.0f}% of values are the same)")
     if show_columns and near_constant_columns:
-        print(f"Column list: {near_constant_columns}")
+        print(f"\tColumn list: {near_constant_columns}")
 
     # mixed data types
     mixed_data_columns = show_mixed_type_columns(dataframe)
     print(f"\nMIXED DATATYPES: {len(mixed_data_columns)}")
     if show_columns and mixed_data_columns:
-        print(f"Column list: {mixed_data_columns}")
+        print(f"\tColumn list: {mixed_data_columns}")
 
     # high cardinality
     high_card_columns = show_highcardvars(
@@ -266,6 +266,7 @@ def data_quality(dataframe, show_columns=False):
     print(f"\nHIGH CARDINALITY: {len(high_card_columns)}")
     print(f"\t({HIGH_CARDINALITY_PERCENT}% >= unique values)")
     if show_columns and high_card_columns:
-        print(f"\nColumn list: {high_card_columns}")
+        for col in high_card_columns:
+            print(f"\t* '{col[0]}': {col[1]:.1f}%")
 
     # outlier detection?

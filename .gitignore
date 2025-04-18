@@ -166,3 +166,5 @@ cython_debug/
 .vscode/settings.json
 __azurite_db_blob*.json
 /jcds/
+tests/notebooks/query_export_results_latest.csv
+tests/notebooks/dev_test_local.ipynb
