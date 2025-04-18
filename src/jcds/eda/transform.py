@@ -344,3 +344,54 @@ def clean_column_names(dataframe, inplace=False):
         mapping[col] = new_col
     df.rename(columns=mapping, inplace=True)
     return df
+
+
+
+def convert_to_bool(dataframe, columns, true_values=None, false_values=None, errors='raise', inplace=False):
+    """
+    Converts one or more DataFrame columns to boolean dtype based on specified true/false values.
+
+    Parameters
+    ----------
+    dataframe : pandas.DataFrame
+        Input DataFrame.
+    columns : str or list of str
+        Column name or list of column names to convert.
+    true_values : list, optional
+        Values to interpret as True (default: ['true', '1', 'yes', 'y', 't']).
+    false_values : list, optional
+        Values to interpret as False (default: ['false', '0', 'no', 'n', 'f']).
+    errors : {'raise', 'coerce'}, default 'raise'
+        'raise' to error on unrecognized values; 'coerce' to set them as NaN.
+    inplace : bool, optional
+        If True, convert columns in place on the original DataFrame; otherwise operate on a copy.
+
+    Returns
+    -------
+    pandas.DataFrame
+        DataFrame with specified columns converted to boolean. If inplace is True, the original DataFrame is modified and returned.
+    """
+    df = dataframe if inplace else dataframe.copy()
+    cols = [columns] if isinstance(columns, str) else list(columns)
+    missing = set(cols) - set(df.columns)
+    if missing:
+        raise KeyError(f"Columns not found in DataFrame: {missing}")
+
+    default_true = {'true', '1', 'yes', 'y', 't'}
+    default_false = {'false', '0', 'no', 'n', 'f'}
+    trues = set(v.lower() for v in (true_values or default_true))
+    falses = set(v.lower() for v in (false_values or default_false))
+
+    for col in cols:
+        series = df[col].astype(str).str.strip().str.lower()
+        result = pd.Series(pd.NA, index=series.index, dtype='boolean')
+        mask_true = series.isin(trues)
+        mask_false = series.isin(falses)
+        result[mask_true] = True
+        result[mask_false] = False
+        unknown = ~(mask_true | mask_false)
+        if errors == 'raise' and unknown.any():
+            bad_vals = series[unknown].unique()
+            raise ValueError(f"Unrecognized boolean values in column {col}: {bad_vals}")
+        df[col] = result
+    return df
