@@ -1,7 +1,7 @@
 import pandas
 
 
-def rename_col(dataframe, oldname, newname):
+def rename_column(dataframe, oldname, newname):
     """
     Rename a column in a pandas DataFrame.
 

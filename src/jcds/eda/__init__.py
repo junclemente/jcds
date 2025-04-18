@@ -37,7 +37,7 @@ from .outliers import detect_outliers_iqr
 from .reports import dqr_cat, dqr_cont, quick_report, long_report, display_all_col_head
 
 from .transform import (
-    rename_col,
+    rename_column,
     delete_columns,
     convert_to_int,
     convert_to_categorical,
@@ -76,7 +76,7 @@ __all__ = [
     "count_total_na",
     "count_unique_values",
     "show_binary_list",
-    "rename_col",
+    "rename_column",
     "create_dt_col",
     "create_dt_cols",
     "describe_categorical",
