@@ -1,7 +1,12 @@
 import pandas as pd
-from jcds.utils import print_code_line
+from jcds.utils import print_code_line, deprecated
 
 
+
+@deprecated(
+        reason="This is being replaced by show_catvar()",
+        version="0.3.0"
+)
 def get_cat_list(dataframe):
     """
     Return a list of categorical column names or the subset of the DataFrame containing only categorical columns.
@@ -23,7 +28,10 @@ def get_cat_list(dataframe):
     cat_list = dataframe.select_dtypes(include=["category", "object"]).columns.tolist()
     return cat_list
 
-
+@deprecated(
+        reason="This is being replaced by show_contvar()", 
+        version="0.3.0"
+)
 def get_cont_list(dataframe):
     """
     Return a list of continuous (non-categorical) column names or the subset of the DataFrame containing only continuous columns.
