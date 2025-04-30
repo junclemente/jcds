@@ -270,3 +270,22 @@ def data_quality(dataframe, show_columns=False):
             print(f"\t* '{col[0]}': {col[1]:.1f}%")
 
     # outlier detection?
+
+
+def catvar_report(dataframe, columns=None):
+
+    if isinstance(columns, str):
+        cols = [columns]
+    elif isinstance(columns, list):
+        cols = columns
+    else:
+        cols = show_catvar(dataframe)
+
+    # validate columns
+    valid = [c for c in cols if c in show_catvar(dataframe)]
+    if not valid:
+        print("No valid categorical columns selected.")
+        return pd.DataFrame()
+
+    cat = dataframe[valid]
+    total_rows = len(dataframe)
