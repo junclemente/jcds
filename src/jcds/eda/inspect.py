@@ -410,29 +410,43 @@ def count_total_na(dataframe):
     return dataframe.isna().sum().sum()
 
 
-def count_unique_values(dataframe, columns):
+def count_unique_values(dataframe, columns, n_modes=2, dropna=False, ascending=False):
     """
-    Count the number of unique values in the specified columns of a DataFrame, including NaNs.
+    For each specified column, report:
+      - unique_count: total unique entries (incl. NaN if dropna=False)
+      - top_modes: list of the top `n_modes` (value, count) tuples.
 
     Parameters
     ----------
     dataframe : pd.DataFrame
-        The input pandas DataFrame.
-    columns : list of str
-        A list of column names for which to count unique values.
+    columns : str or list of str
+        Column name or list of column names to analyze.
+    n_modes : int, optional
+        How many top values (modes) to return per column. Default is 2.
+    dropna : bool, optional
+        Whether to exclude NaNs from counts and mode ranking. Default is False.
 
     Returns
     -------
     dict
-        A dictionary where each key is a column name and the value is the count of unique entries, including NaNs.
-
+        Mapping each column to a dict with keys:
+          - "unique_count": int
+          - "top_modes": list of (value, count) tuples
     """
+    if isinstance(columns, str):
+        cols = [columns]
+    else:
+        cols = list(columns)
 
-    unique_counts = {}
-    for col in columns:
-        count = dataframe[col].nunique(dropna=False)
-        unique_counts[col] = count
-    return unique_counts
+    result = {}
+    for col in cols:
+        if col not in dataframe.columns:
+            raise KeyError(f"Column not found: {col}")
+        ucount = dataframe[col].nunique(dropna=dropna)
+        vcount = dataframe[col].value_counts(dropna=dropna)
+        top_modes = list(vcount.head(n_modes).items())
+        result[col] = {"unique_count": ucount, "top_modes": top_modes}
+    return result
 
 
 def show_datetime_columns(dataframe):
