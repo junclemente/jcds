@@ -1,3 +1,4 @@
+import pandas as pd
 from IPython.display import display, HTML
 from jcds.eda import (
     show_memory_use,
@@ -20,6 +21,7 @@ from jcds.eda import (
     count_rows_with_any_na,
     count_rows_with_all_na,
     count_total_na,
+    count_unique_values,
 )
 
 # from jcds.utils.formatting import render_html_block
@@ -273,19 +275,67 @@ def data_quality(dataframe, show_columns=False):
 
 
 def catvar_report(dataframe, columns=None):
+    categorical_columns = show_catvar(dataframe)
+    columns_missing_values = show_missing_summary(dataframe, sort=False, threshold=0.0)
 
     if isinstance(columns, str):
         cols = [columns]
     elif isinstance(columns, list):
         cols = columns
     else:
-        cols = show_catvar(dataframe)
+        cols = categorical_columns
 
     # validate columns
-    valid = [c for c in cols if c in show_catvar(dataframe)]
-    if not valid:
+    valid_columns = []
+    for c in cols:
+        if c in categorical_columns:
+            valid_columns.append(c)
+    if not valid_columns:
         print("No valid categorical columns selected.")
         return pd.DataFrame()
 
-    cat = dataframe[valid]
+    cat = dataframe[valid_columns]
     total_rows = len(dataframe)
+
+    # display(cat)
+    # display(total_rows)
+
+    for col in valid_columns:
+        print(f"\nCOLUMN: {col}")
+        print("Descriptive Stats:")
+        missing_count, pct_missing = columns_missing_values.get(col, (0, 0.0))
+        # Calculate non_missing values
+        non_missing = total_rows - missing_count
+        print(f"Count: {non_missing}")
+        print(f"Missing: {missing_count} ({pct_missing * 100}%)")
+
+        unique_values = count_unique_values(dataframe, col)
+        # print(unique_values[col])
+        unique_count = unique_values[col]["unique_count"]
+        print(f"Unique values: {unique_count}")
+        mode1 = unique_values[col]["top_modes"][0]
+        mode2 = unique_values[col]["top_modes"][1]
+
+        print(
+            f"Mode 1: {mode1[0]} | Frequency: {mode1[1]} ({mode1[1]/non_missing * 100:0.1f}%)"
+        )
+        print(
+            f"Mode 2: {mode2[0]} | Frequency: {mode2[1]} ({mode2[1]/non_missing * 100:0.1f}%)"
+        )
+
+        print(mode2)
+        # print(col)
+        # count
+        # missing
+        # %missing
+        # cardinality
+        # mode 1
+        # mode 1 freq
+        # mode 1 %
+        # mode 2
+        # mode 2 freq
+        # mode 2 %
+        # descriptive stats
+        # unique
+        # top
+        # freq
