@@ -14,7 +14,7 @@
       
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.11">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.12">
     
     
       
@@ -22,7 +22,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.4af4bdda.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.2afb09e1.min.css">
       
       
 
@@ -1643,6 +1643,48 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#jcds.reports.catvar_report" class="md-nav__link">
+    <span class="md-ellipsis">
+      catvar_report
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="catvar_report">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#jcds.reports.catvar_report--parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jcds.reports.catvar_report--returns" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jcds.reports.catvar_report--notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Notes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#jcds.reports.data_cardinality" class="md-nav__link">
     <span class="md-ellipsis">
       data_cardinality
@@ -3255,6 +3297,48 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#jcds.reports.catvar_report" class="md-nav__link">
+    <span class="md-ellipsis">
+      catvar_report
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="catvar_report">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#jcds.reports.catvar_report--parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jcds.reports.catvar_report--returns" class="md-nav__link">
+    <span class="md-ellipsis">
+      Returns
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jcds.reports.catvar_report--notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Notes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#jcds.reports.data_cardinality" class="md-nav__link">
     <span class="md-ellipsis">
       data_cardinality
@@ -3638,14 +3722,14 @@
 
             <details class="quote">
               <summary>Source code in <code>src/jcds/eda/inspect.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">499</span>
-<span class="normal">500</span>
-<span class="normal">501</span>
-<span class="normal">502</span>
-<span class="normal">503</span>
-<span class="normal">504</span>
-<span class="normal">505</span>
-<span class="normal">506</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">count_id_like_columns</span><span class="p">(</span><span class="n">dataframe</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.95</span><span class="p">):</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">513</span>
+<span class="normal">514</span>
+<span class="normal">515</span>
+<span class="normal">516</span>
+<span class="normal">517</span>
+<span class="normal">518</span>
+<span class="normal">519</span>
+<span class="normal">520</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">count_id_like_columns</span><span class="p">(</span><span class="n">dataframe</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.95</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Count number of columns with high uniqueness (e.g., IDs).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -3846,22 +3930,29 @@
 
 
 <h2 id="jcds.eda.inspect.count_unique_values" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">count_unique_values</span><span class="p">(</span><span class="n">dataframe</span><span class="p">,</span> <span class="n">columns</span><span class="p">)</span></code>
+            <code class="highlight language-python"><span class="n">count_unique_values</span><span class="p">(</span><span class="n">dataframe</span><span class="p">,</span> <span class="n">columns</span><span class="p">,</span> <span class="n">n_modes</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">dropna</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
 
 </h2>
 
 
     <div class="doc doc-contents ">
 
-        <p>Count the number of unique values in the specified columns of a DataFrame, including NaNs.</p>
+        <p>For each specified column, report:
+  - unique_count: total unique entries (incl. NaN if dropna=False)
+  - top_modes: list of the top <code>n_modes</code> (value, count) tuples.</p>
 <h4 id="jcds.eda.inspect.count_unique_values--parameters">Parameters</h4>
 <p>dataframe : pd.DataFrame
-    The input pandas DataFrame.
-columns : list of str
-    A list of column names for which to count unique values.</p>
+columns : str or list of str
+    Column name or list of column names to analyze.
+n_modes : int, optional
+    How many top values (modes) to return per column. Default is 2.
+dropna : bool, optional
+    Whether to exclude NaNs from counts and mode ranking. Default is False.</p>
 <h4 id="jcds.eda.inspect.count_unique_values--returns">Returns</h4>
 <p>dict
-    A dictionary where each key is a column name and the value is the count of unique entries, including NaNs.</p>
+    Mapping each column to a dict with keys:
+      - "unique_count": int
+      - "top_modes": list of (value, count) tuples</p>
 
 
             <details class="quote">
@@ -3888,29 +3979,57 @@ columns : list of str
 <span class="normal">432</span>
 <span class="normal">433</span>
 <span class="normal">434</span>
-<span class="normal">435</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">count_unique_values</span><span class="p">(</span><span class="n">dataframe</span><span class="p">,</span> <span class="n">columns</span><span class="p">):</span>
+<span class="normal">435</span>
+<span class="normal">436</span>
+<span class="normal">437</span>
+<span class="normal">438</span>
+<span class="normal">439</span>
+<span class="normal">440</span>
+<span class="normal">441</span>
+<span class="normal">442</span>
+<span class="normal">443</span>
+<span class="normal">444</span>
+<span class="normal">445</span>
+<span class="normal">446</span>
+<span class="normal">447</span>
+<span class="normal">448</span>
+<span class="normal">449</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">count_unique_values</span><span class="p">(</span><span class="n">dataframe</span><span class="p">,</span> <span class="n">columns</span><span class="p">,</span> <span class="n">n_modes</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">dropna</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Count the number of unique values in the specified columns of a DataFrame, including NaNs.</span>
+<span class="sd">    For each specified column, report:</span>
+<span class="sd">      - unique_count: total unique entries (incl. NaN if dropna=False)</span>
+<span class="sd">      - top_modes: list of the top `n_modes` (value, count) tuples.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    dataframe : pd.DataFrame</span>
-<span class="sd">        The input pandas DataFrame.</span>
-<span class="sd">    columns : list of str</span>
-<span class="sd">        A list of column names for which to count unique values.</span>
+<span class="sd">    columns : str or list of str</span>
+<span class="sd">        Column name or list of column names to analyze.</span>
+<span class="sd">    n_modes : int, optional</span>
+<span class="sd">        How many top values (modes) to return per column. Default is 2.</span>
+<span class="sd">    dropna : bool, optional</span>
+<span class="sd">        Whether to exclude NaNs from counts and mode ranking. Default is False.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    dict</span>
-<span class="sd">        A dictionary where each key is a column name and the value is the count of unique entries, including NaNs.</span>
-
+<span class="sd">        Mapping each column to a dict with keys:</span>
+<span class="sd">          - &quot;unique_count&quot;: int</span>
+<span class="sd">          - &quot;top_modes&quot;: list of (value, count) tuples</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">columns</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">columns</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">cols</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">columns</span><span class="p">)</span>
 
-    <span class="n">unique_counts</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">columns</span><span class="p">:</span>
-        <span class="n">count</span> <span class="o">=</span> <span class="n">dataframe</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">(</span><span class="n">dropna</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-        <span class="n">unique_counts</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">count</span>
-    <span class="k">return</span> <span class="n">unique_counts</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">cols</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">col</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">dataframe</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Column not found: </span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">ucount</span> <span class="o">=</span> <span class="n">dataframe</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">(</span><span class="n">dropna</span><span class="o">=</span><span class="n">dropna</span><span class="p">)</span>
+        <span class="n">vcount</span> <span class="o">=</span> <span class="n">dataframe</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">dropna</span><span class="o">=</span><span class="n">dropna</span><span class="p">)</span>
+        <span class="n">top_modes</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">vcount</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">n_modes</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
+        <span class="n">result</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;unique_count&quot;</span><span class="p">:</span> <span class="n">ucount</span><span class="p">,</span> <span class="s2">&quot;top_modes&quot;</span><span class="p">:</span> <span class="n">top_modes</span><span class="p">}</span>
+    <span class="k">return</span> <span class="n">result</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -3939,21 +4058,7 @@ columns : list of str
 
             <details class="quote">
               <summary>Source code in <code>src/jcds/eda/inspect.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">509</span>
-<span class="normal">510</span>
-<span class="normal">511</span>
-<span class="normal">512</span>
-<span class="normal">513</span>
-<span class="normal">514</span>
-<span class="normal">515</span>
-<span class="normal">516</span>
-<span class="normal">517</span>
-<span class="normal">518</span>
-<span class="normal">519</span>
-<span class="normal">520</span>
-<span class="normal">521</span>
-<span class="normal">522</span>
-<span class="normal">523</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">523</span>
 <span class="normal">524</span>
 <span class="normal">525</span>
 <span class="normal">526</span>
@@ -3981,7 +4086,21 @@ columns : list of str
 <span class="normal">548</span>
 <span class="normal">549</span>
 <span class="normal">550</span>
-<span class="normal">551</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_dtype_summary</span><span class="p">(</span><span class="n">dataframe</span><span class="p">):</span>
+<span class="normal">551</span>
+<span class="normal">552</span>
+<span class="normal">553</span>
+<span class="normal">554</span>
+<span class="normal">555</span>
+<span class="normal">556</span>
+<span class="normal">557</span>
+<span class="normal">558</span>
+<span class="normal">559</span>
+<span class="normal">560</span>
+<span class="normal">561</span>
+<span class="normal">562</span>
+<span class="normal">563</span>
+<span class="normal">564</span>
+<span class="normal">565</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_dtype_summary</span><span class="p">(</span><span class="n">dataframe</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns a dictionary summarizing the count of common data types.</span>
 
@@ -4352,26 +4471,26 @@ Returns</p>
 
             <details class="quote">
               <summary>Source code in <code>src/jcds/eda/inspect.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">438</span>
-<span class="normal">439</span>
-<span class="normal">440</span>
-<span class="normal">441</span>
-<span class="normal">442</span>
-<span class="normal">443</span>
-<span class="normal">444</span>
-<span class="normal">445</span>
-<span class="normal">446</span>
-<span class="normal">447</span>
-<span class="normal">448</span>
-<span class="normal">449</span>
-<span class="normal">450</span>
-<span class="normal">451</span>
-<span class="normal">452</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">452</span>
 <span class="normal">453</span>
 <span class="normal">454</span>
 <span class="normal">455</span>
 <span class="normal">456</span>
-<span class="normal">457</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">show_datetime_columns</span><span class="p">(</span><span class="n">dataframe</span><span class="p">):</span>
+<span class="normal">457</span>
+<span class="normal">458</span>
+<span class="normal">459</span>
+<span class="normal">460</span>
+<span class="normal">461</span>
+<span class="normal">462</span>
+<span class="normal">463</span>
+<span class="normal">464</span>
+<span class="normal">465</span>
+<span class="normal">466</span>
+<span class="normal">467</span>
+<span class="normal">468</span>
+<span class="normal">469</span>
+<span class="normal">470</span>
+<span class="normal">471</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">show_datetime_columns</span><span class="p">(</span><span class="n">dataframe</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Identify columns with datetime-like data types.</span>
 
@@ -4782,21 +4901,7 @@ threshold : float, optional
 
             <details class="quote">
               <summary>Source code in <code>src/jcds/eda/inspect.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">554</span>
-<span class="normal">555</span>
-<span class="normal">556</span>
-<span class="normal">557</span>
-<span class="normal">558</span>
-<span class="normal">559</span>
-<span class="normal">560</span>
-<span class="normal">561</span>
-<span class="normal">562</span>
-<span class="normal">563</span>
-<span class="normal">564</span>
-<span class="normal">565</span>
-<span class="normal">566</span>
-<span class="normal">567</span>
-<span class="normal">568</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">568</span>
 <span class="normal">569</span>
 <span class="normal">570</span>
 <span class="normal">571</span>
@@ -4814,7 +4919,21 @@ threshold : float, optional
 <span class="normal">583</span>
 <span class="normal">584</span>
 <span class="normal">585</span>
-<span class="normal">586</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">show_missing_summary</span><span class="p">(</span><span class="n">dataframe</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.0</span><span class="p">):</span>
+<span class="normal">586</span>
+<span class="normal">587</span>
+<span class="normal">588</span>
+<span class="normal">589</span>
+<span class="normal">590</span>
+<span class="normal">591</span>
+<span class="normal">592</span>
+<span class="normal">593</span>
+<span class="normal">594</span>
+<span class="normal">595</span>
+<span class="normal">596</span>
+<span class="normal">597</span>
+<span class="normal">598</span>
+<span class="normal">599</span>
+<span class="normal">600</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">show_missing_summary</span><span class="p">(</span><span class="n">dataframe</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.0</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Summarize missing values in the DataFrame.</span>
 
@@ -4964,21 +5083,7 @@ sample_size : int
 
             <details class="quote">
               <summary>Source code in <code>src/jcds/eda/inspect.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">460</span>
-<span class="normal">461</span>
-<span class="normal">462</span>
-<span class="normal">463</span>
-<span class="normal">464</span>
-<span class="normal">465</span>
-<span class="normal">466</span>
-<span class="normal">467</span>
-<span class="normal">468</span>
-<span class="normal">469</span>
-<span class="normal">470</span>
-<span class="normal">471</span>
-<span class="normal">472</span>
-<span class="normal">473</span>
-<span class="normal">474</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">474</span>
 <span class="normal">475</span>
 <span class="normal">476</span>
 <span class="normal">477</span>
@@ -4991,7 +5096,21 @@ sample_size : int
 <span class="normal">484</span>
 <span class="normal">485</span>
 <span class="normal">486</span>
-<span class="normal">487</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">show_possible_datetime_columns</span><span class="p">(</span><span class="n">dataframe</span><span class="p">,</span> <span class="n">sample_size</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+<span class="normal">487</span>
+<span class="normal">488</span>
+<span class="normal">489</span>
+<span class="normal">490</span>
+<span class="normal">491</span>
+<span class="normal">492</span>
+<span class="normal">493</span>
+<span class="normal">494</span>
+<span class="normal">495</span>
+<span class="normal">496</span>
+<span class="normal">497</span>
+<span class="normal">498</span>
+<span class="normal">499</span>
+<span class="normal">500</span>
+<span class="normal">501</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">show_possible_datetime_columns</span><span class="p">(</span><span class="n">dataframe</span><span class="p">,</span> <span class="n">sample_size</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Identify object columns that may contain datetime-like strings.</span>
 
@@ -5300,8 +5419,7 @@ return_names : bool
 
             <details class="quote">
               <summary>Source code in <code>src/jcds/eda/lists.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 5</span>
-<span class="normal"> 6</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 6</span>
 <span class="normal"> 7</span>
 <span class="normal"> 8</span>
 <span class="normal"> 9</span>
@@ -5319,7 +5437,16 @@ return_names : bool
 <span class="normal">21</span>
 <span class="normal">22</span>
 <span class="normal">23</span>
-<span class="normal">24</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_cat_list</span><span class="p">(</span><span class="n">dataframe</span><span class="p">):</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@deprecated</span><span class="p">(</span>
+        <span class="n">reason</span><span class="o">=</span><span class="s2">&quot;This is being replaced by show_catvar()&quot;</span><span class="p">,</span>
+        <span class="n">version</span><span class="o">=</span><span class="s2">&quot;0.3.0&quot;</span>
+<span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_cat_list</span><span class="p">(</span><span class="n">dataframe</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Return a list of categorical column names or the subset of the DataFrame containing only categorical columns.</span>
 
@@ -5369,11 +5496,7 @@ return_names : bool
 
             <details class="quote">
               <summary>Source code in <code>src/jcds/eda/lists.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">27</span>
-<span class="normal">28</span>
-<span class="normal">29</span>
-<span class="normal">30</span>
-<span class="normal">31</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">31</span>
 <span class="normal">32</span>
 <span class="normal">33</span>
 <span class="normal">34</span>
@@ -5388,7 +5511,19 @@ return_names : bool
 <span class="normal">43</span>
 <span class="normal">44</span>
 <span class="normal">45</span>
-<span class="normal">46</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_cont_list</span><span class="p">(</span><span class="n">dataframe</span><span class="p">):</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@deprecated</span><span class="p">(</span>
+        <span class="n">reason</span><span class="o">=</span><span class="s2">&quot;This is being replaced by show_contvar()&quot;</span><span class="p">,</span> 
+        <span class="n">version</span><span class="o">=</span><span class="s2">&quot;0.3.0&quot;</span>
+<span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_cont_list</span><span class="p">(</span><span class="n">dataframe</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Return a list of continuous (non-categorical) column names or the subset of the DataFrame containing only continuous columns.</span>
 
@@ -5438,15 +5573,7 @@ column : str or list of str
 
             <details class="quote">
               <summary>Source code in <code>src/jcds/eda/lists.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">49</span>
-<span class="normal">50</span>
-<span class="normal">51</span>
-<span class="normal">52</span>
-<span class="normal">53</span>
-<span class="normal">54</span>
-<span class="normal">55</span>
-<span class="normal">56</span>
-<span class="normal">57</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">57</span>
 <span class="normal">58</span>
 <span class="normal">59</span>
 <span class="normal">60</span>
@@ -5465,7 +5592,15 @@ column : str or list of str
 <span class="normal">73</span>
 <span class="normal">74</span>
 <span class="normal">75</span>
-<span class="normal">76</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">list_unique_values</span><span class="p">(</span><span class="n">dataframe</span><span class="p">,</span> <span class="n">column</span><span class="p">):</span>
+<span class="normal">76</span>
+<span class="normal">77</span>
+<span class="normal">78</span>
+<span class="normal">79</span>
+<span class="normal">80</span>
+<span class="normal">81</span>
+<span class="normal">82</span>
+<span class="normal">83</span>
+<span class="normal">84</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">list_unique_values</span><span class="p">(</span><span class="n">dataframe</span><span class="p">,</span> <span class="n">column</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Print the unique values in one or more specified columns of a DataFrame and display the corresponding code snippet.</span>
 
@@ -6578,7 +6713,7 @@ and a breakdown of categorical and continuous features with their unique value c
 <span class="normal">382</span>
 <span class="normal">383</span>
 <span class="normal">384</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@deprecated</span><span class="p">(</span>
-    <span class="n">reason</span><span class="o">=</span><span class="s2">&quot;This will be replaced with a new function.&quot;</span><span class="p">,</span>
+    <span class="n">reason</span><span class="o">=</span><span class="s2">&quot;This will be replaced with data_info(), data_cardinality(), and data_quality().&quot;</span><span class="p">,</span>
     <span class="n">version</span><span class="o">=</span><span class="s2">&quot;0.3.0&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">long_report</span><span class="p">(</span><span class="n">dataframe</span><span class="p">):</span>
@@ -6753,7 +6888,7 @@ and a breakdown of categorical and continuous features with their unique value c
 <span class="normal">303</span>
 <span class="normal">304</span>
 <span class="normal">305</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@deprecated</span><span class="p">(</span>
-    <span class="n">reason</span><span class="o">=</span><span class="s2">&quot;This will be replaced with a new function.&quot;</span><span class="p">,</span>
+    <span class="n">reason</span><span class="o">=</span><span class="s2">&quot;This will be replaced with data_info(), data_cardinality(), and data_quality().&quot;</span><span class="p">,</span>
     <span class="n">version</span><span class="o">=</span><span class="s2">&quot;0.3.0&quot;</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">quick_report</span><span class="p">(</span><span class="n">dataframe</span><span class="p">):</span>
@@ -7404,6 +7539,194 @@ filepath : str or Path
 <div class="doc doc-object doc-function">
 
 
+<h2 id="jcds.reports.catvar_report" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">catvar_report</span><span class="p">(</span><span class="n">dataframe</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Display a summary report for categorical variables in a DataFrame.</p>
+<h4 id="jcds.reports.catvar_report--parameters">Parameters</h4>
+<p>dataframe : pandas.DataFrame
+    The DataFrame to analyze.
+columns : str or list of str or None, optional
+    Name of a single categorical column (str), a list of column names (list of str),
+    or None to report on all detected categorical columns. Default is None.</p>
+<h4 id="jcds.reports.catvar_report--returns">Returns</h4>
+<p>pandas.DataFrame or None
+    - If no valid categorical columns are selected, returns an empty DataFrame.
+    - Otherwise, prints a report for each column and returns None.</p>
+<h4 id="jcds.reports.catvar_report--notes">Notes</h4>
+<ul>
+<li>Detects categorical columns via <code>show_catvar(dataframe)</code>.</li>
+<li>Computes missing-value stats with <code>show_missing_summary(dataframe, sort=False, threshold=0.0)</code>.</li>
+<li>Computes unique counts and top two modes via <code>count_unique_values(dataframe, col)</code>.</li>
+<li>The report includes, for each column:
+    • Non-missing count and missing count (%).
+    • Cardinality (number of unique values).
+    • Top two modes with their frequencies and percentage of non-missing.</li>
+<li>Docstring generated with assistance from ChatGPT</li>
+</ul>
+
+
+            <details class="quote">
+              <summary>Source code in <code>src/jcds/reports/reports.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">280</span>
+<span class="normal">281</span>
+<span class="normal">282</span>
+<span class="normal">283</span>
+<span class="normal">284</span>
+<span class="normal">285</span>
+<span class="normal">286</span>
+<span class="normal">287</span>
+<span class="normal">288</span>
+<span class="normal">289</span>
+<span class="normal">290</span>
+<span class="normal">291</span>
+<span class="normal">292</span>
+<span class="normal">293</span>
+<span class="normal">294</span>
+<span class="normal">295</span>
+<span class="normal">296</span>
+<span class="normal">297</span>
+<span class="normal">298</span>
+<span class="normal">299</span>
+<span class="normal">300</span>
+<span class="normal">301</span>
+<span class="normal">302</span>
+<span class="normal">303</span>
+<span class="normal">304</span>
+<span class="normal">305</span>
+<span class="normal">306</span>
+<span class="normal">307</span>
+<span class="normal">308</span>
+<span class="normal">309</span>
+<span class="normal">310</span>
+<span class="normal">311</span>
+<span class="normal">312</span>
+<span class="normal">313</span>
+<span class="normal">314</span>
+<span class="normal">315</span>
+<span class="normal">316</span>
+<span class="normal">317</span>
+<span class="normal">318</span>
+<span class="normal">319</span>
+<span class="normal">320</span>
+<span class="normal">321</span>
+<span class="normal">322</span>
+<span class="normal">323</span>
+<span class="normal">324</span>
+<span class="normal">325</span>
+<span class="normal">326</span>
+<span class="normal">327</span>
+<span class="normal">328</span>
+<span class="normal">329</span>
+<span class="normal">330</span>
+<span class="normal">331</span>
+<span class="normal">332</span>
+<span class="normal">333</span>
+<span class="normal">334</span>
+<span class="normal">335</span>
+<span class="normal">336</span>
+<span class="normal">337</span>
+<span class="normal">338</span>
+<span class="normal">339</span>
+<span class="normal">340</span>
+<span class="normal">341</span>
+<span class="normal">342</span>
+<span class="normal">343</span>
+<span class="normal">344</span>
+<span class="normal">345</span>
+<span class="normal">346</span>
+<span class="normal">347</span>
+<span class="normal">348</span>
+<span class="normal">349</span>
+<span class="normal">350</span>
+<span class="normal">351</span>
+<span class="normal">352</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">catvar_report</span><span class="p">(</span><span class="n">dataframe</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Display a summary report for categorical variables in a DataFrame.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    dataframe : pandas.DataFrame</span>
+<span class="sd">        The DataFrame to analyze.</span>
+<span class="sd">    columns : str or list of str or None, optional</span>
+<span class="sd">        Name of a single categorical column (str), a list of column names (list of str),</span>
+<span class="sd">        or None to report on all detected categorical columns. Default is None.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pandas.DataFrame or None</span>
+<span class="sd">        - If no valid categorical columns are selected, returns an empty DataFrame.</span>
+<span class="sd">        - Otherwise, prints a report for each column and returns None.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    - Detects categorical columns via `show_catvar(dataframe)`.</span>
+<span class="sd">    - Computes missing-value stats with `show_missing_summary(dataframe, sort=False, threshold=0.0)`.</span>
+<span class="sd">    - Computes unique counts and top two modes via `count_unique_values(dataframe, col)`.</span>
+<span class="sd">    - The report includes, for each column:</span>
+<span class="sd">        • Non-missing count and missing count (%).</span>
+<span class="sd">        • Cardinality (number of unique values).</span>
+<span class="sd">        • Top two modes with their frequencies and percentage of non-missing.</span>
+<span class="sd">    - Docstring generated with assistance from ChatGPT</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">categorical_columns</span> <span class="o">=</span> <span class="n">show_catvar</span><span class="p">(</span><span class="n">dataframe</span><span class="p">)</span>
+    <span class="n">columns_missing_values</span> <span class="o">=</span> <span class="n">show_missing_summary</span><span class="p">(</span><span class="n">dataframe</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">columns</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">columns</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">columns</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+        <span class="n">cols</span> <span class="o">=</span> <span class="n">columns</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">cols</span> <span class="o">=</span> <span class="n">categorical_columns</span>
+
+    <span class="c1"># validate columns</span>
+    <span class="n">valid_columns</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">cols</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">categorical_columns</span><span class="p">:</span>
+            <span class="n">valid_columns</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">valid_columns</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No valid categorical columns selected.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+
+    <span class="n">total_rows</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">dataframe</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">valid_columns</span><span class="p">:</span>
+
+        <span class="n">missing_count</span><span class="p">,</span> <span class="n">pct_missing</span> <span class="o">=</span> <span class="n">columns_missing_values</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">))</span>
+        <span class="c1"># Calculate non_missing values</span>
+        <span class="n">non_missing</span> <span class="o">=</span> <span class="n">total_rows</span> <span class="o">-</span> <span class="n">missing_count</span>
+        <span class="n">unique_values</span> <span class="o">=</span> <span class="n">count_unique_values</span><span class="p">(</span><span class="n">dataframe</span><span class="p">,</span> <span class="n">col</span><span class="p">)</span>
+        <span class="n">unique_count</span> <span class="o">=</span> <span class="n">unique_values</span><span class="p">[</span><span class="n">col</span><span class="p">][</span><span class="s2">&quot;unique_count&quot;</span><span class="p">]</span>
+        <span class="n">mode1</span> <span class="o">=</span> <span class="n">unique_values</span><span class="p">[</span><span class="n">col</span><span class="p">][</span><span class="s2">&quot;top_modes&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">freq1</span> <span class="o">=</span> <span class="n">mode1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">pct_freq1</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">mode1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">non_missing</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">mode2</span> <span class="o">=</span> <span class="n">unique_values</span><span class="p">[</span><span class="n">col</span><span class="p">][</span><span class="s2">&quot;top_modes&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">freq2</span> <span class="o">=</span> <span class="n">mode2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">pct_freq2</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">mode2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">non_missing</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Feature: &#39;</span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;===================================================================&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Total: </span><span class="si">{</span><span class="n">non_missing</span><span class="si">}</span><span class="se">\t\t\t</span><span class="s2">Missing: </span><span class="si">{</span><span class="n">missing_count</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">pct_missing</span><span class="o">*</span><span class="mi">100</span><span class="si">}</span><span class="s2">%)</span><span class="se">\t\t\t</span><span class="s2">Cardinality (Unique Values): </span><span class="si">{</span><span class="n">unique_count</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mode 1: </span><span class="si">{</span><span class="n">mode1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> </span><span class="se">\t\t</span><span class="s2">Frequency: </span><span class="si">{</span><span class="n">freq1</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">pct_freq1</span><span class="si">}</span><span class="s2">%)&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mode 2: </span><span class="si">{</span><span class="n">mode2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> </span><span class="se">\t\t</span><span class="s2">Fequency: </span><span class="si">{</span><span class="n">freq2</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">pct_freq2</span><span class="si">}</span><span class="s2">%)&quot;</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Total rows: </span><span class="si">{</span><span class="n">total_rows</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
 <h2 id="jcds.reports.data_cardinality" class="doc doc-heading">
             <code class="highlight language-python"><span class="n">data_cardinality</span><span class="p">(</span><span class="n">dataframe</span><span class="p">,</span> <span class="n">show_columns</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
 
@@ -7428,12 +7751,7 @@ filepath : str or Path
 
             <details class="quote">
               <summary>Source code in <code>src/jcds/reports/reports.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 94</span>
-<span class="normal"> 95</span>
-<span class="normal"> 96</span>
-<span class="normal"> 97</span>
-<span class="normal"> 98</span>
-<span class="normal"> 99</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 99</span>
 <span class="normal">100</span>
 <span class="normal">101</span>
 <span class="normal">102</span>
@@ -7502,7 +7820,12 @@ filepath : str or Path
 <span class="normal">165</span>
 <span class="normal">166</span>
 <span class="normal">167</span>
-<span class="normal">168</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">data_cardinality</span><span class="p">(</span><span class="n">dataframe</span><span class="p">,</span> <span class="n">show_columns</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="normal">168</span>
+<span class="normal">169</span>
+<span class="normal">170</span>
+<span class="normal">171</span>
+<span class="normal">172</span>
+<span class="normal">173</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">data_cardinality</span><span class="p">(</span><span class="n">dataframe</span><span class="p">,</span> <span class="n">show_columns</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Summarizes the cardinality of the columns in the dataset.</span>
 
@@ -7610,12 +7933,7 @@ filepath : str or Path
 
             <details class="quote">
               <summary>Source code in <code>src/jcds/reports/reports.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">28</span>
-<span class="normal">29</span>
-<span class="normal">30</span>
-<span class="normal">31</span>
-<span class="normal">32</span>
-<span class="normal">33</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">33</span>
 <span class="normal">34</span>
 <span class="normal">35</span>
 <span class="normal">36</span>
@@ -7673,7 +7991,12 @@ filepath : str or Path
 <span class="normal">88</span>
 <span class="normal">89</span>
 <span class="normal">90</span>
-<span class="normal">91</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">data_info</span><span class="p">(</span><span class="n">dataframe</span><span class="p">,</span> <span class="n">show_columns</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="normal">91</span>
+<span class="normal">92</span>
+<span class="normal">93</span>
+<span class="normal">94</span>
+<span class="normal">95</span>
+<span class="normal">96</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">data_info</span><span class="p">(</span><span class="n">dataframe</span><span class="p">,</span> <span class="n">show_columns</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Summarize the dataset&#39;s shape, memory usage, duplicates, and variable types.</span>
 
@@ -7780,12 +8103,7 @@ the cleanliness, consistency, and usability of a dataset. It includes checks for
 
             <details class="quote">
               <summary>Source code in <code>src/jcds/reports/reports.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">171</span>
-<span class="normal">172</span>
-<span class="normal">173</span>
-<span class="normal">174</span>
-<span class="normal">175</span>
-<span class="normal">176</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">176</span>
 <span class="normal">177</span>
 <span class="normal">178</span>
 <span class="normal">179</span>
@@ -7879,7 +8197,12 @@ the cleanliness, consistency, and usability of a dataset. It includes checks for
 <span class="normal">267</span>
 <span class="normal">268</span>
 <span class="normal">269</span>
-<span class="normal">270</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">data_quality</span><span class="p">(</span><span class="n">dataframe</span><span class="p">,</span> <span class="n">show_columns</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="normal">270</span>
+<span class="normal">271</span>
+<span class="normal">272</span>
+<span class="normal">273</span>
+<span class="normal">274</span>
+<span class="normal">275</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">data_quality</span><span class="p">(</span><span class="n">dataframe</span><span class="p">,</span> <span class="n">show_columns</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Print a comprehensive data quality report for the given DataFrame.</span>
 
