@@ -3,6 +3,38 @@
 All notable changes to this project will be documented in this file.  
 This project follows [Semantic Versioning](https://semver.org/) and loosely follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format.
 
+## [Unreleased] – 2025‑05‑02
+
+### Added
+- **catvar_report()**  
+  Introduced a new `catvar_report()` function in `reports.py` for detailed categorical‐variable profiling. (2025‑04‑30)
+
+### Changed
+- **catvar_report() display**  
+  Finalized and cleaned up the display layout and formatting of `catvar_report()`. (2025‑05‑02)  
+- **count_unique_values() enhancements**  
+  Added an `n_modes` parameter and built‑in sorting to the `count_unique_values()` helper. (2025‑05‑01)  
+- **Tabulate support**  
+  Updated code to include the `tabulate` package for nicer table output. (2025‑05‑02)  
+- **Deprecation messaging**  
+  Revised deprecation notices to point users toward `data_info()`, `data_cardinality()`, and `data_quality()`. (2025‑04‑29)  
+- **Utility functions refactored**  
+  Deprecated `get_cont_list()` and `get_cat_list()` in favor of the clearer `show_convar()` and `show_catvar()`. (2025‑04‑29)  
+- **catvar_reports rename**  
+  Tidied up naming and internal references in the `catvar_reports` module to match the new API. (2025‑05‑02)
+
+### Deprecated
+- **Automated changelog**  
+  Removed the `git-cliff`–based changelog automation and reverted to manual maintenance. (2025‑04‑18)
+
+### Documentation
+- **Notebook updates**  
+  - Updated `eda_workflow.ipynb` with deprecation guidance and new function signatures. (2025‑04‑18)  
+  - Refreshed example outputs in the project notebook to reflect the latest changes. (2025‑05‑02)
+
+### Testing
+- **Test suite**  
+  Updated and expanded unit tests for `count_unique_values()` to cover the new modes and sorting options. (2025‑05‑01)
 
 ## [v0.2.7] - 2025-04-15
 
