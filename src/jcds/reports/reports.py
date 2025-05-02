@@ -1,5 +1,8 @@
 import pandas as pd
-from IPython.display import display, HTML
+
+# from IPython.display import display, HTML
+from tabulate import tabulate
+
 from jcds.eda import (
     show_memory_use,
     show_shape,
@@ -297,45 +300,38 @@ def catvar_report(dataframe, columns=None):
     cat = dataframe[valid_columns]
     total_rows = len(dataframe)
 
-    # display(cat)
-    # display(total_rows)
+    list_feature_name = []
+    list_unique_count = []
+    list_mode1 = []
+    list_freq1 = []
+    list_pct_freq1 = []
+    list_mode2 = []
+    list_freq2 = []
+    list_pct_freq2 = []
 
+    rows = []
     for col in valid_columns:
-        print(f"\nCOLUMN: {col}")
-        print("Descriptive Stats:")
+
         missing_count, pct_missing = columns_missing_values.get(col, (0, 0.0))
         # Calculate non_missing values
         non_missing = total_rows - missing_count
-        print(f"Count: {non_missing}")
-        print(f"Missing: {missing_count} ({pct_missing * 100}%)")
-
         unique_values = count_unique_values(dataframe, col)
-        # print(unique_values[col])
         unique_count = unique_values[col]["unique_count"]
-        print(f"Unique values: {unique_count}")
         mode1 = unique_values[col]["top_modes"][0]
+        freq1 = mode1[1]
+        pct_freq1 = round(mode1[1] / non_missing * 100, 1)
         mode2 = unique_values[col]["top_modes"][1]
+        freq2 = mode2[1]
+        pct_freq2 = round(mode2[1] / non_missing * 100, 1)
 
+        print(f"\nFeature: '{col}'")
+        print(f"===================================================================")
         print(
-            f"Mode 1: {mode1[0]} | Frequency: {mode1[1]} ({mode1[1]/non_missing * 100:0.1f}%)"
+            f"Total: {non_missing}\t\t\tMissing: {missing_count} ({pct_missing*100}%)\t\t\tUnique Values: {unique_count}"
         )
-        print(
-            f"Mode 2: {mode2[0]} | Frequency: {mode2[1]} ({mode2[1]/non_missing * 100:0.1f}%)"
-        )
+        # print(f"Mode 1: {mode1[0]}\t\t\tFrequency: {freq1} ({pct_freq1}%)")
+        # print(f"Mode 2 : {mode2[0]}\t\t\tFrequency: {freq2} ({pct_freq2}%)")
+        print(f"Mode 1: {mode1[0]} \t\tFrequency: {freq1} ({pct_freq1}%)")
+        print(f"Mode 2: {mode2[0]} \t\tFequency: {freq2} ({pct_freq2}%)")
 
-        print(mode2)
-        # print(col)
-        # count
-        # missing
-        # %missing
-        # cardinality
-        # mode 1
-        # mode 1 freq
-        # mode 1 %
-        # mode 2
-        # mode 2 freq
-        # mode 2 %
-        # descriptive stats
-        # unique
-        # top
-        # freq
+    print(f"\nTotal rows: {total_rows}")
