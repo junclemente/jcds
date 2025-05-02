@@ -278,6 +278,34 @@ def data_quality(dataframe, show_columns=False):
 
 
 def catvar_report(dataframe, columns=None):
+    """
+    Display a summary report for categorical variables in a DataFrame.
+
+    Parameters
+    ----------
+    dataframe : pandas.DataFrame
+        The DataFrame to analyze.
+    columns : str or list of str or None, optional
+        Name of a single categorical column (str), a list of column names (list of str),
+        or None to report on all detected categorical columns. Default is None.
+
+    Returns
+    -------
+    pandas.DataFrame or None
+        - If no valid categorical columns are selected, returns an empty DataFrame.
+        - Otherwise, prints a report for each column and returns None.
+
+    Notes
+    -----
+    - Detects categorical columns via `show_catvar(dataframe)`.
+    - Computes missing-value stats with `show_missing_summary(dataframe, sort=False, threshold=0.0)`.
+    - Computes unique counts and top two modes via `count_unique_values(dataframe, col)`.
+    - The report includes, for each column:
+        • Non-missing count and missing count (%).
+        • Cardinality (number of unique values).
+        • Top two modes with their frequencies and percentage of non-missing.
+    - Docstring generated with assistance from ChatGPT
+    """
     categorical_columns = show_catvar(dataframe)
     columns_missing_values = show_missing_summary(dataframe, sort=False, threshold=0.0)
 
@@ -297,19 +325,8 @@ def catvar_report(dataframe, columns=None):
         print("No valid categorical columns selected.")
         return pd.DataFrame()
 
-    cat = dataframe[valid_columns]
     total_rows = len(dataframe)
 
-    list_feature_name = []
-    list_unique_count = []
-    list_mode1 = []
-    list_freq1 = []
-    list_pct_freq1 = []
-    list_mode2 = []
-    list_freq2 = []
-    list_pct_freq2 = []
-
-    rows = []
     for col in valid_columns:
 
         missing_count, pct_missing = columns_missing_values.get(col, (0, 0.0))
@@ -327,10 +344,8 @@ def catvar_report(dataframe, columns=None):
         print(f"\nFeature: '{col}'")
         print(f"===================================================================")
         print(
-            f"Total: {non_missing}\t\t\tMissing: {missing_count} ({pct_missing*100}%)\t\t\tUnique Values: {unique_count}"
+            f"Total: {non_missing}\t\t\tMissing: {missing_count} ({pct_missing*100}%)\t\t\tCardinality (Unique Values): {unique_count}"
         )
-        # print(f"Mode 1: {mode1[0]}\t\t\tFrequency: {freq1} ({pct_freq1}%)")
-        # print(f"Mode 2 : {mode2[0]}\t\t\tFrequency: {freq2} ({pct_freq2}%)")
         print(f"Mode 1: {mode1[0]} \t\tFrequency: {freq1} ({pct_freq1}%)")
         print(f"Mode 2: {mode2[0]} \t\tFequency: {freq2} ({pct_freq2}%)")
 
