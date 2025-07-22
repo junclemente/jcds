@@ -59,18 +59,20 @@ def test_count_total_na(na_test_df):
 
 def test_count_unique_values_basic(unique_test_df):
     result = eda.count_unique_values(unique_test_df, ["Category", "Numeric"])
-    assert result["Category"] == 3
-    assert result["Numeric"] == 3
+    assert result["Category"]["unique_count"] == 3
+    assert result["Category"]["top_modes"] == [("A", 2), ("B", 2)]
 
 
 def test_count_unique_values_with_empty_column(empty_col_df):
     result = eda.count_unique_values(empty_col_df, ["Empty"])
-    assert result["Empty"] == 1
+    assert result["Empty"]["unique_count"] == 1
+    assert result["Empty"]["top_modes"] == [(None, 4)]
 
 
 def test_count_unique_values_with_mixed_types(unique_test_df):
     result = eda.count_unique_values(unique_test_df, ["Mixed"])
-    assert result["Mixed"] == 4
+    assert result["Mixed"]["unique_count"] == 4
+    assert result["Mixed"]["top_modes"] == [(1, 2), ("1", 1)]
 
 
 def test_show_binary_list(binary_list_df):

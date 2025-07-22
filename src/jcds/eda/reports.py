@@ -244,7 +244,7 @@ def dqr_cat(dataframe):
 
 
 @deprecated(
-    reason="This will be replaced with a new function.",
+    reason="This will be replaced with data_info(), data_cardinality(), and data_quality().",
     version="0.3.0",
 )
 def quick_report(dataframe):
@@ -306,7 +306,7 @@ def quick_report(dataframe):
 
 
 @deprecated(
-    reason="This will be replaced with a new function.",
+    reason="This will be replaced with data_info(), data_cardinality(), and data_quality().",
     version="0.3.0",
 )
 def long_report(dataframe):

@@ -18,6 +18,7 @@ dependencies:
   - pytest-cov
   - seaborn
   - scikit-learn
+  - tabulate
   - boto3
   - openpyxl
   - pip

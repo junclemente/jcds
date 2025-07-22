@@ -194,11 +194,10 @@ See [CHANGELOG.md](./CHANGELOG.md) for version history and updates.
 
 ---
 
-## 🚀 Release & Changelog Automation
-
-This project uses [`git-cliff`](https://github.com/orhun/git-cliff) with [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) to generate structured changelogs.
-
 ### 📐 Commit Message Guide
+
+This project follows [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) specifications:
+
 
 | Type       | Description                        | Example                                      |
 |------------|------------------------------------|----------------------------------------------|
@@ -211,26 +210,4 @@ This project uses [`git-cliff`](https://github.com/orhun/git-cliff) with [Conven
 | `test`     | Add or update tests                | `test: add tests for aws.s3_io.read_s3()`    |
 | `ci`       | CI/CD config changes               | `ci: update GitHub Actions workflow`         |
 
-> 📌 Only commits with these tags will be included in the changelog.
-
----
-
-### 📂 Makefile Commands
-
-- 🔍 Preview changelog:
-
-  ```bash
-  make changelog VERSION=0.2.5
-  ```
-
-- 💾 Save changelog to `CHANGELOG.md`:
-
-  ```bash
-  make changelog-save VERSION=0.2.5
-  ```
-
-- 🏷️ Finalize and tag a release:
-
-  ```bash
-  make release VERSION=0.2.5
-  ```
+Used for consistent history and release tracking. 

@@ -1,4 +1,8 @@
-from IPython.display import display, HTML
+import pandas as pd
+
+# from IPython.display import display, HTML
+from tabulate import tabulate
+
 from jcds.eda import (
     show_memory_use,
     show_shape,
@@ -20,6 +24,7 @@ from jcds.eda import (
     count_rows_with_any_na,
     count_rows_with_all_na,
     count_total_na,
+    count_unique_values,
 )
 
 # from jcds.utils.formatting import render_html_block
@@ -270,3 +275,78 @@ def data_quality(dataframe, show_columns=False):
             print(f"\t* '{col[0]}': {col[1]:.1f}%")
 
     # outlier detection?
+
+
+def catvar_report(dataframe, columns=None):
+    """
+    Display a summary report for categorical variables in a DataFrame.
+
+    Parameters
+    ----------
+    dataframe : pandas.DataFrame
+        The DataFrame to analyze.
+    columns : str or list of str or None, optional
+        Name of a single categorical column (str), a list of column names (list of str),
+        or None to report on all detected categorical columns. Default is None.
+
+    Returns
+    -------
+    pandas.DataFrame or None
+        - If no valid categorical columns are selected, returns an empty DataFrame.
+        - Otherwise, prints a report for each column and returns None.
+
+    Notes
+    -----
+    - Detects categorical columns via `show_catvar(dataframe)`.
+    - Computes missing-value stats with `show_missing_summary(dataframe, sort=False, threshold=0.0)`.
+    - Computes unique counts and top two modes via `count_unique_values(dataframe, col)`.
+    - The report includes, for each column:
+        • Non-missing count and missing count (%).
+        • Cardinality (number of unique values).
+        • Top two modes with their frequencies and percentage of non-missing.
+    - Docstring generated with assistance from ChatGPT
+    """
+    categorical_columns = show_catvar(dataframe)
+    columns_missing_values = show_missing_summary(dataframe, sort=False, threshold=0.0)
+
+    if isinstance(columns, str):
+        cols = [columns]
+    elif isinstance(columns, list):
+        cols = columns
+    else:
+        cols = categorical_columns
+
+    # validate columns
+    valid_columns = []
+    for c in cols:
+        if c in categorical_columns:
+            valid_columns.append(c)
+    if not valid_columns:
+        print("No valid categorical columns selected.")
+        return pd.DataFrame()
+
+    total_rows = len(dataframe)
+
+    for col in valid_columns:
+
+        missing_count, pct_missing = columns_missing_values.get(col, (0, 0.0))
+        # Calculate non_missing values
+        non_missing = total_rows - missing_count
+        unique_values = count_unique_values(dataframe, col)
+        unique_count = unique_values[col]["unique_count"]
+        mode1 = unique_values[col]["top_modes"][0]
+        freq1 = mode1[1]
+        pct_freq1 = round(mode1[1] / non_missing * 100, 1)
+        mode2 = unique_values[col]["top_modes"][1]
+        freq2 = mode2[1]
+        pct_freq2 = round(mode2[1] / non_missing * 100, 1)
+
+        print(f"\nFeature: '{col}'")
+        print(f"===================================================================")
+        print(
+            f"Total: {non_missing}\t\t\tMissing: {missing_count} ({pct_missing*100}%)\t\t\tCardinality (Unique Values): {unique_count}"
+        )
+        print(f"Mode 1: {mode1[0]} \t\tFrequency: {freq1} ({pct_freq1}%)")
+        print(f"Mode 2: {mode2[0]} \t\tFequency: {freq2} ({pct_freq2}%)")
+
+    print(f"\nTotal rows: {total_rows}")

@@ -32,7 +32,7 @@ from .inspect import (
     show_missing_summary,
 )
 
-from .outliers import detect_outliers_iqr
+from .outliers import detect_outliers_iqr, plot_outlier_boxplots
 
 from .reports import dqr_cat, dqr_cont, quick_report, long_report, display_all_col_head
 
@@ -97,6 +97,7 @@ __all__ = [
     "get_dtype_summary",
     "show_missing_summary",
     "detect_outliers_iqr",
+    "plot_outlier_boxplots",
     "delete_columns",
     "convert_to_int",
     "convert_to_categorical",

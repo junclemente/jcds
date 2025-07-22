@@ -30,6 +30,7 @@ dependencies = [
   "scikit-learn",
   "requests", 
   "ipython",
+  "tabulate",
 ]
 
 [project.optional-dependencies]
