@@ -97,7 +97,7 @@ __all__ = [
     "get_dtype_summary",
     "show_missing_summary",
     "detect_outliers_iqr",
-    "plot_outliers_boxplots",
+    "plot_outlier_boxplots",
     "delete_columns",
     "convert_to_int",
     "convert_to_categorical",
