@@ -3,42 +3,57 @@
 All notable changes to this project will be documented in this file.  
 This project follows [Semantic Versioning](https://semver.org/) and loosely follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format.
 
-## [Unreleased] – 2025‑05‑02
+## [0.2.8] – 2025‑05‑02
 
 ### Added
+
 - **catvar_report()**  
-  Introduced a new `catvar_report()` function in `reports.py` for detailed categorical‐variable profiling. (2025‑04‑30)
+  Introduced a new `catvar_report()` function in `reports.py` for detailed categorical-variable profiling. (2025‑04‑30)
+
+- **plot_outlier_boxplots()**  
+  Added `plot_outlier_boxplots()` to `eda.outliers` for visualizing IQR-based outliers in non-binary numeric features. (2025‑07‑21)
 
 ### Changed
+
 - **catvar_report() display**  
-  Finalized and cleaned up the display layout and formatting of `catvar_report()`. (2025‑05‑02)  
+  Finalized and cleaned up the display layout and formatting of `catvar_report()`. (2025‑05‑02)
 - **count_unique_values() enhancements**  
-  Added an `n_modes` parameter and built‑in sorting to the `count_unique_values()` helper. (2025‑05‑01)  
+  Added an `n_modes` parameter and built-in sorting to the `count_unique_values()` helper. (2025‑05‑01)
 - **Tabulate support**  
-  Updated code to include the `tabulate` package for nicer table output. (2025‑05‑02)  
+  Updated code to include the `tabulate` package for nicer table output. (2025‑05‑02)
 - **Deprecation messaging**  
-  Revised deprecation notices to point users toward `data_info()`, `data_cardinality()`, and `data_quality()`. (2025‑04‑29)  
+  Revised deprecation notices to point users toward `data_info()`, `data_cardinality()`, and `data_quality()`. (2025‑04‑29)
 - **Utility functions refactored**  
-  Deprecated `get_cont_list()` and `get_cat_list()` in favor of the clearer `show_convar()` and `show_catvar()`. (2025‑04‑29)  
+  Deprecated `get_cont_list()` and `get_cat_list()` in favor of the clearer `show_convar()` and `show_catvar()`. (2025‑04‑29)
 - **catvar_reports rename**  
   Tidied up naming and internal references in the `catvar_reports` module to match the new API. (2025‑05‑02)
 
+- **eda.outliers module update**  
+  Updated `eda.outliers` to expose the new plotting function via the public interface and `__all__`. (2025‑07‑21)
+
 ### Deprecated
+
 - **Automated changelog**  
   Removed the `git-cliff`–based changelog automation and reverted to manual maintenance. (2025‑04‑18)
 
 ### Documentation
-- **Notebook updates**  
-  - Updated `eda_workflow.ipynb` with deprecation guidance and new function signatures. (2025‑04‑18)  
+
+- **Notebook updates**
+  - Updated `eda_workflow.ipynb` with deprecation guidance and new function signatures. (2025‑04‑18)
   - Refreshed example outputs in the project notebook to reflect the latest changes. (2025‑05‑02)
 
 ### Testing
+
 - **Test suite**  
   Updated and expanded unit tests for `count_unique_values()` to cover the new modes and sorting options. (2025‑05‑01)
+
+- **Outlier tests**  
+  Added basic unit test for `plot_outlier_boxplots()` to ensure it runs without error. (2025‑07‑21)
 
 ## [v0.2.7] - 2025-04-15
 
 ### ✨ Features
+
 - `transform.py`:
   - Add `convert_to_int()`, `convert_to_categorical()`, `convert_to_object()`, `convert_to_datetime()`, `convert_to_numeric()`, and `convert_to_bool()` functions
   - Add `clean_column_names()` and `delete_columns()` utility functions
@@ -50,6 +65,7 @@ This project follows [Semantic Versioning](https://semver.org/) and loosely foll
   - Reformat high-cardinality output to display percent uniqueness
 
 ### 🧪 Tests
+
 - Added unit tests for:
   - `show_dimensions()`
   - `convert_to_int()`, `convert_to_datetime()`, `convert_to_bool()`, `convert_to_numeric()`
@@ -57,9 +73,11 @@ This project follows [Semantic Versioning](https://semver.org/) and loosely foll
 - Updated test suite to match function name changes (`rename_col` → `rename_column`)
 
 ### 🛠 Refactoring
+
 - Renamed `rename_col()` to `rename_column()` across codebase and tests
 
 ### 🧹 Chores
+
 - Updated `.gitignore` to exclude test-generated CSVs
 - Added sample datasets for testing
 - Added VS Code dev test notebook template: `dev_test_nb`
@@ -67,10 +85,9 @@ This project follows [Semantic Versioning](https://semver.org/) and loosely foll
 - Merged latest `main` into `develop`
 
 ### 📜 Documentation & Style
+
 - Added docstrings to `rename_column()` and `data_quality()`
 - Adjusted print formatting and divider lengths for improved readability in reports
-
-
 
 ## [v0.2.6] - 2025-04-16
 
