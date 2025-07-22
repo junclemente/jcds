@@ -1,0 +1,18 @@
+site_name: jcds Library
+
+theme:
+  name: material
+
+nav:
+  - Home: index.md
+  - API Reference: api.md
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            show_source: true
+            show_signature_annotations: true
+          paths: ["."]

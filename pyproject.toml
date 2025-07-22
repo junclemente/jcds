@@ -1,0 +1,45 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "jcds"
+version = "0.2.7"
+description = "Jun Clemente’s Data Science helper library for EDA, visualization, and analysis"
+readme = "README.md"
+requires-python = ">=3.7"
+authors = [
+  { name = "Jun Clemente" }
+]
+license = { text = "MIT" }
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+]
+
+dependencies = [
+  "pandas",
+  "pyarrow", 
+  "numpy",
+  "matplotlib",
+  "openpyxl",
+  "seaborn",
+  "ipython",
+  "scikit-learn",
+  "requests", 
+  "ipython",
+]
+
+[project.optional-dependencies]
+aws = [
+  "boto3",
+  "botocore"
+]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
