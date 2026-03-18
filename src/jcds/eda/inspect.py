@@ -160,7 +160,7 @@ def show_convar(dataframe):
     """
 
     cont_features = dataframe.select_dtypes(
-        exclude=["category", "object"]
+        exclude=["category", "object", "datetimetz", "datetime64"]
     ).columns.tolist()
     return cont_features
 

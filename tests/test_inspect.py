@@ -27,6 +27,9 @@ def test_show_convar_returns_numerical_columns(sample_df):
     assert "Gender" not in con_vars
     assert isinstance(con_vars, list)
 
+def test_show_convar_excludes_datetime(datetime_parsed_df):
+    result = eda.show_convar(datetime_parsed_df)
+    assert "timestamp" not in result
 
 def test_show_lowcardvars_filters_by_cardinality(lowcard_df):
     result = eda.show_lowcardvars(lowcard_df, max_unique=3)
