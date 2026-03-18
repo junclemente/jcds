@@ -2,7 +2,7 @@
 import pytest
 import pandas as pd
 import pandas.testing as pdt
-from pandas.api.types import is_categorical_dtype, is_bool_dtype
+from pandas.api.types import is_bool_dtype
 from jcds.eda.transform import (
     rename_column,
     delete_columns,
@@ -128,7 +128,7 @@ def test_convert_to_int_inplace(unique_test_df):
 def test_default_convert_to_categorical(unique_test_df):
     df2 = convert_to_categorical(unique_test_df, columns=None, inplace=False)
     for col in ["Category", "Empty", "Mixed"]:
-        assert is_categorical_dtype(df2[col].dtype), f"{col} not categorical"
+        assert isinstance(df2[col].dtype, pd.CategoricalDtype), f"{col} not categorical"
     assert df2["Numeric"].dtype == unique_test_df["Numeric"].dtype
 
 
@@ -137,7 +137,7 @@ def test_ordered_convert_to_categorical(unique_test_df):
         unique_test_df, columns=["Category"], ordered=True, inplace=False
     )
     dtype = df2["Category"].dtype
-    assert is_categorical_dtype(dtype)
+    assert isinstance(dtype, pd.CategoricalDtype)
     assert dtype.ordered is True
 
 
@@ -150,7 +150,7 @@ def test_convert_to_categorical_inplace(unique_test_df):
     df = unique_test_df.copy()
     ret = convert_to_categorical(df, columns=["Category"], inplace=True)
     assert ret is None
-    assert is_categorical_dtype(df["Category"].dtype)
+    assert isinstance(df["Category"].dtype, pd.CategoricalDtype)
 
 
 # --- convert_to_object tests ---

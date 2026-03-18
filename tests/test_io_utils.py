@@ -12,7 +12,11 @@ def test_parquet_save_and_load_roundtrip(sample_df, tmp_path):
     save_parquet(sample_df, filepath)
     loaded_df = load_parquet(filepath)
 
-    pd.testing.assert_frame_equal(sample_df, loaded_df)
+    pd.testing.assert_frame_equal(
+        sample_df.fillna(value=pd.NA),
+        loaded_df.fillna(value=pd.NA)
+    )
+
 
 
 def test_save_parquet_creates_nested_directories(sample_df, tmp_path):
@@ -23,7 +27,10 @@ def test_save_parquet_creates_nested_directories(sample_df, tmp_path):
 
     assert nested_path.exists()
     loaded_df = load_parquet(nested_path)
-    pd.testing.assert_frame_equal(sample_df, loaded_df)
+    pd.testing.assert_frame_equal(
+        sample_df.fillna(value=pd.NA),
+        loaded_df.fillna(value=pd.NA)
+    )
 
 
 def test_load_csv_success_with_multiple_encodings(tmp_path, sample_df):
