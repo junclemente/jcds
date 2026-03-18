@@ -141,6 +141,11 @@ def test_show_mixed_type_columns(mixed_type_df):
     assert "more_mixed" in result
     assert "clean" not in result
 
+def test_show_mixed_type_columns_ignores_nan(sample_df):
+    # sample_df has NaN values in string columns — should not be flagged as mixed
+    result = eda.show_mixed_type_columns(sample_df)
+    assert "Gender" not in result  # Gender has NaN but is still just strings
+
 
 def test_count_id_like_columns(id_like_df):
     result = eda.count_id_like_columns(id_like_df, threshold=0.95)
