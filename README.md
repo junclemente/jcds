@@ -166,15 +166,22 @@ Built with:
 
 ### 🔁 Updating the Docs
 
-1. Add/update docstrings (Google or NumPy style).
-2. Update `mkdocs.yml` and related `.md` files.
-3. Preview locally:
+1. **Update or Add Docstrings**
+   - Use [NumPy](https://numpydoc.readthedocs.io/en/latest/format.html) or Google-style docstrings in your `.py` files.
+   - These serve as the foundation for manual documentation or future automated doc generation.
+
+2. **Edit Markdown Files**
+   - Update existing `.md` files or create new ones in the `docs/` folder.
+   - Update `mkdocs.yml` to reflect new pages or sections in the sidebar.
+
+3. **Preview Locally**
+   Run the following command to launch a local web server:
 
 ```bash
 mkdocs serve
 ```
 
-URL:
+Then open the URL:
 
 ```text
 http://127.0.0.1:8000/
@@ -185,6 +192,14 @@ http://127.0.0.1:8000/
 ```bash
 mkdocs gh-deploy
 ```
+This will:
+
+Build the site
+
+Push it to the gh-pages branch
+
+Automatically publish at:
+https://<your-username>.github.io/<repo-name>/
 
 ---
 
