@@ -174,7 +174,7 @@ pytest
 Run a specific test file:
 
 ```bash
-pytest tests/unit/test_eda_helpers.py
+pytest tests/test_eda_helpers.py
 ```
 
 Measure test coverage:

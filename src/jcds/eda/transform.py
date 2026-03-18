@@ -336,11 +336,17 @@ def clean_column_names(dataframe, inplace=False):
     """
     df = dataframe if inplace else dataframe.copy()
     mapping = {}
+    seen = {}
     for col in df.columns:
         new_col = col.strip()
         new_col = new_col.lower()
         new_col = re.sub(r"[^0-9a-z]+", "_", new_col)
         new_col = re.sub(r"__+", "_", new_col).strip("_")
+        if new_col in seen: 
+            seen[new_col] += 1
+            new_col = f"{new_col}_{seen[new_col]}"
+        else: 
+            seen[new_col] = 0 
         mapping[col] = new_col
     df.rename(columns=mapping, inplace=True)
     return df
