@@ -1,7 +1,12 @@
 import pandas as pd
 import re
 
+from jcds.utils import deprecated 
 
+@deprecated(
+    reason="This function will be moved to the jcds.transform module.",
+    version="0.4.0"
+)
 def rename_column(dataframe, oldname, newname):
     """
     Rename a column in a pandas DataFrame.
@@ -29,7 +34,10 @@ def rename_column(dataframe, oldname, newname):
         raise ValueError(f"Column '{oldname}' not found in DataFrame.")
     return dataframe.rename(columns={oldname: newname})
 
-
+@deprecated(
+    reason="This function will be moved to the jcds.transform module.",
+    version="0.4.0"
+)
 def delete_columns(dataframe, columns_to_drop, inplace=False):
     """
     Drop one or more columns from a pandas DataFrame.
@@ -69,7 +77,10 @@ def delete_columns(dataframe, columns_to_drop, inplace=False):
     else:
         return dataframe.drop(columns=columns_to_drop)
 
-
+@deprecated(
+    reason="This function will be moved to the jcds.transform module.",
+    version="0.4.0"
+)
 def convert_to_int(
     dataframe: pd.DataFrame,
     columns: list[str] | None = None,
@@ -133,7 +144,10 @@ def convert_to_int(
     if not inplace:
         return df
 
-
+@deprecated(
+    reason="This function will be moved to the jcds.transform module.",
+    version="0.4.0"
+)
 def convert_to_numeric(
     dataframe, columns, errors="raise", downcast=None, inplace=False
 ):
@@ -174,7 +188,10 @@ def convert_to_numeric(
 
     return df
 
-
+@deprecated(
+    reason="This function will be moved to the jcds.transform module.",
+    version="0.4.0"
+)
 def convert_to_categorical(
     dataframe: pd.DataFrame,
     columns: list[str] | None = None,
@@ -229,7 +246,10 @@ def convert_to_categorical(
     if not inplace:
         return df
 
-
+@deprecated(
+    reason="This function will be moved to the jcds.transform module.",
+    version="0.4.0"
+)
 def convert_to_object(
     dataframe: pd.DataFrame, columns: list[str], inplace: bool = False
 ) -> pd.DataFrame | None:
@@ -274,7 +294,10 @@ def convert_to_object(
     if not inplace:
         return df
 
-
+@deprecated(
+    reason="This function will be moved to the jcds.transform module.",
+    version="0.4.0"
+)
 def convert_to_datetime(dataframe, columns, format=None, errors="raise", inplace=False):
     """
     Converts one or more DataFrame columns to datetime dtype.
@@ -317,7 +340,10 @@ def convert_to_datetime(dataframe, columns, format=None, errors="raise", inplace
 
     return df
 
-
+@deprecated(
+    reason="This function will be moved to the jcds.transform module.",
+    version="0.4.0"
+)
 def clean_column_names(dataframe, inplace=False):
     """
     Cleans DataFrame column names by stripping whitespace, lowercasing, and replacing non-alphanumeric characters with underscores.
@@ -352,7 +378,10 @@ def clean_column_names(dataframe, inplace=False):
     return df
 
 
-
+@deprecated(
+    reason="This function will be moved to the jcds.transform module.",
+    version="0.4.0"
+)
 def convert_to_bool(dataframe, columns, true_values=None, false_values=None, errors='raise', inplace=False):
     """
     Converts one or more DataFrame columns to boolean dtype based on specified true/false values.

@@ -2,8 +2,9 @@ from . import eda
 from . import aws
 from . import dataio
 from . import reports
+from . import transform
 
-__all__ = ["eda", "aws", "dataio", "reports", "help"]
+__all__ = ["eda", "aws", "dataio", "reports", 'transform', "help"]
 
 
 def help(func_name=None, namespace=None):
