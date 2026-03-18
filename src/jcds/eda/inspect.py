@@ -598,3 +598,37 @@ def show_missing_summary(dataframe, sort=True, threshold=0.0):
         summary = dict(sorted(summary.items(), key=lambda x: x[1][0], reverse=True))
 
     return summary
+
+
+def show_null_rows(dataframe):
+    """
+    Returns rows that contain at least one null value.
+
+    Parameters
+    ----------
+    dataframe : pd.DataFrame
+        The input pandas DataFrame.
+
+    Returns
+    -------
+    pd.DataFrame
+        Subset of rows containing at least one null value.
+    """
+    return dataframe[dataframe.isnull().any(axis=1)]
+
+
+def show_null_cols(dataframe):
+    """
+    Returns columns that contain at least one null value.
+
+    Parameters
+    ----------
+    dataframe : pd.DataFrame
+        The input pandas DataFrame.
+
+    Returns
+    -------
+    pd.DataFrame
+        Subset of columns containing at least one null value.
+    """
+    return dataframe.loc[:, dataframe.isnull().any()]

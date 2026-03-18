@@ -97,3 +97,30 @@ def plot_outlier_boxplots(dataframe, threshold=1.5, figsize=(14, 5)):
 
     plt.tight_layout()
     plt.show()
+
+
+def plot_missing_heatmap(dataframe, figsize=(12, 10), cmap="viridis"):
+    """
+    Plots a heatmap of missing values across the DataFrame.
+
+    Parameters
+    ----------
+    dataframe : pd.DataFrame
+        The input DataFrame.
+    figsize : tuple, optional
+        Figure size. Default is (12, 10).
+    cmap : str, optional
+        Colormap for the heatmap. Default is 'viridis'.
+
+    Returns
+    -------
+    None
+    """
+    fig, ax = plt.subplots(figsize=figsize)
+    sns.heatmap(dataframe.isnull(), cbar=False, cmap=cmap, ax=ax)
+    ax.set_title("Missing Data Heatmap", fontsize=14)
+    ax.set_xlabel("Features")
+    ax.set_ylabel("Records")
+    plt.tight_layout()
+    plt.show()
+    plt.close(fig)

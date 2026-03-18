@@ -204,3 +204,27 @@ def test_show_dimensions_returns_correct_values(sample_df):
     assert cols == 5
     assert size == 50
     assert isinstance(memory_use, float)
+
+
+def test_show_null_rows_returns_only_null_rows(sample_df):
+    result = eda.show_null_rows(sample_df)
+    assert result.isnull().any(axis=1).all()
+    assert len(result) < len(sample_df)
+
+
+def test_show_null_rows_empty_when_no_nulls(sample_df):
+    df = sample_df.dropna()
+    result = eda.show_null_rows(df)
+    assert len(result) == 0
+
+
+def test_show_null_cols_returns_only_null_cols(missing_data_df):
+    result = eda.show_null_cols(missing_data_df)
+    assert result.isnull().any(axis=0).all()
+    assert len(result.columns) < len(missing_data_df.columns)
+
+
+def test_show_null_cols_empty_when_no_nulls(sample_df):
+    df = sample_df.dropna()
+    result = eda.show_null_cols(df)
+    assert len(result.columns) == 0
