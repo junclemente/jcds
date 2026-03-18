@@ -52,6 +52,37 @@ Installs:
 
 ---
 
+### 📓 Auto-install in Jupyter Notebooks
+
+If you're using `jcds` in a Jupyter notebook, add this snippet at the top of your notebook to automatically install it if it's not already present:
+```python
+import importlib
+import subprocess
+import sys
+
+# Check if jcds is installed; install from GitHub if not
+package_name = "jcds"
+
+if importlib.util.find_spec(package_name) is None:
+    print(f"'{package_name}' not found. Installing from GitHub...")
+    subprocess.check_call(
+        [
+            sys.executable,
+            "-m",
+            "pip",
+            "install",
+            "git+https://github.com/junclemente/jcds.git",
+        ]
+    )
+else:
+    print(f"'{package_name}' is already installed.")
+
+from jcds import eda as jeda
+from jcds import reports as jrep
+```
+
+---
+
 ### 🌐 Import with `httpimport`
 
 Use [`httpimport`](https://pypi.org/project/httpimport/) directly in Jupyter:
