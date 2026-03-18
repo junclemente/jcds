@@ -30,7 +30,8 @@ from jcds.eda import (
 # from jcds.utils.formatting import render_html_block
 
 
-def data_info(dataframe, show_columns=False):
+
+def data_info(dataframe, show_columns=True):
     """
     Summarize the dataset's shape, memory usage, duplicates, and variable types.
 
@@ -96,7 +97,7 @@ def data_info(dataframe, show_columns=False):
         print(f" * Columns: {mixed_columns}")
 
 
-def data_cardinality(dataframe, show_columns=False):
+def data_cardinality(dataframe, show_columns=True):
     """
     Summarizes the cardinality of the columns in the dataset.
 
@@ -173,7 +174,7 @@ def data_cardinality(dataframe, show_columns=False):
             print(f" * Columns: {highcardvars}")
 
 
-def data_quality(dataframe, show_columns=False):
+def data_quality(dataframe, show_columns=True):
     """
     Print a comprehensive data quality report for the given DataFrame.
 
