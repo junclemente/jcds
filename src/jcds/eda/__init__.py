@@ -34,7 +34,7 @@ from .inspect import (
     show_null_cols,
 )
 
-from .outliers import detect_outliers_iqr, plot_outlier_boxplots, plot_missing_heatmap
+from .outliers import detect_outliers_iqr, plot_outlier_boxplots
 
 from .reports import dqr_cat, dqr_cont, quick_report, long_report, display_all_col_head
 
@@ -100,7 +100,6 @@ __all__ = [
     "show_missing_summary",
     "detect_outliers_iqr",
     "plot_outlier_boxplots",
-    "plot_missing_heatmap",
     "delete_columns",
     "convert_to_int",
     "convert_to_categorical",

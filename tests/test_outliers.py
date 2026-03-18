@@ -1,5 +1,6 @@
 import pandas as pd
 from jcds.eda import outliers
+from jcds import charts 
 
 
 def test_plot_outlier_boxplots(sample_df):
@@ -9,9 +10,16 @@ def test_plot_outlier_boxplots(sample_df):
         pytest.fail(f"plot_outlier_boxplots raised an exception: {e}")
 
 
-def test_plot_missing_heatmap(sample_df):
-    """Test that plot_missing_heatmap runs without error."""
+def test_outlier_boxplots(sample_df):
     try:
-        outliers.plot_missing_heatmap(sample_df)
+        charts.outlier_boxplots(sample_df)
     except Exception as e:
-        pytest.fail(f"plot_missing_heatmap raised an exception: {e}")
+        pytest.fail(f"charts.outlier_boxplots raised an exception: {e}")
+
+
+def test_missing_data_heatmap_charts(sample_df):
+    """Test that charts.plot_missing_heatmap runs without error."""
+    try:
+        charts.missing_data_heatmap(sample_df)
+    except Exception as e:
+        pytest.fail(f"charts.plot_missing_heatmap raised an exception: {e}")
