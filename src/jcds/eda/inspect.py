@@ -492,7 +492,7 @@ def show_possible_datetime_columns(dataframe, sample_size=5):
     for col in dataframe.select_dtypes(include="object").columns:
         sample_values = dataframe[col].dropna().head(sample_size)
         parse_attempts = sample_values.apply(
-            lambda x: pd.to_datetime(x, errors="coerce")
+            lambda x: pd.to_datetime(x, errors="coerce", utc=True)
         )
         success_ratio = parse_attempts.notna().mean()
         if success_ratio >= 0.8:  # 80% of values parse as dates
