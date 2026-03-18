@@ -226,3 +226,28 @@ This project follows [Conventional Commits](https://www.conventionalcommits.org/
 | `ci`       | CI/CD config changes               | `ci: update GitHub Actions workflow`         |
 
 Used for consistent history and release tracking. 
+
+---
+
+## 🌿 Branch & Release Workflow
+
+This project uses **squash merge** from `develop` → `main` to keep a clean commit history.
+
+### After every PR merge into `main`:
+
+After merging, reset `develop` to match `main`:
+```bash
+git checkout develop
+git reset --hard origin/main
+git push origin develop --force-with-lease
+```
+
+> ⚠️ This is required after every merge because squash merge creates a new commit on `main` that `develop` doesn't recognize.
+
+### General flow:
+
+1. Do all work on `develop`
+2. Open PR: `develop` → `main`
+3. Squash and merge
+4. Reset `develop` to `main` (steps above)
+5. Tag and publish release
