@@ -60,26 +60,32 @@ import importlib
 import subprocess
 import sys
 
-# Check if jcds is installed; install from GitHub if not
 package_name = "jcds"
+branch = "main"  # change to "develop" for latest dev version
 
-if importlib.util.find_spec(package_name) is None:
+if branch == "develop":
+    print(f"Installing latest '{package_name}' from '{branch}' branch...")
+    subprocess.check_call([
+        sys.executable, "-m", "pip", "install",
+        "--upgrade", "--force-reinstall",
+        f"git+https://github.com/junclemente/jcds.git@{branch}",
+    ])
+elif importlib.util.find_spec(package_name) is None:
     print(f"'{package_name}' not found. Installing from GitHub...")
-    subprocess.check_call(
-        [
-            sys.executable,
-            "-m",
-            "pip",
-            "install",
-            "git+https://github.com/junclemente/jcds.git",
-        ]
-    )
+    subprocess.check_call([
+        sys.executable, "-m", "pip", "install",
+        f"git+https://github.com/junclemente/jcds.git@{branch}",
+    ])
 else:
     print(f"'{package_name}' is already installed.")
 
 from jcds import eda as jeda
 from jcds import reports as jrep
+from jcds import transform as jtrf
+from jcds import charts as jvis
 ```
+
+> 💡 Set `branch = "develop"` to always pull the latest development version. Switch to `branch = "main"` or a version tag like `branch = "v0.3.0"` for stable use.
 
 ---
 
