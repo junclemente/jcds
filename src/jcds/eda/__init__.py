@@ -30,6 +30,8 @@ from .inspect import (
     count_id_like_columns,
     get_dtype_summary,
     show_missing_summary,
+    show_null_rows, 
+    show_null_cols,
 )
 
 from .outliers import detect_outliers_iqr, plot_outlier_boxplots
@@ -106,5 +108,7 @@ __all__ = [
     "convert_to_numeric",
     "clean_column_names",
     "convert_to_bool",
+    "show_null_rows",
+    "show_null_cols", 
     "help",
 ]

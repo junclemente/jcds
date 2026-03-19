@@ -52,6 +52,43 @@ Installs:
 
 ---
 
+### 📓 Auto-install in Jupyter Notebooks
+
+If you're using `jcds` in a Jupyter notebook, add this snippet at the top of your notebook to automatically install it if it's not already present:
+```python
+import importlib
+import subprocess
+import sys
+
+package_name = "jcds"
+branch = "main"  # change to "develop" for latest dev version
+
+if branch == "develop":
+    print(f"Installing latest '{package_name}' from '{branch}' branch...")
+    subprocess.check_call([
+        sys.executable, "-m", "pip", "install",
+        "--upgrade", "--force-reinstall",
+        f"git+https://github.com/junclemente/jcds.git@{branch}",
+    ])
+elif importlib.util.find_spec(package_name) is None:
+    print(f"'{package_name}' not found. Installing from GitHub...")
+    subprocess.check_call([
+        sys.executable, "-m", "pip", "install",
+        f"git+https://github.com/junclemente/jcds.git@{branch}",
+    ])
+else:
+    print(f"'{package_name}' is already installed.")
+
+from jcds import eda as jeda
+from jcds import reports as jrep
+from jcds import transform as jtrf
+from jcds import charts as jvis
+```
+
+> 💡 Set `branch = "develop"` to always pull the latest development version. Switch to `branch = "main"` or a version tag like `branch = "v0.3.0"` for stable use.
+
+---
+
 ### 🌐 Import with `httpimport`
 
 Use [`httpimport`](https://pypi.org/project/httpimport/) directly in Jupyter:
@@ -143,7 +180,7 @@ pytest
 Run a specific test file:
 
 ```bash
-pytest tests/unit/test_eda_helpers.py
+pytest tests/test_eda_helpers.py
 ```
 
 Measure test coverage:
@@ -226,3 +263,28 @@ This project follows [Conventional Commits](https://www.conventionalcommits.org/
 | `ci`       | CI/CD config changes               | `ci: update GitHub Actions workflow`         |
 
 Used for consistent history and release tracking. 
+
+---
+
+## 🌿 Branch & Release Workflow
+
+This project uses **squash merge** from `develop` → `main` to keep a clean commit history.
+
+### After every PR merge into `main`:
+
+After merging, reset `develop` to match `main`:
+```bash
+git checkout develop
+git reset --hard origin/main
+git push origin develop --force-with-lease
+```
+
+> ⚠️ This is required after every merge because squash merge creates a new commit on `main` that `develop` doesn't recognize.
+
+### General flow:
+
+1. Do all work on `develop`
+2. Open PR: `develop` → `main`
+3. Squash and merge
+4. Reset `develop` to `main` (steps above)
+5. Tag and publish release

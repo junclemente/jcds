@@ -160,7 +160,7 @@ def show_convar(dataframe):
     """
 
     cont_features = dataframe.select_dtypes(
-        exclude=["category", "object"]
+        exclude=["category", "object", "datetimetz", "datetime64"]
     ).columns.tolist()
     return cont_features
 
@@ -492,7 +492,7 @@ def show_possible_datetime_columns(dataframe, sample_size=5):
     for col in dataframe.select_dtypes(include="object").columns:
         sample_values = dataframe[col].dropna().head(sample_size)
         parse_attempts = sample_values.apply(
-            lambda x: pd.to_datetime(x, errors="coerce")
+            lambda x: pd.to_datetime(x, errors="coerce", utc=True)
         )
         success_ratio = parse_attempts.notna().mean()
         if success_ratio >= 0.8:  # 80% of values parse as dates
@@ -504,7 +504,7 @@ def show_possible_datetime_columns(dataframe, sample_size=5):
 def show_mixed_type_columns(df):
     mixed_cols = []
     for col in df.columns:
-        types = df[col].map(type).nunique()
+        types = df[col].dropna().map(lambda x: type(x).__name__).nunique()
         if types > 1:
             mixed_cols.append(col)
     return mixed_cols
@@ -598,3 +598,37 @@ def show_missing_summary(dataframe, sort=True, threshold=0.0):
         summary = dict(sorted(summary.items(), key=lambda x: x[1][0], reverse=True))
 
     return summary
+
+
+def show_null_rows(dataframe):
+    """
+    Returns rows that contain at least one null value.
+
+    Parameters
+    ----------
+    dataframe : pd.DataFrame
+        The input pandas DataFrame.
+
+    Returns
+    -------
+    pd.DataFrame
+        Subset of rows containing at least one null value.
+    """
+    return dataframe[dataframe.isnull().any(axis=1)]
+
+
+def show_null_cols(dataframe):
+    """
+    Returns columns that contain at least one null value.
+
+    Parameters
+    ----------
+    dataframe : pd.DataFrame
+        The input pandas DataFrame.
+
+    Returns
+    -------
+    pd.DataFrame
+        Subset of columns containing at least one null value.
+    """
+    return dataframe.loc[:, dataframe.isnull().any()]

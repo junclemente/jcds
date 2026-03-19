@@ -10,6 +10,7 @@ from jcds.eda.transform import (
     convert_to_categorical,
     convert_to_object,
     convert_to_bool,
+    clean_column_names,
 )
 
 
@@ -225,3 +226,15 @@ def test_convert_to_bool_inplace(mixed_type_df):
     ret = convert_to_bool(df, "col", inplace=True)
     assert ret is df
     assert is_bool_dtype(df["col"].dtype)
+
+
+def test_clean_column_names_handles_collision():
+    df = pd.DataFrame(columns=["First Name", "First  Name", "Age"])
+    result = clean_column_names(df)
+    assert list(result.columns) == ["first_name", "first_name_1", "age"]
+
+
+def test_clean_column_names_handles_triple_collision():
+    df = pd.DataFrame(columns=["First Name", "First  Name", "First   Name", "Age"])
+    result = clean_column_names(df)
+    assert list(result.columns) == ["first_name", "first_name_1", "first_name_2", "age"]

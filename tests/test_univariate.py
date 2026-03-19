@@ -1,3 +1,4 @@
+import pytest
 from jcds.eda import univariate
 
 
@@ -11,3 +12,12 @@ def test_describe_categorical(sample_df):
 
 def test_plot_categorical_runs_without_error(sample_df):
     univariate.plot_categorical(sample_df["Gender"])  # Just confirm it runs
+    
+
+def test_categorical_barplot_charts(sample_df):
+    """Test that charts.categorical_barplot runs without error."""
+    from jcds import charts
+    try:
+        charts.categorical_barplot(sample_df["Gender"])
+    except Exception as e:
+        pytest.fail(f"charts.categorical_barplot raised an exception: {e}")

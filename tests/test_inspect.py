@@ -27,6 +27,9 @@ def test_show_convar_returns_numerical_columns(sample_df):
     assert "Gender" not in con_vars
     assert isinstance(con_vars, list)
 
+def test_show_convar_excludes_datetime(datetime_parsed_df):
+    result = eda.show_convar(datetime_parsed_df)
+    assert "timestamp" not in result
 
 def test_show_lowcardvars_filters_by_cardinality(lowcard_df):
     result = eda.show_lowcardvars(lowcard_df, max_unique=3)
@@ -141,6 +144,17 @@ def test_show_mixed_type_columns(mixed_type_df):
     assert "more_mixed" in result
     assert "clean" not in result
 
+def test_show_mixed_type_columns_ignores_nan(sample_df):
+    # sample_df has NaN values in string columns — should not be flagged as mixed
+    result = eda.show_mixed_type_columns(sample_df)
+    assert "Gender" not in result  # Gender has NaN but is still just strings
+
+def test_show_mixed_type_columns_ignores_numpy_str(sample_df):
+    # Converting to str can produce numpy.str_ mixed with str — should not be flagged
+    df = sample_df.copy()
+    df["Gender"] = df["Gender"].astype(str)
+    result = eda.show_mixed_type_columns(df)
+    assert "Gender" not in result
 
 def test_count_id_like_columns(id_like_df):
     result = eda.count_id_like_columns(id_like_df, threshold=0.95)
@@ -204,3 +218,27 @@ def test_show_dimensions_returns_correct_values(sample_df):
     assert cols == 5
     assert size == 50
     assert isinstance(memory_use, float)
+
+
+def test_show_null_rows_returns_only_null_rows(sample_df):
+    result = eda.show_null_rows(sample_df)
+    assert result.isnull().any(axis=1).all()
+    assert len(result) < len(sample_df)
+
+
+def test_show_null_rows_empty_when_no_nulls(sample_df):
+    df = sample_df.dropna()
+    result = eda.show_null_rows(df)
+    assert len(result) == 0
+
+
+def test_show_null_cols_returns_only_null_cols(missing_data_df):
+    result = eda.show_null_cols(missing_data_df)
+    assert result.isnull().any(axis=0).all()
+    assert len(result.columns) < len(missing_data_df.columns)
+
+
+def test_show_null_cols_empty_when_no_nulls(sample_df):
+    df = sample_df.dropna()
+    result = eda.show_null_cols(df)
+    assert len(result.columns) == 0

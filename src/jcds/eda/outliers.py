@@ -1,4 +1,5 @@
 from jcds.eda.inspect import show_convar, show_binary_list
+from jcds.utils import deprecated
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -51,10 +52,14 @@ def detect_outliers_iqr(dataframe, threshold=1.5, return_mask=False):
 
     return outlier_mask if return_mask else outlier_counts
 
-
+@deprecated( 
+    reason="Use jcds.charts.outlier_boxplots() instead.", 
+    version="0.4.0"
+)
 def plot_outlier_boxplots(dataframe, threshold=1.5, figsize=(14, 5)):
     """
     Plots boxplots for numeric (non-binary) columns with potential outliers.
+    *** Deprecated. Use jcds.charts.outlier_boxplots() instead. 
 
     Parameters
     ----------
@@ -97,3 +102,4 @@ def plot_outlier_boxplots(dataframe, threshold=1.5, figsize=(14, 5)):
 
     plt.tight_layout()
     plt.show()
+

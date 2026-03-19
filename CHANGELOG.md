@@ -3,6 +3,85 @@
 All notable changes to this project will be documented in this file.  
 This project follows [Semantic Versioning](https://semver.org/) and loosely follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format.
 
+## [0.3.0] – 2026-03-18
+
+### Added
+
+- **`jcds.charts` module**
+  New visualization module with cleaner API (`jvis`):
+  - `missing_data_heatmap()` — heatmap of missing values across the DataFrame
+  - `outlier_boxplots()` — boxplots for numeric (non-binary) columns
+  - `correlation_heatmap()` — heatmap of feature correlations
+  - `categorical_barplot()` — bar chart for categorical variable distributions
+
+- **`jcds.transform` module**
+  New transformation module with cleaner API (`jtrf`):
+  - `to_int()`, `to_float()`, `to_numeric()`, `to_str()`
+  - `to_categorical()`, `to_bool()`, `to_datetime()`, `to_object()`
+  - `clean_column_names()`, `rename_column()`, `delete_columns()`
+
+- **`eda` module additions**
+  - `show_null_rows()` — returns rows containing at least one null value
+  - `show_null_cols()` — returns columns containing at least one null value
+
+### Changed
+
+- **`show_columns` default changed to `True`**
+  `data_info()`, `data_cardinality()`, and `data_quality()` now show column lists by default.
+
+- **`jcds.help()` updated**
+  Now includes `reports`, `transform`, and `charts` modules in function listing.
+
+- **`clean_column_names()` collision handling**
+  Now appends numeric suffix (e.g., `first_name_1`) when two columns clean to the same name.
+
+### Fixed
+
+- **`show_convar()` now excludes datetime columns**
+  Previously, datetime columns were incorrectly counted as numerical variables.
+
+- **`show_mixed_type_columns()` now ignores NaN**
+  Previously, columns with NaN values were incorrectly flagged as mixed type.
+
+- **`show_mixed_type_columns()` treats `str` and `numpy.str_` as the same type**
+  Prevents false positives after `to_str()` conversion.
+
+- **`show_possible_datetime_columns()` FutureWarning suppressed**
+  Added `utc=True` to `pd.to_datetime()` call to suppress pandas FutureWarning.
+
+### Deprecated
+
+The following `eda` functions are deprecated and will be removed in v0.4.0.
+Use the `jcds.charts` equivalents instead:
+
+- `eda.plot_outlier_boxplots()` → `charts.outlier_boxplots()`
+- `eda.plot_correlation_heatmap()` → `charts.correlation_heatmap()`
+- `eda.plot_categorical()` → `charts.categorical_barplot()`
+
+The following `eda.transform` functions are deprecated and will be removed in v0.4.0.
+Use the `jcds.transform` equivalents instead:
+
+- `eda.convert_to_int()` → `transform.to_int()`
+- `eda.convert_to_float()` → `transform.to_float()`
+- `eda.convert_to_numeric()` → `transform.to_numeric()`
+- `eda.convert_to_categorical()` → `transform.to_categorical()`
+- `eda.convert_to_bool()` → `transform.to_bool()`
+- `eda.convert_to_datetime()` → `transform.to_datetime()`
+- `eda.convert_to_object()` → `transform.to_object()`
+- `eda.clean_column_names()` → `transform.clean_column_names()`
+- `eda.rename_column()` → `transform.rename_column()`
+- `eda.delete_columns()` → `transform.delete_columns()`
+
+### Documentation
+
+- **README updated**
+  Added notebook auto-install snippet with `develop`/stable branch switching logic.
+
+### Testing
+
+- **Test suite expanded from 87 to 120 tests**
+  Added coverage for all new `charts`, `transform`, and `eda` additions.
+  
 ## [0.2.8] – 2025‑05‑02
 
 ### Added
