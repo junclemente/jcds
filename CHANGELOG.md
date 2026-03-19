@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.  
 This project follows [Semantic Versioning](https://semver.org/) and loosely follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format.
 
+## [0.3.2] – 2026-03-19
+
+### Added
+
+- **`jcds.eda.show_null_rows(df, threshold=0.0)`** — added `threshold` parameter to filter rows missing more than a given proportion of values (e.g. `threshold=0.5` for rows missing >50%)
+- **`jcds.eda.show_null_cols(df, threshold=0.0)`** — added `threshold` parameter to filter columns missing more than a given proportion of values
+- **`jcds.charts.hist_kde()`** — histogram with KDE overlay for numerical columns; supports `columns`, `figsize`, `export_func`, and `export_prefix` parameters
+
+### Removed
+
+- Deleted commented-out dead code (`eda_guide_markdown`) from `inspect.py`
+
 ## [0.3.1] – 2026-03-19
 
 ### Removed
@@ -90,7 +102,7 @@ Use the `jcds.transform` equivalents instead:
 
 - **Test suite expanded from 87 to 120 tests**
   Added coverage for all new `charts`, `transform`, and `eda` additions.
-  
+
 ## [0.2.8] – 2025‑05‑02
 
 ### Added
@@ -273,7 +285,6 @@ Use the `jcds.transform` equivalents instead:
 ### Added
 
 - **`inspect.py`** module with the following new functions:
-
   - `show_shape` – returns the shape of a DataFrame
   - `show_dupes` – counts duplicated rows
   - `show_catvar` – returns list of categorical (object/category) columns
@@ -292,20 +303,17 @@ Use the `jcds.transform` equivalents instead:
 - Test fixtures: `create_na_test_df()` and `create_unique_test_df()` in `test_utils.py`.
 
 - **`test_s3.py`** unit tests for the `aws/s3` module:
-
   - `list_s3_contents`
   - `s3_file_to_dataframe`
 
 - **Shared test fixtures** in `tests/conftest.py` for mocking CSV/Excel downloads.
 
 - Added automatic documentation via `mkdocs`
-
   - Add `docs\` folder
   - `mkdocs.yml`
   - `index.md` and `api.md`
 
 - **`eda/datetime.py`** module with datetime feature engineering functions:
-
   - `create_dt_col()` – creates a single derived datetime column (e.g., `timestamp_year`)
   - `create_dt_cols()` – supports creation of multiple datetime-derived columns in one call
     - Supports: `"year"`, `"month"`, `"day"`, `"weekday"`, `"weekday_name"`, `"weekofyear"`, `"quarter"`, `"dayofyear"`, `"is_weekend"`, `"is_month_start"`, `"is_month_end"`
@@ -313,7 +321,6 @@ Use the `jcds.transform` equivalents instead:
     - Raises error if inconsistent datetime formats (e.g., mixed `"/"` and `"-"`) are detected
 
 - **Unit tests for `eda/datetime.py`**:
-
   - Test coverage for both single and multi-column expansion
   - Error handling for:
     - Invalid column names
@@ -322,12 +329,10 @@ Use the `jcds.transform` equivalents instead:
     - Auto-conversion of string-formatted dates
 
 - **Refactored and consolidated test fixtures into `tests/conftest.py`**:
-
   - Moved all fixtures from `test_utils.py` into `conftest.py` for automatic discovery across all test files
   - Includes fixtures: `sample_df`, `na_test_df`, `unique_test_df`, `binary_list_df`, `datetime_df`, `dummy_csv_bytes`, `dummy_excel_bytes`, `mock_requests_get`
 
 - **New test module: `tests/unit/test_datetime.py`**
-
   - Organized tests specifically for datetime feature extraction utilities
 
 - New `dataio` module with `save_parquet()` and `load_parquet()` functions for reliable Parquet I/O
@@ -341,7 +346,6 @@ Use the `jcds.transform` equivalents instead:
   - Provides a helpful raw byte preview if all decoding attempts fail
   - Raises informative `ValueError` for failed loads to assist with debugging corrupted or misencoded files
 - Unit tests for both `save_csv()` and `load_csv()` using `sample_df` and `tmp_path`
-
   - Includes fallback test simulating corrupted file behavior
 
 - `read_s3()` to `dataio.s3_io`: loads public S3-hosted CSV or Excel files into a DataFrame with built-in error handling
