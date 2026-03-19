@@ -30,7 +30,7 @@ pip install git+https://github.com/junclemente/jcds.git
 #### 📌 Specific Version
 
 ```bash
-pip install git+https://github.com/junclemente/jcds.git@v0.2.1
+pip install git+https://github.com/junclemente/jcds.git@v0.3.0
 ```
 
 #### 🧪 Develop Branch (unstable)
@@ -42,7 +42,7 @@ pip install git+https://github.com/junclemente/jcds.git@develop
 #### ☁️ Optional: AWS Support
 
 ```bash
-pip install git+https://github.com/junclemente/jcds.git@v0.2.1[aws]
+pip install git+https://github.com/junclemente/jcds.git@v0.3.0[aws]
 ```
 
 Installs:

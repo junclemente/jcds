@@ -1,13 +1,15 @@
 # Welcome to jcds 🧪
 
-**jcds** is a personal collection of reusable Python functions for data science workflows, built to save time and reduce repetition in Jupyter notebooks.
+**jcds** is a modular Python library for data science workflows, built to save time
+and reduce repetition in Jupyter notebooks.
 
 It provides:
-- 🔎 Quick EDA tools (like `quick_report` and `long_report`)
-- 📊 Helpers for working with categorical and continuous variables
-- 🧹 Utilities for inspecting, cleaning, and summarizing data
+- 🔎 EDA tools for inspecting, profiling, and summarizing DataFrames
+- 📊 Visualization via `jcds.charts` (`jvis`)
+- 🔄 Data transformation via `jcds.transform` (`jtrf`)
+- 🧹 Reports for data quality, cardinality, and missing data
 - ☁️ Optional AWS integration for working with S3
-- 🧪 Well-tested functions using `pytest`
+- 🧪 120+ tests using `pytest`
 
 ---
 
@@ -16,30 +18,39 @@ It provides:
 ### 1. Installation
 
 Install the latest version directly from GitHub:
-
 ```bash
 pip install git+https://github.com/junclemente/jcds.git
 ```
 
-Or with AWS extras: 
+Or a specific version:
+```bash
+pip install git+https://github.com/junclemente/jcds.git@v0.3.0
+```
+
+Or with AWS extras:
 ```bash
 pip install git+https://github.com/junclemente/jcds.git[aws]
-``` 
+```
 
-## Basic Example
+### 2. Basic Example
 ```python
 import pandas as pd
-import jcds.eda as jeda 
+from jcds import eda as jeda
+from jcds import reports as jrep
+from jcds import transform as jtrf
+from jcds import charts as jvis
 
 df = pd.read_csv("your_dataset.csv")
-duplicates = jeda.show_dupes(df)
-print(duplicates)
 
-unique_values_list = jeda.count_unique_values(df, ['col1', 'col2', 'col3'])
-print(unique_values_list)
+# Clean column names
+df = jtrf.clean_column_names(df)
 
-unique_values_column = jeda.count_unique_values(df, 'col')
-print(unique_values_column)
+# Run EDA reports
+jrep.data_info(df)
+jrep.data_quality(df)
 
+# Visualize missing data
+jvis.missing_data_heatmap(df)
 ```
+
 Check out the [API Reference](api.md) to explore all available functions.
