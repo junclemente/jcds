@@ -504,7 +504,7 @@ def show_possible_datetime_columns(dataframe, sample_size=5):
 def show_mixed_type_columns(df):
     mixed_cols = []
     for col in df.columns:
-        types = df[col].dropna().map(type).nunique()
+        types = df[col].dropna().map(lambda x: type(x).__name__).nunique()
         if types > 1:
             mixed_cols.append(col)
     return mixed_cols

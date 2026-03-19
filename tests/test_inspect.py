@@ -149,6 +149,12 @@ def test_show_mixed_type_columns_ignores_nan(sample_df):
     result = eda.show_mixed_type_columns(sample_df)
     assert "Gender" not in result  # Gender has NaN but is still just strings
 
+def test_show_mixed_type_columns_ignores_numpy_str(sample_df):
+    # Converting to str can produce numpy.str_ mixed with str — should not be flagged
+    df = sample_df.copy()
+    df["Gender"] = df["Gender"].astype(str)
+    result = eda.show_mixed_type_columns(df)
+    assert "Gender" not in result
 
 def test_count_id_like_columns(id_like_df):
     result = eda.count_id_like_columns(id_like_df, threshold=0.95)
