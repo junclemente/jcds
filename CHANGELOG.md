@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.  
 This project follows [Semantic Versioning](https://semver.org/) and loosely follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format.
 
+## [0.3.1] – 2026-03-19
+
+### Removed
+
+- **`quick_report()`** — removed as planned, replaced by `data_info()`, `data_cardinality()`, and `data_quality()`
+- **`long_report()`** — removed as planned, replaced by `data_info()`, `data_cardinality()`, and `data_quality()`
+- **`get_cat_list()`** — removed as planned, replaced by `show_catvar()`
+- **`get_cont_list()`** — removed as planned, replaced by `show_convar()`
+
 ## [0.3.0] – 2026-03-18
 
 ### Added

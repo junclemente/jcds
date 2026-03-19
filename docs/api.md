@@ -28,6 +28,14 @@
 
 ::: jcds.reports
 
+## Transform
+
+::: jcds.transform
+
+## Charts
+
+::: jcds.charts
+
 ## AWS
 
 ::: jcds.aws
