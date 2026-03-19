@@ -4,7 +4,7 @@ import jcds.utils
 # Import your functions from internal files
 from .datetime import create_dt_col, create_dt_cols
 
-from .lists import get_cat_list, get_cont_list, list_unique_values
+from .lists import list_unique_values
 
 from .inspect import (
     show_memory_use,
@@ -36,7 +36,7 @@ from .inspect import (
 
 from .outliers import detect_outliers_iqr, plot_outlier_boxplots
 
-from .reports import dqr_cat, dqr_cont, quick_report, long_report, display_all_col_head
+from .reports import dqr_cat, dqr_cont, display_all_col_head
 
 from .transform import (
     rename_column,

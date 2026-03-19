@@ -196,18 +196,6 @@ def lowcard_df():
 
 
 @pytest.fixture
-def lowcard_df():
-    return pd.DataFrame(
-        {
-            "City": ["NY", "LA", "SF", "NY", "LA"],
-            "State": ["NY", "CA", "CA", "NY", "CA"],
-            "Zip": ["10001", "90001", "94101", "10001", "90001"],
-            "ID": [1, 2, 3, 4, 5],
-        }
-    )
-
-
-@pytest.fixture
 def empty_col_df():
     return pd.DataFrame({"Empty": [None, None, None, None]})
 

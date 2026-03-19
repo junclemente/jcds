@@ -1,4 +1,6 @@
-import pandas as pd 
+import pandas as pd
+import pytest
+
 from jcds.eda import multivariate
 
 
@@ -13,9 +15,11 @@ def test_correlation_matrix_returns_dataframe(sample_df):
 def test_plot_correlation_heatmap_runs_without_error(sample_df):
     multivariate.plot_correlation_heatmap(sample_df[["Age", "Income"]])
 
+
 def test_correlation_heatmap_charts(sample_df):
     """Test that charts.correlation_heatmap runs without error."""
     from jcds import charts
+
     try:
         charts.correlation_heatmap(sample_df[["Age", "Income"]])
     except Exception as e:

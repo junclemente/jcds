@@ -1,6 +1,8 @@
 import pandas as pd
+import pytest
+
 from jcds.eda import outliers
-from jcds import charts 
+from jcds import charts
 
 
 def test_plot_outlier_boxplots(sample_df):
