@@ -10,7 +10,7 @@ def hist_kde(
     df: pd.DataFrame,
     columns: list = None,
     figsize: tuple = (7, 4),
-    grid: bool = False,
+    grid: bool = True,
     ncols: int = 3,
     grid_figsize: tuple = None,
     export_func=None,
