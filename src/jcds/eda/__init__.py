@@ -30,11 +30,11 @@ from .inspect import (
     count_id_like_columns,
     get_dtype_summary,
     show_missing_summary,
-    show_null_rows, 
+    show_null_rows,
     show_null_cols,
 )
 
-from .outliers import detect_outliers_iqr, plot_outlier_boxplots
+from .outliers import detect_outliers_iqr, plot_outlier_boxplots, show_outlier_summary
 
 from .reports import dqr_cat, dqr_cont, display_all_col_head
 
@@ -100,6 +100,7 @@ __all__ = [
     "show_missing_summary",
     "detect_outliers_iqr",
     "plot_outlier_boxplots",
+    "show_outlier_summary",
     "delete_columns",
     "convert_to_int",
     "convert_to_categorical",
@@ -109,6 +110,6 @@ __all__ = [
     "clean_column_names",
     "convert_to_bool",
     "show_null_rows",
-    "show_null_cols", 
+    "show_null_cols",
     "help",
 ]

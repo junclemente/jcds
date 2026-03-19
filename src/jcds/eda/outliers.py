@@ -52,14 +52,50 @@ def detect_outliers_iqr(dataframe, threshold=1.5, return_mask=False):
 
     return outlier_mask if return_mask else outlier_counts
 
-@deprecated( 
-    reason="Use jcds.charts.outlier_boxplots() instead.", 
-    version="0.4.0"
-)
+
+def show_outlier_summary(dataframe, threshold=1.5, sort=True):
+    """
+    Returns a summary DataFrame of outlier counts and percentages per column.
+
+    Parameters
+    ----------
+    dataframe : pd.DataFrame
+        The input DataFrame.
+    threshold : float, optional
+        IQR multiplier to define outliers. Default is 1.5.
+    sort : bool, optional
+        If True, sorts by outlier count descending. Default is True.
+
+    Returns
+    -------
+    pd.DataFrame
+        DataFrame with columns: 'outlier_count' and 'outlier_pct',
+        indexed by column name.
+    """
+    outlier_counts = detect_outliers_iqr(dataframe, threshold=threshold)
+    total_rows = len(dataframe)
+
+    summary = pd.DataFrame(
+        {
+            "outlier_count": outlier_counts,
+            "outlier_pct": {
+                col: round(count / total_rows * 100, 2)
+                for col, count in outlier_counts.items()
+            },
+        }
+    )
+
+    if sort:
+        summary = summary.sort_values("outlier_count", ascending=False)
+
+    return summary
+
+
+@deprecated(reason="Use jcds.charts.outlier_boxplots() instead.", version="0.4.0")
 def plot_outlier_boxplots(dataframe, threshold=1.5, figsize=(14, 5)):
     """
     Plots boxplots for numeric (non-binary) columns with potential outliers.
-    *** Deprecated. Use jcds.charts.outlier_boxplots() instead. 
+    *** Deprecated. Use jcds.charts.outlier_boxplots() instead.
 
     Parameters
     ----------
@@ -102,4 +138,3 @@ def plot_outlier_boxplots(dataframe, threshold=1.5, figsize=(14, 5)):
 
     plt.tight_layout()
     plt.show()
-

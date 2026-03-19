@@ -30,7 +30,6 @@ from jcds.eda import (
 # from jcds.utils.formatting import render_html_block
 
 
-
 def data_info(dataframe, show_columns=True):
     """
     Summarize the dataset's shape, memory usage, duplicates, and variable types.
@@ -351,3 +350,60 @@ def catvar_report(dataframe, columns=None):
         print(f"Mode 2: {mode2[0]} \t\tFequency: {freq2} ({pct_freq2}%)")
 
     print(f"\nTotal rows: {total_rows}")
+
+
+def outliers(
+    dataframe,
+    threshold=1.5,
+    orient="v",
+    export_func=None,
+    export_prefix="outlier_report",
+):
+    """
+    Print an outlier summary table and display a boxplot grid for all numeric columns.
+
+    Parameters
+    ----------
+    dataframe : pandas.DataFrame
+        The input dataset.
+    threshold : float, optional
+        IQR multiplier to define outliers. Default is 1.5.
+    export_func : callable, optional
+        Function to export the boxplot grid e.g. export_fig(fig, filename).
+    export_prefix : str, optional
+        Prefix for the exported filename. Default is 'outlier_report'.
+
+    Returns
+    -------
+    None
+        Prints summary and renders boxplot grid.
+    """
+    from jcds.eda import show_outlier_summary
+    from jcds.charts import outlier_boxplots
+
+    print("OUTLIER REPORT")
+    print("====================")
+
+    summary = show_outlier_summary(dataframe, threshold=threshold)
+
+    total_outliers = summary["outlier_count"].sum()
+    cols_with_outliers = (summary["outlier_count"] > 0).sum()
+
+    print(f"\n * Threshold: IQR x {threshold}")
+    print(f" * Total outliers detected: {total_outliers}")
+    print(f" * Columns with outliers: {cols_with_outliers} / {len(summary)}")
+
+    print("\nOUTLIER SUMMARY:")
+    print("----------------")
+    print(summary.to_string())
+
+    print("\nBOXPLOT GRID:")
+    print("-------------")
+    outlier_boxplots(
+        dataframe,
+        threshold=threshold,
+        grid=True,
+        orient=orient,
+        export_func=export_func,
+        export_prefix=export_prefix,
+    )

@@ -12,6 +12,7 @@ def outlier_boxplots(
     grid=True,
     ncols=3,
     grid_figsize=None,
+    orient="v",  # "v" for vertical, "h" for horizontal
     export_func=None,
     export_prefix="boxplot",
 ):
@@ -55,7 +56,14 @@ def outlier_boxplots(
             label = col.replace("_", " ").title()
 
             fig, ax = plt.subplots(figsize=figsize)
-            sns.boxplot(y=dataframe[col], ax=ax)
+            if orient == "h":
+                sns.boxplot(x=dataframe[col], ax=ax)
+                ax.set_xlabel(label, fontsize=9)
+                ax.set_ylabel("")
+            else:
+                sns.boxplot(y=dataframe[col], ax=ax)
+                ax.set_ylabel(label, fontsize=9)
+                ax.set_xlabel("")
             ax.set_title(f"Boxplot of {label}", fontsize=12)
             ax.set_ylabel(label)
             plt.tight_layout()
@@ -79,7 +87,14 @@ def outlier_boxplots(
 
         for ax, col in zip(axes, outlier_cols):
             label = col.replace("_", " ").title()
-            sns.boxplot(y=dataframe[col], ax=ax)
+            if orient == "h":
+                sns.boxplot(x=dataframe[col], ax=ax)
+                ax.set_xlabel(label, fontsize=9)
+                ax.set_ylabel("")
+            else:
+                sns.boxplot(y=dataframe[col], ax=ax)
+                ax.set_ylabel(label, fontsize=9)
+                ax.set_xlabel("")
             ax.set_title(label, fontsize=10)
             ax.set_ylabel(label, fontsize=9)
 

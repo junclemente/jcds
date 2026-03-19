@@ -171,3 +171,29 @@ def test_outlier_boxplots_custom_prefix(num_df):
         num_df, grid=True, export_func=mock_export, export_prefix="test"
     )
     assert calls[0] == "test_grid"
+
+
+# --- outlier_boxplots orient ---
+def test_outlier_boxplots_vertical_orient(num_df):
+    """Should run without error with vertical orientation."""
+    charts.outlier_boxplots(num_df, grid=True, orient="v")
+
+
+def test_outlier_boxplots_horizontal_orient(num_df):
+    """Should run without error with horizontal orientation."""
+    charts.outlier_boxplots(num_df, grid=True, orient="h")
+
+
+def test_outlier_boxplots_individual_vertical_orient(num_df):
+    """Individual mode should run without error with vertical orientation."""
+    charts.outlier_boxplots(num_df, grid=False, orient="v")
+
+
+def test_outlier_boxplots_individual_horizontal_orient(num_df):
+    """Individual mode should run without error with horizontal orientation."""
+    charts.outlier_boxplots(num_df, grid=False, orient="h")
+
+
+def test_outlier_boxplots_default_orient_is_vertical(num_df):
+    """Default orientation should be vertical (no error, no orient arg)."""
+    charts.outlier_boxplots(num_df)

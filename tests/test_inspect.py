@@ -301,3 +301,39 @@ def test_show_null_cols_no_nulls_returns_empty(sample_df):
     df = sample_df.dropna()
     result = eda.show_null_cols(df, threshold=0.0)
     assert len(result.columns) == 0
+
+
+# --- show_outlier_summary ---
+def test_show_outlier_summary_returns_dataframe(sample_df):
+    """Should return a DataFrame."""
+    result = eda.show_outlier_summary(sample_df)
+    assert isinstance(result, pd.DataFrame)
+
+
+def test_show_outlier_summary_has_correct_columns(sample_df):
+    """Should have outlier_count and outlier_pct columns."""
+    result = eda.show_outlier_summary(sample_df)
+    assert "outlier_count" in result.columns
+    assert "outlier_pct" in result.columns
+
+
+def test_show_outlier_summary_sorted_descending(sample_df):
+    """Should be sorted by outlier_count descending by default."""
+    result = eda.show_outlier_summary(sample_df)
+    assert (
+        result["outlier_count"].is_monotonic_decreasing
+        or result["outlier_count"].nunique() == 1
+    )
+
+
+def test_show_outlier_summary_custom_threshold(sample_df):
+    """Should accept custom threshold."""
+    result = eda.show_outlier_summary(sample_df, threshold=3.0)
+    assert isinstance(result, pd.DataFrame)
+
+
+def test_show_outlier_summary_pct_between_0_and_100(sample_df):
+    """Outlier percentages should be between 0 and 100."""
+    result = eda.show_outlier_summary(sample_df)
+    assert (result["outlier_pct"] >= 0).all()
+    assert (result["outlier_pct"] <= 100).all()
