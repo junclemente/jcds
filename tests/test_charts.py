@@ -63,3 +63,41 @@ def test_hist_kde_custom_prefix(num_df):
         num_df, columns=["col_a"], export_func=mock_export, export_prefix="test"
     )
     assert calls[0] == "test_col_a"
+
+
+def test_hist_kde_grid_runs(num_df):
+    """Grid mode should run without error."""
+    charts.hist_kde(num_df, grid=True)
+
+
+def test_hist_kde_grid_custom_ncols(num_df):
+    """Grid mode should accept custom ncols."""
+    charts.hist_kde(num_df, grid=True, ncols=2)
+
+
+def test_hist_kde_grid_custom_figsize(num_df):
+    """Grid mode should accept custom grid_figsize."""
+    charts.hist_kde(num_df, grid=True, grid_figsize=(12, 8))
+
+
+def test_hist_kde_grid_export_func_called(num_df):
+    """Grid mode should call export_func once with '_grid' suffix."""
+    calls = []
+
+    def mock_export(fig, name):
+        calls.append(name)
+
+    charts.hist_kde(num_df, grid=True, export_func=mock_export)
+    assert len(calls) == 1
+    assert calls[0] == "hist_kde_grid"
+
+
+def test_hist_kde_grid_custom_prefix(num_df):
+    """Grid mode should use custom export_prefix."""
+    calls = []
+
+    def mock_export(fig, name):
+        calls.append(name)
+
+    charts.hist_kde(num_df, grid=True, export_func=mock_export, export_prefix="test")
+    assert calls[0] == "test_grid"

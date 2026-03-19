@@ -9,11 +9,18 @@ This project follows [Semantic Versioning](https://semver.org/) and loosely foll
 
 - **`jcds.eda.show_null_rows(df, threshold=0.0)`** — added `threshold` parameter to filter rows missing more than a given proportion of values (e.g. `threshold=0.5` for rows missing >50%)
 - **`jcds.eda.show_null_cols(df, threshold=0.0)`** — added `threshold` parameter to filter columns missing more than a given proportion of values
-- **`jcds.charts.hist_kde()`** — histogram with KDE overlay for numerical columns; supports `columns`, `figsize`, `export_func`, and `export_prefix` parameters
+- **`jcds.charts.hist_kde()`** — histogram with KDE overlay for numerical columns; supports individual mode (one plot per column) and grid mode (`grid=True`) with configurable `ncols`, `figsize`, `grid_figsize`, `export_func`, and `export_prefix` parameters
 
 ### Removed
 
 - Deleted commented-out dead code (`eda_guide_markdown`) from `inspect.py`
+
+```
+
+Then commit:
+```
+
+feat: v0.3.2 — add threshold to show_null_rows/cols, add hist_kde with grid mode
 
 ## [0.3.1] – 2026-03-19
 
