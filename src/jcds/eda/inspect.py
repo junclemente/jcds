@@ -1,53 +1,6 @@
 import pandas as pd
 import pandas.api.types as ptypes
 
-# from IPython.display import Markdown, display
-
-# def eda_guide_markdown():
-#     md_text = """
-# # 🧭 EDA Guide Overview
-
-# Welcome to your Exploratory Data Analysis journey!
-# Follow this structured checklist to deeply understand your dataset and prepare it for modeling.
-
-# ---
-
-# ## 📦 Step 0: Import the Data
-# Load your dataset into a Pandas DataFrame. For example:
-# ```python
-# import pandas as pd
-# df = pd.read_csv("your_dataset.csv")" \
-# """
-
-
-# ===========================================
-# Inspect data structure
-
-# Data clean:
-# missing values
-# duplicates
-# correct datatypes
-# outliers
-# fix encoding issues
-
-# Univariate analysis:
-# Numerical:
-# histograms
-# KDE plots
-# boxplots
-
-# Categorical:
-# value counts
-# bar plots
-
-# Bivariate/Multivariate analysis:
-# relationship between variables
-# target vs feature (classification vs regression)
-# Correlation matrix, heatmaps, pairplots
-# Crosstabs for categorical comparison
-
-# Visualizations
-
 
 def show_memory_use(dataframe):
     """
@@ -600,35 +553,47 @@ def show_missing_summary(dataframe, sort=True, threshold=0.0):
     return summary
 
 
-def show_null_rows(dataframe):
+def show_null_rows(df: pd.DataFrame, threshold: float = 0.0) -> pd.DataFrame:
     """
-    Returns rows that contain at least one null value.
+    Returns rows with missing values.
 
     Parameters
     ----------
-    dataframe : pd.DataFrame
-        The input pandas DataFrame.
+    df : pd.DataFrame
+    threshold : float, optional
+        Minimum proportion of missing values (0.0 to 1.0).
+        Default is 0.0 (any null). Use 0.5 for rows missing >50%.
 
     Returns
     -------
     pd.DataFrame
-        Subset of rows containing at least one null value.
     """
-    return dataframe[dataframe.isnull().any(axis=1)]
+    null_counts = df.isnull().sum(axis=1)
+    if threshold == 0.0:
+        return df[null_counts > 0]
+    min_missing = threshold * len(df.columns)
+    return df[null_counts >= min_missing]
 
 
-def show_null_cols(dataframe):
+def show_null_cols(df: pd.DataFrame, threshold: float = 0.0) -> pd.DataFrame:
     """
-    Returns columns that contain at least one null value.
+    Returns columns with missing values.
 
     Parameters
     ----------
-    dataframe : pd.DataFrame
-        The input pandas DataFrame.
+    df : pd.DataFrame
+    threshold : float, optional
+        Minimum proportion of missing values (0.0 to 1.0).
+        Default is 0.0 (any null). Use 0.5 for cols missing >50%.
 
     Returns
     -------
     pd.DataFrame
-        Subset of columns containing at least one null value.
     """
-    return dataframe.loc[:, dataframe.isnull().any()]
+    null_counts = df.isnull().sum(axis=0)
+    if threshold == 0.0:
+        null_cols = df.columns[null_counts > 0]
+    else:
+        min_missing = threshold * len(df)
+        null_cols = df.columns[null_counts >= min_missing]
+    return df[null_cols]
