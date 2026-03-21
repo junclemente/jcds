@@ -10,7 +10,7 @@
       
       
       
-        <link rel="next" href="api/">
+        <link rel="next" href="getting_started/">
       
       
         
@@ -294,10 +294,48 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📚 Documentation
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
       
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="getting_started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -317,6 +355,33 @@
     
   
     API Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="changelog.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
   
 
     
@@ -394,6 +459,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📚 Documentation
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -418,9 +494,9 @@ and reduce repetition in Jupyter notebooks.</p>
 - 🔎 EDA tools for inspecting, profiling, and summarizing DataFrames
 - 📊 Visualization via <code>jcds.charts</code> (<code>jvis</code>)
 - 🔄 Data transformation via <code>jcds.transform</code> (<code>jtrf</code>)
-- 🧹 Reports for data quality, cardinality, and missing data
+- 🧹 Reports for data quality, cardinality, outliers, and missing data
 - ☁️ Optional AWS integration for working with S3
-- 🧪 120+ tests using <code>pytest</code></p>
+- 🧪 160+ tests using <code>pytest</code></p>
 <hr />
 <h2 id="quick-start">🚀 Quick Start</h2>
 <h3 id="1-installation">1. Installation</h3>
@@ -428,7 +504,7 @@ and reduce repetition in Jupyter notebooks.</p>
 <pre><code class="language-bash">pip install git+https://github.com/junclemente/jcds.git
 </code></pre>
 <p>Or a specific version:</p>
-<pre><code class="language-bash">pip install git+https://github.com/junclemente/jcds.git@v0.3.0
+<pre><code class="language-bash">pip install git+https://github.com/junclemente/jcds.git@v0.3.2
 </code></pre>
 <p>Or with AWS extras:</p>
 <pre><code class="language-bash">pip install git+https://github.com/junclemente/jcds.git[aws]
@@ -443,16 +519,24 @@ from jcds import charts as jvis
 df = pd.read_csv(&quot;your_dataset.csv&quot;)
 
 # Clean column names
-df = jtrf.clean_column_names(df)
+jtrf.clean_column_names(df, inplace=True)
 
-# Run EDA reports
+# Understand your data
 jrep.data_info(df)
 jrep.data_quality(df)
+jrep.data_cardinality(df)
 
-# Visualize missing data
+# Visualize missing data and outliers
 jvis.missing_data_heatmap(df)
+jrep.outliers(df)
 </code></pre>
-<p>Check out the <a href="api/">API Reference</a> to explore all available functions.</p>
+<hr />
+<h2 id="documentation">📚 Documentation</h2>
+<ul>
+<li><a href="getting_started/">Getting Started</a> — EDA workflow guide organized by phase</li>
+<li><a href="api/">API Reference</a> — Full auto-generated function documentation</li>
+<li><a href="changelog.md">Changelog</a> — Version history and release notes</li>
+</ul>
 
 
 
