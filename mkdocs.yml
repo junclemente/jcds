@@ -5,7 +5,9 @@ theme:
 
 nav:
   - Home: index.md
+  - Getting Started: getting_started.md
   - API Reference: api.md
+  - Changelog: changelog.md
 
 plugins:
   - search
