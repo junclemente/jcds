@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.  
 This project follows [Semantic Versioning](https://semver.org/) and loosely follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format.
 
-## [0.3.2] – 2026-03-19
+## [0.3.2] – 2026-03-24
 
 ### Added
 
@@ -13,10 +13,19 @@ This project follows [Semantic Versioning](https://semver.org/) and loosely foll
 - **`jcds.charts.hist_kde()`** — histogram with KDE overlay for numerical columns; supports individual mode (`grid=False`) and grid mode (`grid=True`, default) with configurable `ncols`, `figsize`, `grid_figsize`, `export_func`, and `export_prefix` parameters
 - **`jcds.charts.outlier_boxplots()`** — updated to support individual mode (`grid=False`) and grid mode (`grid=True`, default); added `orient` parameter (`"v"` or `"h"`), `export_func`, and `export_prefix` parameters
 - **`jcds.reports.outliers()`** — new report combining outlier summary table and boxplot grid; supports `threshold`, `orient`, `export_func`, and `export_prefix` parameters
+- **`jcds.reports.show_dtypes()`** — new dtype report; full dataset overview when called alone, deep dive into a single column when `column=` is provided
+- **`jcds.eda.inspect_row()`** - inspects row when row number is provided
 
 ### Removed
 
 - Deleted commented-out dead code (`eda_guide_markdown`) from `inspect.py`
+- Removed stale `examples/eda_workflow.ipynb`
+
+### Docs
+
+- Added `docs/getting_started.md` — hand-curated EDA workflow guide organized by phase
+- Updated `docs/index.md` — updated version refs, test count, and links to new Getting Started page
+- Updated `mkdocs.yml` — added Getting Started and Changelog to nav
 
 ## [0.3.1] – 2026-03-19
 

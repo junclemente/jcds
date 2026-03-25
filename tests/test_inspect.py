@@ -337,3 +337,61 @@ def test_show_outlier_summary_pct_between_0_and_100(sample_df):
     result = eda.show_outlier_summary(sample_df)
     assert (result["outlier_pct"] >= 0).all()
     assert (result["outlier_pct"] <= 100).all()
+
+
+# --- inspect_row ---
+def test_inspect_row_by_position_runs(sample_df):
+    """Should run without error using position."""
+    eda.inspect_row(sample_df, 0)
+
+
+def test_inspect_row_by_label_runs(sample_df):
+    """Should run without error using label."""
+    eda.inspect_row(sample_df, 0, by="label")
+
+
+def test_inspect_row_shows_column_values(capsys, sample_df):
+    """Should print column names and values."""
+    eda.inspect_row(sample_df, 0)
+    captured = capsys.readouterr()
+    assert "Age" in captured.out
+    assert "Gender" in captured.out
+
+
+def test_inspect_row_shows_null_count(capsys, na_test_df):
+    """Should show correct null count."""
+    eda.inspect_row(na_test_df, 0)
+    captured = capsys.readouterr()
+    assert "Null values" in captured.out
+
+
+def test_inspect_row_warns_on_mostly_null(capsys, na_test_df):
+    """Should warn when row is mostly null."""
+    # row 0 in na_test_df has 2 nulls out of 4 cols = 50%, not enough
+    # use a row that is >80% null
+    df = pd.DataFrame(
+        {
+            "A": [None],
+            "B": [None],
+            "C": [None],
+            "D": [None],
+            "E": [1.0],
+        }
+    )
+    eda.inspect_row(df, 0)
+    captured = capsys.readouterr()
+    assert "WARNING" in captured.out
+
+
+def test_inspect_row_no_warning_on_clean_row(capsys, sample_df):
+    """Should not warn when row has mostly non-null values."""
+    eda.inspect_row(sample_df, 0)
+    captured = capsys.readouterr()
+    assert "WARNING" not in captured.out
+
+
+def test_inspect_row_shows_null_flag(capsys, sample_df):
+    """Should flag null values inline."""
+    eda.inspect_row(sample_df, 6)  # row 6 has NaN in Age
+    captured = capsys.readouterr()
+    assert "null" in captured.out

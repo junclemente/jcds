@@ -597,3 +597,52 @@ def show_null_cols(df: pd.DataFrame, threshold: float = 0.0) -> pd.DataFrame:
         min_missing = threshold * len(df)
         null_cols = df.columns[null_counts >= min_missing]
     return df[null_cols]
+
+
+def inspect_row(dataframe, row, by="position"):
+    """
+    Inspect a single row in the DataFrame.
+
+    Parameters
+    ----------
+    dataframe : pd.DataFrame
+        The input DataFrame.
+    row : int
+        Row to inspect. If by='position', uses iloc. If by='label', uses loc.
+    by : str, optional
+        'position' (default) uses iloc, 'label' uses loc.
+
+    Returns
+    -------
+    None
+        Prints a summary of the row.
+    """
+    if by == "position":
+        data = dataframe.iloc[row]
+        label = dataframe.index[row]
+    else:
+        data = dataframe.loc[row]
+        label = row
+
+    total_cols = len(data)
+    null_count = data.isna().sum()
+    null_pct = round(null_count / total_cols * 100, 1)
+    non_null = total_cols - null_count
+
+    print(f"\nROW INSPECTION: index label={label}")
+    print("=" * 40)
+    print(f"Total columns:  {total_cols}")
+    print(f"Non-null values: {non_null}")
+    print(f"Null values:     {null_count} ({null_pct}%)")
+
+    # flag if it looks like a totals row
+    if null_pct >= 80:
+        print(f"\n⚠️  WARNING: {null_pct}% of values are null.")
+        print("   This row may be a summary or totals row.")
+
+    print(f"\nVALUES:")
+    print(f"  {'Column':<35} {'Value'}")
+    print(f"  {'-'*55}")
+    for col, val in data.items():
+        null_flag = " ← null" if pd.isna(val) else ""
+        print(f"  {col:<35} {str(val)}{null_flag}")

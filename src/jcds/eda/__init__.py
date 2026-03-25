@@ -32,6 +32,7 @@ from .inspect import (
     show_missing_summary,
     show_null_rows,
     show_null_cols,
+    inspect_row,
 )
 
 from .outliers import detect_outliers_iqr, plot_outlier_boxplots, show_outlier_summary
@@ -111,5 +112,6 @@ __all__ = [
     "convert_to_bool",
     "show_null_rows",
     "show_null_cols",
+    "inspect_all",
     "help",
 ]
