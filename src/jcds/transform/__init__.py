@@ -1,6 +1,8 @@
 import sys
 import jcds.utils
 
+help = jcds.utils._make_module_help(sys.modules[__name__])
+
 from .convert import (
     to_int,
     to_float,
