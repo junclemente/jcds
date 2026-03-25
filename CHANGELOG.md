@@ -15,6 +15,7 @@ This project follows [Semantic Versioning](https://semver.org/) and loosely foll
 - **`jcds.reports.outliers()`** — new report combining outlier summary table and boxplot grid; supports `threshold`, `orient`, `export_func`, and `export_prefix` parameters
 - **`jcds.reports.show_dtypes()`** — new dtype report; full dataset overview when called alone, deep dive into a single column when `column=` is provided
 - **`jcds.eda.inspect_row()`** - inspects row when row number is provided
+- **`jcds.transform.drop_row()`** - drops row from dataframe
 
 ### Removed
 

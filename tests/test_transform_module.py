@@ -46,6 +46,7 @@ def test_to_str_missing_column_raises(unique_test_df):
     with pytest.raises(ValueError, match="Columns not found"):
         jtransform.to_str(unique_test_df, columns=["no_such_col"])
 
+
 # --- to_categorical ---
 def test_to_categorical_basic(unique_test_df):
     result = jtransform.to_categorical(unique_test_df, columns=["Category"])
@@ -53,7 +54,9 @@ def test_to_categorical_basic(unique_test_df):
 
 
 def test_to_categorical_ordered(unique_test_df):
-    result = jtransform.to_categorical(unique_test_df, columns=["Category"], ordered=True)
+    result = jtransform.to_categorical(
+        unique_test_df, columns=["Category"], ordered=True
+    )
     assert result["Category"].dtype.ordered is True
 
 
@@ -94,7 +97,8 @@ def test_to_object_basic(unique_test_df):
 def test_to_object_missing_raises(unique_test_df):
     with pytest.raises(ValueError, match="Columns not found"):
         jtransform.to_object(unique_test_df, columns=["NoCol"])
-        
+
+
 # --- clean_column_names ---
 def test_clean_column_names_basic():
     df = pd.DataFrame(columns=["First Name", "Last Name", "Age"])
@@ -130,3 +134,48 @@ def test_delete_columns_basic(sample_df):
 def test_delete_columns_missing_raises(sample_df):
     with pytest.raises(KeyError):
         jtransform.delete_columns(sample_df, ["NotAColumn"])
+
+
+# --- drop_row ---
+def test_drop_row_by_position(sample_df):
+    """Should drop row by position."""
+    result = jtransform.drop_row(sample_df, 0)
+    assert len(result) == len(sample_df) - 1
+    assert sample_df.index[0] not in result.index
+
+
+def test_drop_row_by_label(sample_df):
+    """Should drop row by label."""
+    label = sample_df.index[0]
+    result = jtransform.drop_row(sample_df, label, by="label")
+    assert len(result) == len(sample_df) - 1
+    assert label not in result.index
+
+
+def test_drop_row_does_not_mutate_original(sample_df):
+    """Should not mutate original DataFrame."""
+    original_len = len(sample_df)
+    _ = jtransform.drop_row(sample_df, 0)
+    assert len(sample_df) == original_len
+
+
+def test_drop_row_inplace(sample_df):
+    """Should modify DataFrame in place and return None."""
+    df = sample_df.copy()
+    original_len = len(df)
+    ret = jtransform.drop_row(df, 0, inplace=True)
+    assert ret is None
+    assert len(df) == original_len - 1
+
+
+def test_drop_row_invalid_label_raises(sample_df):
+    """Should raise KeyError for invalid label."""
+    with pytest.raises(KeyError):
+        jtransform.drop_row(sample_df, 9999, by="label")
+
+
+def test_drop_row_last_row(sample_df):
+    """Should correctly drop last row."""
+    last_label = sample_df.index[-1]
+    result = jtransform.drop_row(sample_df, len(sample_df) - 1)
+    assert last_label not in result.index
