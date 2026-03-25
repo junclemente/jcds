@@ -62,3 +62,75 @@ def test_outliers_custom_export_prefix(outlier_df):
 
     jrep.outliers(outlier_df, export_func=mock_export, export_prefix="test")
     assert calls[0] == "test_grid"
+
+
+# --- show_dtypes ---
+def test_show_dtypes_full_dataset_runs(sample_df):
+    """Should run without error on full dataset."""
+    jrep.show_dtypes(sample_df)
+
+
+def test_show_dtypes_full_dataset_shows_mixed(capsys):
+    """Should flag mixed type columns in full dataset mode."""
+    df = pd.DataFrame(
+        {
+            "clean": [1, 2, 3],
+            "mixed": [1, "one", 1.0],
+        }
+    )
+    jrep.show_dtypes(df)
+    captured = capsys.readouterr()
+    assert "MIXED TYPE COLUMNS" in captured.out
+    assert "mixed" in captured.out
+
+
+def test_show_dtypes_full_dataset_no_mixed(capsys, sample_df):
+    """Should show 0 mixed type columns for clean dataset."""
+    jrep.show_dtypes(sample_df)
+    captured = capsys.readouterr()
+    assert "MIXED TYPE COLUMNS: 0" in captured.out
+
+
+def test_show_dtypes_column_runs(sample_df):
+    """Should run without error on a single column."""
+    jrep.show_dtypes(sample_df, column="Gender")
+
+
+def test_show_dtypes_column_shows_breakdown(capsys):
+    """Should show type breakdown for a mixed column."""
+    df = pd.DataFrame(
+        {
+            "mixed": [1, "one", 1.0, None],
+        }
+    )
+    jrep.show_dtypes(df, column="mixed")
+    captured = capsys.readouterr()
+    assert "DTYPE REPORT: 'mixed'" in captured.out
+    assert "Value breakdown by type" in captured.out
+
+
+def test_show_dtypes_column_not_found(capsys, sample_df):
+    """Should print error message for missing column."""
+    jrep.show_dtypes(sample_df, column="nonexistent")
+    captured = capsys.readouterr()
+    assert "not found" in captured.out
+
+
+def test_show_dtypes_column_shows_offending_values(capsys):
+    """Should show offending non-dominant type values."""
+    df = pd.DataFrame(
+        {
+            "mixed": ["a", "b", "c", 999],
+        }
+    )
+    jrep.show_dtypes(df, column="mixed")
+    captured = capsys.readouterr()
+    assert "999" in captured.out
+
+
+def test_show_dtypes_full_shows_all_columns(capsys, sample_df):
+    """Should list all columns in the detail section."""
+    jrep.show_dtypes(sample_df)
+    captured = capsys.readouterr()
+    for col in sample_df.columns:
+        assert col in captured.out

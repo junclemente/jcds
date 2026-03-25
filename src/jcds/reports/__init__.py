@@ -2,7 +2,14 @@ import sys
 import jcds.utils
 
 # Import your functions from internal files
-from .reports import data_info, data_cardinality, data_quality, catvar_report, outliers
+from .reports import (
+    data_info,
+    data_cardinality,
+    data_quality,
+    catvar_report,
+    outliers,
+    show_dtypes,
+)
 
 help = jcds.utils._make_module_help(sys.modules[__name__])
 
@@ -13,5 +20,6 @@ __all__ = [
     "data_quality",
     "catvar_report",
     "outliers",
+    "show_dtypes",
     "help",
 ]

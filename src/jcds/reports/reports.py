@@ -407,3 +407,90 @@ def outliers(
         export_func=export_func,
         export_prefix=export_prefix,
     )
+
+
+def show_dtypes(dataframe, column=None):
+    """
+    Display a dtype report for the full dataset or a deep dive into a single column.
+
+    Parameters
+    ----------
+    dataframe : pandas.DataFrame
+        The input dataset.
+    column : str, optional
+        If provided, shows a detailed dtype breakdown for that column.
+        If None, shows a dtype summary for the full dataset.
+
+    Returns
+    -------
+    None
+        Prints the report to the console.
+    """
+    if column is not None:
+        # --- Column deep dive ---
+        if column not in dataframe.columns:
+            print(f"Column '{column}' not found in DataFrame.")
+            return
+
+        series = dataframe[column]
+        total = len(series)
+
+        print(f"\nDTYPE REPORT: '{column}'")
+        print("=" * 40)
+        print(f"pandas dtype: {series.dtype}")
+        print(f"Total values: {total}")
+
+        # Count by Python type
+        type_counts = series.apply(lambda x: type(x).__name__).value_counts()
+        print(f"\nValue breakdown by type:")
+        for type_name, count in type_counts.items():
+            pct = round(count / total * 100, 1)
+            print(f"  {type_name:<15} {count:>6} ({pct}%)")
+
+        # Show non-dominant type values
+        dominant_type = type_counts.index[0]
+        if len(type_counts) > 1:
+            for type_name in type_counts.index[1:]:
+                mask = series.apply(lambda x: type(x).__name__) == type_name
+                offending = series[mask]
+                print(f"\n{type_name.upper()} VALUES ({len(offending)}):")
+                for idx, val in offending.items():
+                    print(f"  row {idx}: {val}")
+
+    else:
+        # --- Full dataset overview ---
+        print("\nDTYPE REPORT")
+        print("=" * 40)
+        print(f"Total rows:    {len(dataframe)}")
+        print(f"Total columns: {len(dataframe.columns)}")
+
+        # dtype summary
+        dtype_summary = get_dtype_summary(dataframe)
+        print("\nDTYPE SUMMARY:")
+        for key, value in dtype_summary.items():
+            if value > 0:
+                print(f"  * {key:<12} {value}")
+
+        # column detail
+        print(f"\nCOLUMN DETAIL:")
+        print(f"  {'Column':<35} {'dtype':<15} {'Mixed'}")
+        print(f"  {'-'*60}")
+
+        mixed_cols = show_mixed_type_columns(dataframe)
+        for col in dataframe.columns:
+            is_mixed = col in mixed_cols
+            mixed_label = "YES" if is_mixed else "No"
+            print(f"  {col:<35} {str(dataframe[col].dtype):<15} {mixed_label}")
+
+        # mixed type summary
+        print(f"\nMIXED TYPE COLUMNS: {len(mixed_cols)}")
+        if mixed_cols:
+            for col in mixed_cols:
+                type_counts = (
+                    dataframe[col].apply(lambda x: type(x).__name__).value_counts()
+                )
+                breakdown = ", ".join(
+                    f"{t} ({round(c/len(dataframe)*100, 1)}%)"
+                    for t, c in type_counts.items()
+                )
+                print(f"  * {col}: {breakdown}")
