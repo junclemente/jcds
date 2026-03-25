@@ -641,8 +641,9 @@ def inspect_row(dataframe, row, by="position"):
         print("   This row may be a summary or totals row.")
 
     print(f"\nVALUES:")
-    print(f"  {'Column':<35} {'Value'}")
-    print(f"  {'-'*55}")
-    for col, val in data.items():
-        null_flag = " ← null" if pd.isna(val) else ""
-        print(f"  {col:<35} {str(val)}{null_flag}")
+    try:
+        from IPython.display import display
+
+        display(dataframe.iloc[[row]].T)
+    except ImportError:
+        print(dataframe.iloc[[row]].T)
