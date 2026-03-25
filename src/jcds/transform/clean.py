@@ -74,3 +74,38 @@ def clean_column_names(dataframe, inplace=False):
         mapping[col] = new_col
     df.rename(columns=mapping, inplace=True)
     return df
+
+
+def drop_row(dataframe, row, by="position", inplace=False):
+    """
+    Drop a single row from a DataFrame.
+
+    Parameters
+    ----------
+    dataframe : pd.DataFrame
+        The input DataFrame.
+    row : int
+        Row to drop. If by='position', uses iloc index. If by='label', uses index label.
+    by : str, optional
+        'position' (default) uses positional index, 'label' uses index label.
+    inplace : bool, optional
+        If True, modifies the DataFrame in place. Default is False.
+
+    Returns
+    -------
+    pd.DataFrame or None
+        New DataFrame with row dropped if inplace=False, else None.
+    """
+    if by == "position":
+        label = dataframe.index[row]
+    else:
+        label = row
+
+    if label not in dataframe.index:
+        raise KeyError(f"Row label '{label}' not found in DataFrame index.")
+
+    if inplace:
+        dataframe.drop(index=label, inplace=True)
+        return None
+    else:
+        return dataframe.drop(index=label)
