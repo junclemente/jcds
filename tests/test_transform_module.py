@@ -99,7 +99,7 @@ def test_to_object_missing_raises(unique_test_df):
         jtransform.to_object(unique_test_df, columns=["NoCol"])
 
 
-# --- clean_column_names ---
+# --- clean_column_names (deprecated) ---
 def test_clean_column_names_basic():
     df = pd.DataFrame(columns=["First Name", "Last Name", "Age"])
     result = jtransform.clean_column_names(df)
@@ -110,6 +110,51 @@ def test_clean_column_names_collision():
     df = pd.DataFrame(columns=["First Name", "First  Name", "Age"])
     result = jtransform.clean_column_names(df)
     assert list(result.columns) == ["first_name", "first_name_1", "age"]
+
+
+# --- standardize_column_names ---
+def test_standardize_column_names_basic():
+    df = pd.DataFrame(columns=["First Name", "Last Name", "Age"])
+    result = jtransform.standardize_column_names(df)
+    assert list(result.columns) == ["first_name", "last_name", "age"]
+
+
+def test_standardize_column_names_collision():
+    df = pd.DataFrame(columns=["First Name", "First  Name", "Age"])
+    result = jtransform.standardize_column_names(df)
+    assert list(result.columns) == ["first_name", "first_name_1", "age"]
+
+
+def test_standardize_column_names_triple_collision():
+    df = pd.DataFrame(columns=["First Name", "First  Name", "First   Name", "Age"])
+    result = jtransform.standardize_column_names(df)
+    assert list(result.columns) == ["first_name", "first_name_1", "first_name_2", "age"]
+
+
+def test_standardize_column_names_special_chars():
+    df = pd.DataFrame(columns=["First-Name", "Last.Name", "Age!"])
+    result = jtransform.standardize_column_names(df)
+    assert list(result.columns) == ["first_name", "last_name", "age"]
+
+
+def test_standardize_column_names_inplace():
+    df = pd.DataFrame(columns=["First Name", "Last Name"])
+    ret = jtransform.standardize_column_names(df, inplace=True)
+    assert ret is not None
+    assert list(df.columns) == ["first_name", "last_name"]
+
+
+def test_standardize_column_names_does_not_mutate_original():
+    df = pd.DataFrame(columns=["First Name", "Last Name"])
+    result = jtransform.standardize_column_names(df)
+    assert list(df.columns) == ["First Name", "Last Name"]
+    assert list(result.columns) == ["first_name", "last_name"]
+
+
+def test_standardize_column_names_uppercase():
+    df = pd.DataFrame(columns=["FIRST NAME", "LAST NAME"])
+    result = jtransform.standardize_column_names(df)
+    assert list(result.columns) == ["first_name", "last_name"]
 
 
 # --- rename_column ---
@@ -124,7 +169,7 @@ def test_rename_column_missing_raises(sample_df):
         jtransform.rename_column(sample_df, "missing_col", "new_name")
 
 
-# --- delete_columns ---
+# --- delete_columns (deprecated) ---
 def test_delete_columns_basic(sample_df):
     result = jtransform.delete_columns(sample_df, ["Age", "Income"])
     assert "Age" not in result.columns
@@ -134,6 +179,43 @@ def test_delete_columns_basic(sample_df):
 def test_delete_columns_missing_raises(sample_df):
     with pytest.raises(KeyError):
         jtransform.delete_columns(sample_df, ["NotAColumn"])
+
+
+# --- drop_columns ---
+def test_drop_columns_basic(sample_df):
+    result = jtransform.drop_columns(sample_df, ["Age", "Income"])
+    assert "Age" not in result.columns
+    assert "Income" not in result.columns
+
+
+def test_drop_columns_missing_raises(sample_df):
+    with pytest.raises(KeyError):
+        jtransform.drop_columns(sample_df, ["NotAColumn"])
+
+
+def test_drop_columns_does_not_mutate_original(sample_df):
+    original_cols = list(sample_df.columns)
+    jtransform.drop_columns(sample_df, ["Age"])
+    assert list(sample_df.columns) == original_cols
+
+
+def test_drop_columns_inplace(sample_df):
+    df = sample_df.copy()
+    ret = jtransform.drop_columns(df, ["Age"], inplace=True)
+    assert ret is None
+    assert "Age" not in df.columns
+
+
+def test_drop_columns_multiple(sample_df):
+    result = jtransform.drop_columns(sample_df, ["Age", "Income", "Gender"])
+    assert "Age" not in result.columns
+    assert "Income" not in result.columns
+    assert "Gender" not in result.columns
+
+
+def test_drop_columns_returns_dataframe(sample_df):
+    result = jtransform.drop_columns(sample_df, ["Age"])
+    assert isinstance(result, pd.DataFrame)
 
 
 # --- drop_row ---

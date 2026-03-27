@@ -103,7 +103,7 @@ jtrf.clean_column_names(df, inplace=True)
 df = jtrf.rename_column(df, "old_name", "new_name")
 
 # Drop columns
-df = jtrf.delete_columns(df, ["col_a", "col_b"])
+df = jtrf.drop_columns(df, ["col_a", "col_b"])
 ```
 
 ### Data Types

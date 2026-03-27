@@ -340,42 +340,15 @@ def convert_to_datetime(dataframe, columns, format=None, errors="raise", inplace
 
     return df
 
+
 @deprecated(
-    reason="This function will be moved to the jcds.transform module.",
-    version="0.4.0"
+    reason="Use jcds.transform.standardize_column_names() instead.", version="0.4.0"
 )
 def clean_column_names(dataframe, inplace=False):
-    """
-    Cleans DataFrame column names by stripping whitespace, lowercasing, and replacing non-alphanumeric characters with underscores.
+    """Deprecated. Use jcds.transform.standardize_column_names() instead."""
+    from jcds.transform.clean import standardize_column_names
 
-    Parameters
-    ----------
-    dataframe : pandas.DataFrame
-        Input DataFrame.
-    inplace : bool, optional
-        If True, clean names in place on the original DataFrame; otherwise operate on a copy.
-
-    Returns
-    -------
-    pandas.DataFrame
-        DataFrame with cleaned column names. If inplace is True, the original DataFrame is modified and returned.
-    """
-    df = dataframe if inplace else dataframe.copy()
-    mapping = {}
-    seen = {}
-    for col in df.columns:
-        new_col = col.strip()
-        new_col = new_col.lower()
-        new_col = re.sub(r"[^0-9a-z]+", "_", new_col)
-        new_col = re.sub(r"__+", "_", new_col).strip("_")
-        if new_col in seen: 
-            seen[new_col] += 1
-            new_col = f"{new_col}_{seen[new_col]}"
-        else: 
-            seen[new_col] = 0 
-        mapping[col] = new_col
-    df.rename(columns=mapping, inplace=True)
-    return df
+    return standardize_column_names(dataframe, inplace=inplace)
 
 
 @deprecated(

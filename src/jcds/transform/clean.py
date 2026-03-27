@@ -1,5 +1,6 @@
 import re
 import pandas as pd
+from jcds.utils import deprecated
 
 
 def rename_column(dataframe, oldname, newname):
@@ -21,20 +22,30 @@ def rename_column(dataframe, oldname, newname):
     return dataframe.rename(columns={oldname: newname})
 
 
-def delete_columns(dataframe, columns_to_drop, inplace=False):
+def drop_columns(dataframe, columns_to_drop, inplace=False):
     """
     Drop one or more columns from a pandas DataFrame.
 
     Parameters
     ----------
-    dataframe : pd.DataFrame
-    columns_to_drop : list of str
-    inplace : bool, optional
-        Default is False.
+    dataframe : pandas.DataFrame
+        The DataFrame from which to drop columns.
+    columns_to_drop : list[str]
+        A list of column names to remove.
+    inplace : bool, default False
+        If True, drop the columns in place and modify `dataframe` directly.
+        If False, return a new DataFrame with the columns removed.
 
     Returns
     -------
-    pd.DataFrame or None
+    pandas.DataFrame or None
+        If `inplace=False`, returns a new DataFrame with the specified columns removed.
+        If `inplace=True`, returns None and modifies `dataframe` in place.
+
+    Raises
+    ------
+    KeyError
+        If any name in `columns_to_drop` is not found in `dataframe.columns`.
     """
     if inplace:
         dataframe.drop(columns=columns_to_drop, inplace=True)
@@ -43,27 +54,50 @@ def delete_columns(dataframe, columns_to_drop, inplace=False):
         return dataframe.drop(columns=columns_to_drop)
 
 
-def clean_column_names(dataframe, inplace=False):
+@deprecated(reason="Use drop_columns() instead.", version="0.4.0")
+def delete_columns(dataframe, columns_to_drop, inplace=False):
+    """Deprecated. Use drop_columns() instead."""
+    return drop_columns(dataframe, columns_to_drop, inplace=inplace)
+
+
+@deprecated(reason="Use drop_columns() instead.", version="0.4.0")
+def delete_columns(dataframe, columns_to_drop, inplace=False):
     """
-    Clean column names by stripping whitespace, lowercasing, and replacing
-    non-alphanumeric characters with underscores. Handles duplicate names
+    Deprecated. Use drop_columns() instead.
+    """
+    if inplace:
+        dataframe.drop(columns=columns_to_drop, inplace=True)
+        return None
+    else:
+        return dataframe.drop(columns=columns_to_drop)
+
+
+def standardize_column_names(dataframe, inplace=False):
+    """
+    Standardize DataFrame column names to snake_case.
+
+    Strips whitespace, lowercases, and replaces non-alphanumeric
+    characters with underscores. Handles column name collisions
     by appending a numeric suffix.
 
     Parameters
     ----------
-    dataframe : pd.DataFrame
+    dataframe : pandas.DataFrame
+        Input DataFrame.
     inplace : bool, optional
-        Default is False.
+        If True, modify in place. Default is False.
 
     Returns
     -------
-    pd.DataFrame or None
+    pandas.DataFrame
+        DataFrame with standardized column names.
     """
     df = dataframe if inplace else dataframe.copy()
     mapping = {}
     seen = {}
     for col in df.columns:
-        new_col = col.strip().lower()
+        new_col = col.strip()
+        new_col = new_col.lower()
         new_col = re.sub(r"[^0-9a-z]+", "_", new_col)
         new_col = re.sub(r"__+", "_", new_col).strip("_")
         if new_col in seen:
@@ -74,6 +108,12 @@ def clean_column_names(dataframe, inplace=False):
         mapping[col] = new_col
     df.rename(columns=mapping, inplace=True)
     return df
+
+
+@deprecated(reason="Use standardize_column_names() instead.", version="0.4.0")
+def clean_column_names(dataframe, inplace=False):
+    """Deprecated. Use standardize_column_names() instead."""
+    return standardize_column_names(dataframe, inplace=inplace)
 
 
 def drop_row(dataframe, row, by="position", inplace=False):
