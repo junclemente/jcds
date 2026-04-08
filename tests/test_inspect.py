@@ -27,9 +27,11 @@ def test_show_convar_returns_numerical_columns(sample_df):
     assert "Gender" not in con_vars
     assert isinstance(con_vars, list)
 
+
 def test_show_convar_excludes_datetime(datetime_parsed_df):
     result = eda.show_convar(datetime_parsed_df)
     assert "timestamp" not in result
+
 
 def test_show_lowcardvars_filters_by_cardinality(lowcard_df):
     result = eda.show_lowcardvars(lowcard_df, max_unique=3)
@@ -144,10 +146,12 @@ def test_show_mixed_type_columns(mixed_type_df):
     assert "more_mixed" in result
     assert "clean" not in result
 
+
 def test_show_mixed_type_columns_ignores_nan(sample_df):
     # sample_df has NaN values in string columns — should not be flagged as mixed
     result = eda.show_mixed_type_columns(sample_df)
     assert "Gender" not in result  # Gender has NaN but is still just strings
+
 
 def test_show_mixed_type_columns_ignores_numpy_str(sample_df):
     # Converting to str can produce numpy.str_ mixed with str — should not be flagged
@@ -155,6 +159,7 @@ def test_show_mixed_type_columns_ignores_numpy_str(sample_df):
     df["Gender"] = df["Gender"].astype(str)
     result = eda.show_mixed_type_columns(df)
     assert "Gender" not in result
+
 
 def test_count_id_like_columns(id_like_df):
     result = eda.count_id_like_columns(id_like_df, threshold=0.95)
@@ -242,3 +247,151 @@ def test_show_null_cols_empty_when_no_nulls(sample_df):
     df = sample_df.dropna()
     result = eda.show_null_cols(df)
     assert len(result.columns) == 0
+
+
+# --- show_null_rows threshold tests ---
+def test_show_null_rows_default_returns_any_null(sample_df):
+    """Default threshold=0.0 should return all rows with any null (existing behavior)."""
+    result = eda.show_null_rows(sample_df)
+    assert result.isnull().any(axis=1).all()
+
+
+def test_show_null_rows_threshold_filters_rows(na_test_df):
+    """threshold=0.5 should only return rows missing >50% of values."""
+    result = eda.show_null_rows(na_test_df, threshold=0.5)
+    pct_missing = na_test_df.isnull().sum(axis=1) / len(na_test_df.columns)
+    assert all(pct_missing[result.index] >= 0.5)
+
+
+def test_show_null_rows_threshold_1_returns_empty(sample_df):
+    """threshold=1.0 should return no rows since none are 100% missing."""
+    result = eda.show_null_rows(sample_df, threshold=1.0)
+    assert len(result) == 0
+
+
+def test_show_null_rows_no_nulls_returns_empty(sample_df):
+    df = sample_df.dropna()
+    result = eda.show_null_rows(df, threshold=0.0)
+    assert len(result) == 0
+
+
+# --- show_null_cols threshold tests ---
+def test_show_null_cols_default_returns_any_null(missing_data_df):
+    """Default threshold=0.0 should return all cols with any null (existing behavior)."""
+    result = eda.show_null_cols(missing_data_df)
+    assert result.isnull().any(axis=0).all()
+
+
+def test_show_null_cols_threshold_filters_cols(missing_data_df):
+    """threshold=0.5 should only return cols missing >50% of values."""
+    result = eda.show_null_cols(missing_data_df, threshold=0.5)
+    pct_missing = missing_data_df.isnull().sum(axis=0) / len(missing_data_df)
+    assert all(pct_missing[result.columns] > 0.5)
+
+
+def test_show_null_cols_threshold_1_returns_empty(missing_data_df):
+    """threshold=1.0 should only return cols that are 100% missing."""
+    result = eda.show_null_cols(missing_data_df, threshold=1.0)
+    # missing_data_df has col D which is all NaN
+    assert "D" in result.columns
+    assert "A" not in result.columns
+
+
+def test_show_null_cols_no_nulls_returns_empty(sample_df):
+    df = sample_df.dropna()
+    result = eda.show_null_cols(df, threshold=0.0)
+    assert len(result.columns) == 0
+
+
+# --- show_outlier_summary ---
+def test_show_outlier_summary_returns_dataframe(sample_df):
+    """Should return a DataFrame."""
+    result = eda.show_outlier_summary(sample_df)
+    assert isinstance(result, pd.DataFrame)
+
+
+def test_show_outlier_summary_has_correct_columns(sample_df):
+    """Should have outlier_count and outlier_pct columns."""
+    result = eda.show_outlier_summary(sample_df)
+    assert "outlier_count" in result.columns
+    assert "outlier_pct" in result.columns
+
+
+def test_show_outlier_summary_sorted_descending(sample_df):
+    """Should be sorted by outlier_count descending by default."""
+    result = eda.show_outlier_summary(sample_df)
+    assert (
+        result["outlier_count"].is_monotonic_decreasing
+        or result["outlier_count"].nunique() == 1
+    )
+
+
+def test_show_outlier_summary_custom_threshold(sample_df):
+    """Should accept custom threshold."""
+    result = eda.show_outlier_summary(sample_df, threshold=3.0)
+    assert isinstance(result, pd.DataFrame)
+
+
+def test_show_outlier_summary_pct_between_0_and_100(sample_df):
+    """Outlier percentages should be between 0 and 100."""
+    result = eda.show_outlier_summary(sample_df)
+    assert (result["outlier_pct"] >= 0).all()
+    assert (result["outlier_pct"] <= 100).all()
+
+
+# --- inspect_row ---
+def test_inspect_row_by_position_runs(sample_df):
+    """Should run without error using position."""
+    eda.inspect_row(sample_df, 0)
+
+
+def test_inspect_row_by_label_runs(sample_df):
+    """Should run without error using label."""
+    eda.inspect_row(sample_df, 0, by="label")
+
+
+def test_inspect_row_shows_column_values(capsys, sample_df):
+    """Should print column names and values."""
+    eda.inspect_row(sample_df, 0)
+    captured = capsys.readouterr()
+    assert "Age" in captured.out
+    assert "Gender" in captured.out
+
+
+def test_inspect_row_shows_null_count(capsys, na_test_df):
+    """Should show correct null count."""
+    eda.inspect_row(na_test_df, 0)
+    captured = capsys.readouterr()
+    assert "Null values" in captured.out
+
+
+def test_inspect_row_warns_on_mostly_null(capsys, na_test_df):
+    """Should warn when row is mostly null."""
+    # row 0 in na_test_df has 2 nulls out of 4 cols = 50%, not enough
+    # use a row that is >80% null
+    df = pd.DataFrame(
+        {
+            "A": [None],
+            "B": [None],
+            "C": [None],
+            "D": [None],
+            "E": [1.0],
+        }
+    )
+    eda.inspect_row(df, 0)
+    captured = capsys.readouterr()
+    assert "WARNING" in captured.out
+
+
+def test_inspect_row_no_warning_on_clean_row(capsys, sample_df):
+    """Should not warn when row has mostly non-null values."""
+    eda.inspect_row(sample_df, 0)
+    captured = capsys.readouterr()
+    assert "WARNING" not in captured.out
+
+
+def test_inspect_row_shows_null_flag(capsys, sample_df):
+    """Should flag null values inline."""
+    eda.inspect_row(sample_df, 6)  # row 6 has NaN in Age
+    captured = capsys.readouterr()
+    assert "null" in captured.out

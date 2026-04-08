@@ -7,9 +7,9 @@ It provides:
 - 🔎 EDA tools for inspecting, profiling, and summarizing DataFrames
 - 📊 Visualization via `jcds.charts` (`jvis`)
 - 🔄 Data transformation via `jcds.transform` (`jtrf`)
-- 🧹 Reports for data quality, cardinality, and missing data
+- 🧹 Reports for data quality, cardinality, outliers, and missing data
 - ☁️ Optional AWS integration for working with S3
-- 🧪 120+ tests using `pytest`
+- 🧪 160+ tests using `pytest`
 
 ---
 
@@ -24,7 +24,7 @@ pip install git+https://github.com/junclemente/jcds.git
 
 Or a specific version:
 ```bash
-pip install git+https://github.com/junclemente/jcds.git@v0.3.0
+pip install git+https://github.com/junclemente/jcds.git@v0.3.2
 ```
 
 Or with AWS extras:
@@ -43,14 +43,22 @@ from jcds import charts as jvis
 df = pd.read_csv("your_dataset.csv")
 
 # Clean column names
-df = jtrf.clean_column_names(df)
+jtrf.clean_column_names(df, inplace=True)
 
-# Run EDA reports
+# Understand your data
 jrep.data_info(df)
 jrep.data_quality(df)
+jrep.data_cardinality(df)
 
-# Visualize missing data
+# Visualize missing data and outliers
 jvis.missing_data_heatmap(df)
+jrep.outliers(df)
 ```
 
-Check out the [API Reference](api.md) to explore all available functions.
+---
+
+## 📚 Documentation
+
+- [Getting Started](getting_started.md) — EDA workflow guide organized by phase
+- [API Reference](api.md) — Full auto-generated function documentation
+- [Changelog](changelog.md) — Version history and release notes

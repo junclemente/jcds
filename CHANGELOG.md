@@ -3,6 +3,40 @@
 All notable changes to this project will be documented in this file.  
 This project follows [Semantic Versioning](https://semver.org/) and loosely follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format.
 
+## [0.4.0] – 2026-04-08
+
+### Added
+
+- **`jcds.eda.show_null_rows(df, threshold=0.0)`** — added `threshold` parameter to filter rows missing more than a given proportion of values (e.g. `threshold=0.5` for rows missing >50%)
+- **`jcds.eda.show_null_cols(df, threshold=0.0)`** — added `threshold` parameter to filter columns missing more than a given proportion of values
+- **`jcds.eda.show_outlier_summary(df, threshold=1.5, sort=True)`** — returns a DataFrame of outlier counts and percentages per numeric column, sorted descending
+- **`jcds.eda.inspect_row()`** — inspects a single row, shows null count and warns if mostly null
+- **`jcds.charts.hist_kde()`** — histogram with KDE overlay for numerical columns; supports individual mode (`grid=False`) and grid mode (`grid=True`, default) with configurable `ncols`, `figsize`, `grid_figsize`, `export_func`, and `export_prefix` parameters
+- **`jcds.charts.outlier_boxplots()`** — updated to support individual mode (`grid=False`) and grid mode (`grid=True`, default); added `orient` parameter (`"v"` or `"h"`), `export_func`, and `export_prefix` parameters
+- **`jcds.charts.cat_barplots()`** — multi-column categorical bar chart; supports individual mode (`grid=False`) and grid mode (`grid=True`, default) with configurable `ncols`, `orient`, `top_n`, `max_unique`, `figsize`, `grid_figsize`, `export_func`, and `export_prefix` parameters
+- **`jcds.reports.outliers()`** — new report combining outlier summary table and boxplot grid; supports `threshold`, `orient`, `export_func`, and `export_prefix` parameters
+- **`jcds.reports.show_dtypes()`** — dtype report; full dataset overview when called alone, deep dive into a single column when `column=` is provided
+- **`jcds.reports.categorical_summary()`** — summary report for categorical variables with value counts table and bar chart per column; filterable by `max_unique` and `top_n`
+- **`jcds.transform.drop_row()`** — drops a single row by position or label
+- **`jcds.transform.standardize_column_names()`** — canonical replacement for `clean_column_names()`, standardizes column names to snake_case
+- **`jcds.transform.drop_columns()`** — canonical replacement for `delete_columns()`, drops one or more columns
+
+### Removed
+
+- Deleted commented-out dead code (`eda_guide_markdown`) from `inspect.py`
+- Removed stale `examples/eda_workflow.ipynb`
+
+### Deprecated
+
+- **`jcds.transform.clean_column_names()`** → use `standardize_column_names()` instead
+- **`jcds.transform.delete_columns()`** → use `drop_columns()` instead
+
+### Docs
+
+- Added `docs/getting_started.md` — hand-curated EDA workflow guide organized by phase
+- Updated `docs/index.md` — updated version refs, test count, and links to new Getting Started page
+- Updated `mkdocs.yml` — added Getting Started and Changelog to nav
+
 ## [0.3.1] – 2026-03-19
 
 ### Removed
@@ -90,38 +124,38 @@ Use the `jcds.transform` equivalents instead:
 
 - **Test suite expanded from 87 to 120 tests**
   Added coverage for all new `charts`, `transform`, and `eda` additions.
-  
+
 ## [0.2.8] – 2025‑05‑02
 
 ### Added
 
-- **catvar_report()**  
+- **catvar_report()**
   Introduced a new `catvar_report()` function in `reports.py` for detailed categorical-variable profiling. (2025‑04‑30)
 
-- **plot_outlier_boxplots()**  
+- **plot_outlier_boxplots()**
   Added `plot_outlier_boxplots()` to `eda.outliers` for visualizing IQR-based outliers in non-binary numeric features. (2025‑07‑21)
 
 ### Changed
 
-- **catvar_report() display**  
+- **catvar_report() display**
   Finalized and cleaned up the display layout and formatting of `catvar_report()`. (2025‑05‑02)
-- **count_unique_values() enhancements**  
+- **count_unique_values() enhancements**
   Added an `n_modes` parameter and built-in sorting to the `count_unique_values()` helper. (2025‑05‑01)
-- **Tabulate support**  
+- **Tabulate support**
   Updated code to include the `tabulate` package for nicer table output. (2025‑05‑02)
-- **Deprecation messaging**  
+- **Deprecation messaging**
   Revised deprecation notices to point users toward `data_info()`, `data_cardinality()`, and `data_quality()`. (2025‑04‑29)
-- **Utility functions refactored**  
+- **Utility functions refactored**
   Deprecated `get_cont_list()` and `get_cat_list()` in favor of the clearer `show_convar()` and `show_catvar()`. (2025‑04‑29)
-- **catvar_reports rename**  
+- **catvar_reports rename**
   Tidied up naming and internal references in the `catvar_reports` module to match the new API. (2025‑05‑02)
 
-- **eda.outliers module update**  
+- **eda.outliers module update**
   Updated `eda.outliers` to expose the new plotting function via the public interface and `__all__`. (2025‑07‑21)
 
 ### Deprecated
 
-- **Automated changelog**  
+- **Automated changelog**
   Removed the `git-cliff`–based changelog automation and reverted to manual maintenance. (2025‑04‑18)
 
 ### Documentation
@@ -132,10 +166,10 @@ Use the `jcds.transform` equivalents instead:
 
 ### Testing
 
-- **Test suite**  
+- **Test suite**
   Updated and expanded unit tests for `count_unique_values()` to cover the new modes and sorting options. (2025‑05‑01)
 
-- **Outlier tests**  
+- **Outlier tests**
   Added basic unit test for `plot_outlier_boxplots()` to ensure it runs without error. (2025‑07‑21)
 
 ## [v0.2.7] - 2025-04-15
@@ -273,7 +307,6 @@ Use the `jcds.transform` equivalents instead:
 ### Added
 
 - **`inspect.py`** module with the following new functions:
-
   - `show_shape` – returns the shape of a DataFrame
   - `show_dupes` – counts duplicated rows
   - `show_catvar` – returns list of categorical (object/category) columns
@@ -285,27 +318,24 @@ Use the `jcds.transform` equivalents instead:
   - `count_cols_with_any_na` – counts columns with at least one missing value
   - `count_cols_with_all_na` – counts columns where all values are missing
   - `count_total_na` – returns the total number of missing values
-  - `count_unique_values` – returns unique value counts per column  
+  - `count_unique_values` – returns unique value counts per column
     (Docstrings included, generated by ChatGPT.)
 
 - **Unit tests** for all `eda_helpers.py` functions.
 - Test fixtures: `create_na_test_df()` and `create_unique_test_df()` in `test_utils.py`.
 
 - **`test_s3.py`** unit tests for the `aws/s3` module:
-
   - `list_s3_contents`
   - `s3_file_to_dataframe`
 
 - **Shared test fixtures** in `tests/conftest.py` for mocking CSV/Excel downloads.
 
 - Added automatic documentation via `mkdocs`
-
   - Add `docs\` folder
   - `mkdocs.yml`
   - `index.md` and `api.md`
 
 - **`eda/datetime.py`** module with datetime feature engineering functions:
-
   - `create_dt_col()` – creates a single derived datetime column (e.g., `timestamp_year`)
   - `create_dt_cols()` – supports creation of multiple datetime-derived columns in one call
     - Supports: `"year"`, `"month"`, `"day"`, `"weekday"`, `"weekday_name"`, `"weekofyear"`, `"quarter"`, `"dayofyear"`, `"is_weekend"`, `"is_month_start"`, `"is_month_end"`
@@ -313,7 +343,6 @@ Use the `jcds.transform` equivalents instead:
     - Raises error if inconsistent datetime formats (e.g., mixed `"/"` and `"-"`) are detected
 
 - **Unit tests for `eda/datetime.py`**:
-
   - Test coverage for both single and multi-column expansion
   - Error handling for:
     - Invalid column names
@@ -322,12 +351,10 @@ Use the `jcds.transform` equivalents instead:
     - Auto-conversion of string-formatted dates
 
 - **Refactored and consolidated test fixtures into `tests/conftest.py`**:
-
   - Moved all fixtures from `test_utils.py` into `conftest.py` for automatic discovery across all test files
   - Includes fixtures: `sample_df`, `na_test_df`, `unique_test_df`, `binary_list_df`, `datetime_df`, `dummy_csv_bytes`, `dummy_excel_bytes`, `mock_requests_get`
 
 - **New test module: `tests/unit/test_datetime.py`**
-
   - Organized tests specifically for datetime feature extraction utilities
 
 - New `dataio` module with `save_parquet()` and `load_parquet()` functions for reliable Parquet I/O
@@ -341,7 +368,6 @@ Use the `jcds.transform` equivalents instead:
   - Provides a helpful raw byte preview if all decoding attempts fail
   - Raises informative `ValueError` for failed loads to assist with debugging corrupted or misencoded files
 - Unit tests for both `save_csv()` and `load_csv()` using `sample_df` and `tmp_path`
-
   - Includes fallback test simulating corrupted file behavior
 
 - `read_s3()` to `dataio.s3_io`: loads public S3-hosted CSV or Excel files into a DataFrame with built-in error handling

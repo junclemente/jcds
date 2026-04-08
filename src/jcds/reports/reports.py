@@ -30,7 +30,6 @@ from jcds.eda import (
 # from jcds.utils.formatting import render_html_block
 
 
-
 def data_info(dataframe, show_columns=True):
     """
     Summarize the dataset's shape, memory usage, duplicates, and variable types.
@@ -351,3 +350,233 @@ def catvar_report(dataframe, columns=None):
         print(f"Mode 2: {mode2[0]} \t\tFequency: {freq2} ({pct_freq2}%)")
 
     print(f"\nTotal rows: {total_rows}")
+
+
+def outliers(
+    dataframe,
+    threshold=1.5,
+    orient="v",
+    export_func=None,
+    export_prefix="outlier_report",
+):
+    """
+    Print an outlier summary table and display a boxplot grid for all numeric columns.
+
+    Parameters
+    ----------
+    dataframe : pandas.DataFrame
+        The input dataset.
+    threshold : float, optional
+        IQR multiplier to define outliers. Default is 1.5.
+    export_func : callable, optional
+        Function to export the boxplot grid e.g. export_fig(fig, filename).
+    export_prefix : str, optional
+        Prefix for the exported filename. Default is 'outlier_report'.
+
+    Returns
+    -------
+    None
+        Prints summary and renders boxplot grid.
+    """
+    from jcds.eda import show_outlier_summary
+    from jcds.charts import outlier_boxplots
+
+    print("OUTLIER REPORT")
+    print("====================")
+
+    summary = show_outlier_summary(dataframe, threshold=threshold)
+
+    total_outliers = summary["outlier_count"].sum()
+    cols_with_outliers = (summary["outlier_count"] > 0).sum()
+
+    print(f"\n * Threshold: IQR x {threshold}")
+    print(f" * Total outliers detected: {total_outliers}")
+    print(f" * Columns with outliers: {cols_with_outliers} / {len(summary)}")
+
+    print("\nOUTLIER SUMMARY:")
+    print("----------------")
+    print(summary.to_string())
+
+    print("\nBOXPLOT GRID:")
+    print("-------------")
+    outlier_boxplots(
+        dataframe,
+        threshold=threshold,
+        grid=True,
+        orient=orient,
+        export_func=export_func,
+        export_prefix=export_prefix,
+    )
+
+
+def show_dtypes(dataframe, column=None):
+    """
+    Display a dtype report for the full dataset or a deep dive into a single column.
+
+    Parameters
+    ----------
+    dataframe : pandas.DataFrame
+        The input dataset.
+    column : str, optional
+        If provided, shows a detailed dtype breakdown for that column.
+        If None, shows a dtype summary for the full dataset.
+
+    Returns
+    -------
+    None
+        Prints the report to the console.
+    """
+    if column is not None:
+        # --- Column deep dive ---
+        if column not in dataframe.columns:
+            print(f"Column '{column}' not found in DataFrame.")
+            return
+
+        series = dataframe[column]
+        total = len(series)
+
+        print(f"\nDTYPE REPORT: '{column}'")
+        print("=" * 40)
+        print(f"pandas dtype: {series.dtype}")
+        print(f"Total values: {total}")
+
+        # Count by Python type
+        type_counts = series.apply(lambda x: type(x).__name__).value_counts()
+        print(f"\nValue breakdown by type:")
+        for type_name, count in type_counts.items():
+            pct = round(count / total * 100, 1)
+            print(f"  {type_name:<15} {count:>6} ({pct}%)")
+
+        # Show non-dominant type values
+        dominant_type = type_counts.index[0]
+        if len(type_counts) > 1:
+            for type_name in type_counts.index[1:]:
+                mask = series.apply(lambda x: type(x).__name__) == type_name
+                offending = series[mask]
+                print(f"\n{type_name.upper()} VALUES ({len(offending)}):")
+                for idx, val in offending.items():
+                    print(f"  row {idx}: {val}")
+
+    else:
+        # --- Full dataset overview ---
+        print("\nDTYPE REPORT")
+        print("=" * 40)
+        print(f"Total rows:    {len(dataframe)}")
+        print(f"Total columns: {len(dataframe.columns)}")
+
+        # dtype summary
+        dtype_summary = get_dtype_summary(dataframe)
+        print("\nDTYPE SUMMARY:")
+        for key, value in dtype_summary.items():
+            if value > 0:
+                print(f"  * {key:<12} {value}")
+
+        # column detail
+        print(f"\nCOLUMN DETAIL:")
+        print(f"  {'Column':<35} {'dtype':<15} {'Mixed'}")
+        print(f"  {'-'*60}")
+
+        mixed_cols = show_mixed_type_columns(dataframe)
+        for col in dataframe.columns:
+            is_mixed = col in mixed_cols
+            mixed_label = "YES" if is_mixed else "No"
+            print(f"  {col:<35} {str(dataframe[col].dtype):<15} {mixed_label}")
+
+        # mixed type summary
+        print(f"\nMIXED TYPE COLUMNS: {len(mixed_cols)}")
+        if mixed_cols:
+            for col in mixed_cols:
+                type_counts = (
+                    dataframe[col].apply(lambda x: type(x).__name__).value_counts()
+                )
+                breakdown = ", ".join(
+                    f"{t} ({round(c/len(dataframe)*100, 1)}%)"
+                    for t, c in type_counts.items()
+                )
+                print(f"  * {col}: {breakdown}")
+
+
+def categorical_summary(
+    dataframe,
+    columns=None,
+    max_unique=20,
+    top_n=10,
+    export_func=None,
+    export_prefix="cat_summary",
+):
+    """
+    Display a summary report for categorical variables including value counts and bar charts.
+
+    Parameters
+    ----------
+    dataframe : pandas.DataFrame
+        The input dataset.
+    columns : str or list of str or None, optional
+        Specific columns to report on. If None, reports on all categorical columns
+        with <= max_unique unique values.
+    max_unique : int, optional
+        Maximum number of unique values to include a column. Default is 20.
+    top_n : int, optional
+        Number of top values to show in the bar chart. Default is 10.
+    export_func : callable, optional
+        Function to export figures e.g. export_fig(fig, filename).
+    export_prefix : str, optional
+        Prefix for exported filenames. Default is 'cat_summary'.
+
+    Returns
+    -------
+    None
+    """
+    import matplotlib.pyplot as plt
+    import seaborn as sns
+
+    cat_cols = show_catvar(dataframe)
+
+    if isinstance(columns, str):
+        cols = [columns]
+    elif isinstance(columns, list):
+        cols = columns
+    else:
+        # filter by max_unique
+        cols = [c for c in cat_cols if dataframe[c].nunique() <= max_unique]
+
+    if not cols:
+        print("No categorical columns found within the cardinality threshold.")
+        return
+
+    total_rows = len(dataframe)
+
+    for col in cols:
+        print(f"\n{'='*60}")
+        print(f"  {col.upper()}")
+        print(f"{'='*60}")
+
+        # value counts table
+        counts = dataframe[col].value_counts(dropna=False)
+        pcts = (dataframe[col].value_counts(normalize=True, dropna=False) * 100).round(
+            2
+        )
+        summary_df = pd.DataFrame({"Count": counts, "Percent": pcts})
+        print(f"  Unique values: {dataframe[col].nunique()}")
+        print(
+            f"  Missing: {dataframe[col].isna().sum()} ({dataframe[col].isna().mean()*100:.1f}%)"
+        )
+        print()
+        print(summary_df.head(top_n).to_string())
+
+        # bar chart
+        fig, ax = plt.subplots(figsize=(8, 4))
+        top_values = counts.head(top_n)
+        sns.barplot(
+            x=top_values.values, y=top_values.index.astype(str), ax=ax, orient="h"
+        )
+        ax.set_title(f"Distribution of {col.replace('_', ' ').title()}", fontsize=12)
+        ax.set_xlabel("Count")
+        ax.set_ylabel("")
+        plt.tight_layout()
+
+        if export_func:
+            export_func(fig, f"{export_prefix}_{col}")
+
+        plt.show()
+        plt.close(fig)
