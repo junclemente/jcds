@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.  
 This project follows [Semantic Versioning](https://semver.org/) and loosely follows the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format.
 
-## [0.3.2] – 2026-03-24
+## [0.4.0] – TBD
 
 ### Added
 
