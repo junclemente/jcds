@@ -134,3 +134,70 @@ def test_show_dtypes_full_shows_all_columns(capsys, sample_df):
     captured = capsys.readouterr()
     for col in sample_df.columns:
         assert col in captured.out
+
+
+# --- categorical_summary ---
+def test_categorical_summary_runs(sample_df):
+    """Should run without error on full dataset."""
+    jrep.categorical_summary(sample_df)
+
+
+def test_categorical_summary_specific_columns(sample_df):
+    """Should run without error on specific columns."""
+    jrep.categorical_summary(sample_df, columns=["Gender"])
+
+
+def test_categorical_summary_string_column(sample_df):
+    """Should accept a single column as string."""
+    jrep.categorical_summary(sample_df, columns="Gender")
+
+
+def test_categorical_summary_max_unique_filters(sample_df, capsys):
+    """Should skip columns with more unique values than max_unique."""
+    jrep.categorical_summary(sample_df, max_unique=1)
+    captured = capsys.readouterr()
+    assert "No categorical columns found" in captured.out
+
+
+def test_categorical_summary_shows_column_name(sample_df, capsys):
+    """Should print column name in output."""
+    jrep.categorical_summary(sample_df, columns=["Gender"])
+    captured = capsys.readouterr()
+    assert "GENDER" in captured.out
+
+
+def test_categorical_summary_shows_missing(sample_df, capsys):
+    """Should show missing value count."""
+    jrep.categorical_summary(sample_df, columns=["Gender"])
+    captured = capsys.readouterr()
+    assert "Missing" in captured.out
+
+
+def test_categorical_summary_export_func_called(sample_df):
+    """Should call export_func for each column."""
+    calls = []
+
+    def mock_export(fig, name):
+        calls.append(name)
+
+    jrep.categorical_summary(sample_df, columns=["Gender"], export_func=mock_export)
+    assert len(calls) == 1
+    assert calls[0] == "cat_summary_Gender"
+
+
+def test_categorical_summary_custom_prefix(sample_df):
+    """Should use custom export_prefix."""
+    calls = []
+
+    def mock_export(fig, name):
+        calls.append(name)
+
+    jrep.categorical_summary(
+        sample_df, columns=["Gender"], export_func=mock_export, export_prefix="test"
+    )
+    assert calls[0] == "test_Gender"
+
+
+def test_categorical_summary_top_n(sample_df):
+    """Should accept custom top_n without error."""
+    jrep.categorical_summary(sample_df, columns=["Gender"], top_n=5)

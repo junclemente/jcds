@@ -22,16 +22,16 @@ This project follows [Semantic Versioning](https://semver.org/) and loosely foll
 - **`jcds.eda.inspect_row()`** — inspects a single row, shows null count and warns if mostly null
 - **`jcds.reports.show_dtypes()`** — dtype report for full dataset or deep dive into a single column
 
-
 ### Removed
- ./
+
 - Deleted commented-out dead code (`eda_guide_markdown`) from `inspect.py`
 - Removed stale `examples/eda_workflow.ipynb`
 
 ### Deprecated
+
 - **`jcds.transform.clean_column_names()`** → use `standardize_column_names()` instead
 - **`jcds.transform.delete_columns()`** → use `drop_columns()` instead
-- 
+
 ### Docs
 
 - Added `docs/getting_started.md` — hand-curated EDA workflow guide organized by phase

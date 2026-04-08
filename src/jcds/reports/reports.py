@@ -494,3 +494,89 @@ def show_dtypes(dataframe, column=None):
                     for t, c in type_counts.items()
                 )
                 print(f"  * {col}: {breakdown}")
+
+
+def categorical_summary(
+    dataframe,
+    columns=None,
+    max_unique=20,
+    top_n=10,
+    export_func=None,
+    export_prefix="cat_summary",
+):
+    """
+    Display a summary report for categorical variables including value counts and bar charts.
+
+    Parameters
+    ----------
+    dataframe : pandas.DataFrame
+        The input dataset.
+    columns : str or list of str or None, optional
+        Specific columns to report on. If None, reports on all categorical columns
+        with <= max_unique unique values.
+    max_unique : int, optional
+        Maximum number of unique values to include a column. Default is 20.
+    top_n : int, optional
+        Number of top values to show in the bar chart. Default is 10.
+    export_func : callable, optional
+        Function to export figures e.g. export_fig(fig, filename).
+    export_prefix : str, optional
+        Prefix for exported filenames. Default is 'cat_summary'.
+
+    Returns
+    -------
+    None
+    """
+    import matplotlib.pyplot as plt
+    import seaborn as sns
+
+    cat_cols = show_catvar(dataframe)
+
+    if isinstance(columns, str):
+        cols = [columns]
+    elif isinstance(columns, list):
+        cols = columns
+    else:
+        # filter by max_unique
+        cols = [c for c in cat_cols if dataframe[c].nunique() <= max_unique]
+
+    if not cols:
+        print("No categorical columns found within the cardinality threshold.")
+        return
+
+    total_rows = len(dataframe)
+
+    for col in cols:
+        print(f"\n{'='*60}")
+        print(f"  {col.upper()}")
+        print(f"{'='*60}")
+
+        # value counts table
+        counts = dataframe[col].value_counts(dropna=False)
+        pcts = (dataframe[col].value_counts(normalize=True, dropna=False) * 100).round(
+            2
+        )
+        summary_df = pd.DataFrame({"Count": counts, "Percent": pcts})
+        print(f"  Unique values: {dataframe[col].nunique()}")
+        print(
+            f"  Missing: {dataframe[col].isna().sum()} ({dataframe[col].isna().mean()*100:.1f}%)"
+        )
+        print()
+        print(summary_df.head(top_n).to_string())
+
+        # bar chart
+        fig, ax = plt.subplots(figsize=(8, 4))
+        top_values = counts.head(top_n)
+        sns.barplot(
+            x=top_values.values, y=top_values.index.astype(str), ax=ax, orient="h"
+        )
+        ax.set_title(f"Distribution of {col.replace('_', ' ').title()}", fontsize=12)
+        ax.set_xlabel("Count")
+        ax.set_ylabel("")
+        plt.tight_layout()
+
+        if export_func:
+            export_func(fig, f"{export_prefix}_{col}")
+
+        plt.show()
+        plt.close(fig)
