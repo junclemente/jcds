@@ -197,3 +197,111 @@ def test_outlier_boxplots_individual_horizontal_orient(num_df):
 def test_outlier_boxplots_default_orient_is_vertical(num_df):
     """Default orientation should be vertical (no error, no orient arg)."""
     charts.outlier_boxplots(num_df)
+
+
+# --- cat_barplots ---
+@pytest.fixture
+def cat_df():
+    return pd.DataFrame(
+        {
+            "color": ["red", "blue", "red", "green", "blue", "red"],
+            "size": ["S", "M", "L", "S", "M", "L"],
+            "id": ["a", "b", "c", "d", "e", "f"],  # high cardinality
+        }
+    )
+
+
+def test_cat_barplots_grid_runs(cat_df):
+    """Grid mode should run without error."""
+    charts.cat_barplots(cat_df, grid=True)
+
+
+def test_cat_barplots_individual_runs(cat_df):
+    """Individual mode should run without error."""
+    charts.cat_barplots(cat_df, grid=False)
+
+
+def test_cat_barplots_specific_columns(cat_df):
+    """Should run without error on specific columns."""
+    charts.cat_barplots(cat_df, columns=["color"], grid=False)
+
+
+def test_cat_barplots_max_unique_filters(cat_df):
+    """Should skip columns with more unique values than max_unique."""
+    charts.cat_barplots(cat_df, max_unique=2)
+
+
+def test_cat_barplots_no_columns_prints_message(capsys):
+    """Should print message when no columns found."""
+    df = pd.DataFrame({"id": ["a", "b", "c", "d", "e", "f"]})
+    charts.cat_barplots(df, max_unique=2)
+    captured = capsys.readouterr()
+    assert "No categorical columns found" in captured.out
+
+
+def test_cat_barplots_horizontal_orient(cat_df):
+    """Should run without error with horizontal orientation."""
+    charts.cat_barplots(cat_df, orient="h", grid=False)
+
+
+def test_cat_barplots_vertical_orient(cat_df):
+    """Should run without error with vertical orientation."""
+    charts.cat_barplots(cat_df, orient="v", grid=False)
+
+
+def test_cat_barplots_grid_custom_ncols(cat_df):
+    """Grid mode should accept custom ncols."""
+    charts.cat_barplots(cat_df, grid=True, ncols=2)
+
+
+def test_cat_barplots_grid_custom_figsize(cat_df):
+    """Grid mode should accept custom grid_figsize."""
+    charts.cat_barplots(cat_df, grid=True, grid_figsize=(12, 8))
+
+
+def test_cat_barplots_individual_custom_figsize(cat_df):
+    """Individual mode should accept custom figsize."""
+    charts.cat_barplots(cat_df, grid=False, figsize=(8, 5))
+
+
+def test_cat_barplots_grid_export_func_called(cat_df):
+    """Grid mode should call export_func once with '_grid' suffix."""
+    calls = []
+
+    def mock_export(fig, name):
+        calls.append(name)
+
+    charts.cat_barplots(cat_df, grid=True, export_func=mock_export)
+    assert len(calls) == 1
+    assert calls[0] == "cat_barplot_grid"
+
+
+def test_cat_barplots_individual_export_func_called(cat_df):
+    """Individual mode should call export_func for each column."""
+    calls = []
+
+    def mock_export(fig, name):
+        calls.append(name)
+
+    charts.cat_barplots(
+        cat_df, columns=["color", "size"], grid=False, export_func=mock_export
+    )
+    assert len(calls) == 2
+
+
+def test_cat_barplots_custom_prefix(cat_df):
+    """Should use custom export_prefix."""
+    calls = []
+
+    def mock_export(fig, name):
+        calls.append(name)
+
+    charts.cat_barplots(
+        cat_df, grid=True, export_func=mock_export, export_prefix="test"
+    )
+    assert calls[0] == "test_grid"
+
+
+def test_cat_barplots_top_n(cat_df):
+    """Should accept custom top_n without error."""
+    charts.cat_barplots(cat_df, top_n=5, grid=False)

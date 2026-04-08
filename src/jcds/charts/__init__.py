@@ -5,7 +5,7 @@ import jcds.utils
 from .roc import plot_roc
 from .boxplots import outlier_boxplots
 from .missing import missing_data_heatmap
-from .categorical import categorical_barplot
+from .categorical import categorical_barplot, cat_barplots
 from .correlation import correlation_heatmap
 from .distributions import hist_kde
 
@@ -17,6 +17,7 @@ __all__ = [
     "missing_data_heatmap",
     "correlation_heatmap",
     "categorical_barplot",
+    "cat_barplots",
     "hist_kde",
     "help",
 ]
