@@ -10,17 +10,16 @@ This project follows [Semantic Versioning](https://semver.org/) and loosely foll
 - **`jcds.eda.show_null_rows(df, threshold=0.0)`** — added `threshold` parameter to filter rows missing more than a given proportion of values (e.g. `threshold=0.5` for rows missing >50%)
 - **`jcds.eda.show_null_cols(df, threshold=0.0)`** — added `threshold` parameter to filter columns missing more than a given proportion of values
 - **`jcds.eda.show_outlier_summary(df, threshold=1.5, sort=True)`** — returns a DataFrame of outlier counts and percentages per numeric column, sorted descending
+- **`jcds.eda.inspect_row()`** — inspects a single row, shows null count and warns if mostly null
 - **`jcds.charts.hist_kde()`** — histogram with KDE overlay for numerical columns; supports individual mode (`grid=False`) and grid mode (`grid=True`, default) with configurable `ncols`, `figsize`, `grid_figsize`, `export_func`, and `export_prefix` parameters
 - **`jcds.charts.outlier_boxplots()`** — updated to support individual mode (`grid=False`) and grid mode (`grid=True`, default); added `orient` parameter (`"v"` or `"h"`), `export_func`, and `export_prefix` parameters
+- **`jcds.charts.cat_barplots()`** — multi-column categorical bar chart; supports individual mode (`grid=False`) and grid mode (`grid=True`, default) with configurable `ncols`, `orient`, `top_n`, `max_unique`, `figsize`, `grid_figsize`, `export_func`, and `export_prefix` parameters
 - **`jcds.reports.outliers()`** — new report combining outlier summary table and boxplot grid; supports `threshold`, `orient`, `export_func`, and `export_prefix` parameters
-- **`jcds.reports.show_dtypes()`** — new dtype report; full dataset overview when called alone, deep dive into a single column when `column=` is provided
-- **`jcds.eda.inspect_row()`** - inspects row when row number is provided
-- **`jcds.transform.drop_row()`** - drops row from dataframe
+- **`jcds.reports.show_dtypes()`** — dtype report; full dataset overview when called alone, deep dive into a single column when `column=` is provided
+- **`jcds.reports.categorical_summary()`** — summary report for categorical variables with value counts table and bar chart per column; filterable by `max_unique` and `top_n`
+- **`jcds.transform.drop_row()`** — drops a single row by position or label
 - **`jcds.transform.standardize_column_names()`** — canonical replacement for `clean_column_names()`, standardizes column names to snake_case
 - **`jcds.transform.drop_columns()`** — canonical replacement for `delete_columns()`, drops one or more columns
-- **`jcds.transform.drop_row()`** — drops a single row by position or label
-- **`jcds.eda.inspect_row()`** — inspects a single row, shows null count and warns if mostly null
-- **`jcds.reports.show_dtypes()`** — dtype report for full dataset or deep dive into a single column
 
 ### Removed
 
@@ -440,7 +439,3 @@ Use the `jcds.transform` equivalents instead:
 ### Added
 
 - First tagged version.
-
-```
-
-```
